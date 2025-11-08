@@ -1,0 +1,21 @@
+# dependencies
+node_modules
+
+# build outputs
+.next
+out
+build
+dist
+
+# public assets
+public
+
+# env files
+.env*
+
+# testing and debug
+coverage
+*.log
+
+# lock files
+package-lock.json

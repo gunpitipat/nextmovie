@@ -1,7 +1,5 @@
 const Home = () => {
-  return (
-    <div className="text-3xl">Nextmovie</div>
-  )
-}
+  return <div className="min-h-[120vh]"></div>;
+};
 
-export default Home
+export default Home;
