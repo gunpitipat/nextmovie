@@ -25,7 +25,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="en">
       <body className={`${inter.variable}`}>
         <Navbar />
-        {children}
+        <main className="pt-14">{children}</main>
       </body>
     </html>
   );

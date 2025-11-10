@@ -1,5 +1,9 @@
 const Home = () => {
-  return <div className="min-h-[120vh]"></div>;
+  return (
+    <section>
+      
+    </section>
+  );
 };
 
 export default Home;
