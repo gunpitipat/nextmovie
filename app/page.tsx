@@ -1,9 +1,7 @@
-const Home = () => {
+export default async function Home() {
   return (
     <section>
       
     </section>
   );
-};
-
-export default Home;
+}

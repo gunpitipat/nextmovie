@@ -2,32 +2,40 @@
 
 :root {
   --background: #222222;
-  --foreground: #dddddd;
-  --highlight: #eeeeee;
-  --surface: #303030;
-  --muted: #bbbbbb;
-  --border: #3a3a3a;
-  --primary: #40a2e4;
-  --primary-hover: #00b5ff;
-  --secondary: #0081c0;
+  --surface-1: #333333;
+  --surface-2: #4a474a;
+  --surface-3: #8c858c;
+  --highlight: #f0f0f0;
+  --primary: #dddddd;
+  --secondary: #ccc8cc;
+  --muted: #b8b4b8;
+  --accent: #b0a7b0;
+  --accent-hover: #c4bbc4;
 }
 
 @theme inline {
+  /* Base Layer */
   --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-surface-1: var(--surface-1);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+
+  /* Text */
   --color-highlight: var(--highlight);
-  --color-surface: var(--surface);
-  --color-muted: var(--muted);
-  --color-border: var(--border);
   --color-primary: var(--primary);
-  --color-primary-hover: var(--primary-hover);
   --color-secondary: var(--secondary);
+  --color-muted: var(--muted);
+
+  /* Interaction */
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+
   --font-sans: var(--font-inter), sans-serif;
 }
 
 @layer base {
   body {
-    @apply bg-background text-foreground font-sans antialiased;
+    @apply bg-background text-primary font-sans antialiased;
     letter-spacing: 0.005em;
     line-height: 1.6;
   }
@@ -35,16 +43,16 @@
     @apply cursor-pointer;
   }
   a {
-    @apply inline-block cursor-pointer;
+    @apply inline-block cursor-pointer no-underline;
   }
 }
 
 @layer components {
   .nav-link {
-    @apply text-foreground hover:text-highlight hover:bg-surface/75 relative w-full rounded-sm px-5 py-4 text-base;
+    @apply text-primary hover:text-highlight relative w-full px-5 py-4 text-base;
   }
   .nav-link-active {
-    @apply text-primary hover:text-primary after:border-primary after:absolute after:-bottom-px after:left-0 after:h-px after:w-full after:border-b-0 lg:after:border-b;
+    @apply text-highlight bg-surface-1 after:border-primary rounded-sm after:absolute after:-bottom-px after:left-0 after:h-px after:w-full after:border-b-0 lg:bg-transparent lg:after:border-b;
   }
   .overlay {
     @apply fixed inset-0 h-dvh w-dvw bg-black/75 transition-opacity duration-300 ease-in-out;
@@ -53,7 +61,7 @@
 
 @layer utilities {
   .text-gradient {
-    @apply from-foreground to-primary bg-linear-to-b bg-size-[100%_250%] bg-clip-text text-transparent;
+    @apply from-highlight to-muted bg-linear-to-b bg-size-[100%_150%] bg-clip-text text-transparent;
   }
   .show {
     @apply pointer-events-auto opacity-100;

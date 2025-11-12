@@ -63,7 +63,7 @@ const Navbar = () => {
   }, [openSearch]);
 
   return (
-    <header className="border-border bg-background/50 fixed top-0 left-0 z-50 w-full border-b backdrop-blur-sm">
+    <header className="border-surface-2 bg-background/75 fixed top-0 left-0 z-50 w-full border-b backdrop-blur-sm">
       <nav className="mx-auto flex max-w-[1440px] items-center justify-between px-6">
         <Link href="/" className="flex items-end">
           <Image
@@ -82,7 +82,7 @@ const Navbar = () => {
             openSearch
               ? 'pointer-events-auto translate-y-0 opacity-100'
               : 'pointer-events-none -translate-y-2 opacity-0'
-          } fixed left-1/2 z-100 flex -translate-x-1/2 items-center justify-center transition duration-150 ease-out sm:pointer-events-auto sm:static sm:flex-1 sm:translate-0 sm:px-10 sm:opacity-100 sm:transition-none`}
+          } fixed left-1/2 z-100 flex -translate-x-1/2 items-center justify-center transition duration-150 ease-out sm:pointer-events-auto sm:static sm:z-50 sm:flex-1 sm:translate-0 sm:px-10 sm:opacity-100 sm:transition-none`}
         >
           <SearchBar ref={inputRef} setOpen={setOpenSearch} />
         </div>
@@ -124,9 +124,9 @@ const Navbar = () => {
 
       {/* Mobile Sidebar Menu */}
       <aside
-        className={`border-border bg-background fixed top-0 right-0 z-70 h-dvh w-64 border-l transition-transform duration-300 ease-in-out ${openMenu ? 'translate-x-0' : 'translate-x-full'} lg:hidden`}
+        className={`border-surface-2 bg-background fixed top-0 right-0 z-70 h-dvh w-64 border-l transition-transform duration-300 ease-in-out ${openMenu ? 'translate-x-0' : 'translate-x-full'} lg:hidden`}
       >
-        <ul className="flex flex-col gap-2 px-6 py-12">
+        <ul className="flex flex-col gap-2 px-6 py-15">
           <li>
             <Link
               href="/"
