@@ -1,4 +1,4 @@
-import { BASE_URL } from './constants';
+import { BASE_URL } from '../constants';
 
 export async function fetchTMDB<T>(endpoint: string): Promise<T> {
   const res = await fetch(`${BASE_URL}${endpoint}`, {
@@ -10,7 +10,7 @@ export async function fetchTMDB<T>(endpoint: string): Promise<T> {
 
   if (!res.ok) {
     const message = await res.text().catch(() => res.statusText);
-    throw new Error(`TMDB error ${res.status} on ${endpoint}: ${message}`);
+    throw new Error(`TMDB error ${res.status} on ${endpoint}: ${message}.`);
   }
 
   return res.json();
