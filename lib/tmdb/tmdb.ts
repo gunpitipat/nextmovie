@@ -1,4 +1,4 @@
-import { BASE_URL } from './constants';
+import { BASE_URL } from '../constants';
 
 export async function fetchTMDB<T>(endpoint: string): Promise<T> {
   const res = await fetch(`${BASE_URL}${endpoint}`, {

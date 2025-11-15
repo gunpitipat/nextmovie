@@ -1,5 +1,5 @@
-export interface TMDBConfiguration {
-  image: {
+export interface TMDBConfig {
+  images: {
     secure_base_url: string;
     poster_sizes: string[];
     backdrop_sizes: string[];

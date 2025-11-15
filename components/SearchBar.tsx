@@ -27,9 +27,11 @@ const SearchBar = ({ setOpen, ref }: SearchBarProps) => {
         id="search-bar"
         type="text"
         value={query}
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setQuery(e.target.value)}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setQuery(e.target.value)
+        }
         placeholder="Find your next movie"
-        className="bg-surface-1 placeholder:text-muted focus:border-accent-hover w-full rounded-full border border-transparent px-12 py-1.5 text-base transition-colors duration-150 placeholder:font-light focus:outline-none"
+        className="from-surface-2 to-surface-1 placeholder:text-muted focus:border-muted w-full rounded-full border border-transparent bg-linear-to-b px-12 py-1.5 text-base transition-colors duration-150 placeholder:font-light focus:outline-none"
       />
       <button
         type="button"

@@ -63,8 +63,8 @@ const Navbar = () => {
   }, [openSearch]);
 
   return (
-    <header className="border-surface-2 bg-background/75 fixed top-0 left-0 z-50 w-full border-b backdrop-blur-sm">
-      <nav className="mx-auto flex max-w-[1440px] items-center justify-between px-6">
+    <header className="bg-background/25 fixed top-0 left-0 z-50 w-full backdrop-blur-[2px]">
+      <nav className="max-w-content mx-auto flex items-center justify-between px-8">
         <Link href="/" className="flex items-end">
           <Image
             src="/images/logo.png"
@@ -73,7 +73,9 @@ const Navbar = () => {
             height={24}
             className="block object-contain"
           />
-          <p className="text-gradient text-2xl leading-none font-semibold">extmovie</p>
+          <p className="text-gradient text-2xl leading-none font-semibold">
+            extmovie
+          </p>
         </Link>
 
         <div
@@ -112,11 +114,17 @@ const Navbar = () => {
 
         {/* Mobile Buttons */}
         <div className="flex items-center gap-2 lg:hidden">
-          <button onClick={handleOpenSearch} className="px-2 py-4 text-2xl sm:hidden">
+          <button
+            onClick={handleOpenSearch}
+            className="px-2 py-4 text-2xl sm:hidden"
+          >
             <IoSearch />
           </button>
 
-          <button onClick={() => setOpenMenu(!openMenu)} className="z-80 px-2 py-4 text-2xl">
+          <button
+            onClick={() => setOpenMenu(!openMenu)}
+            className="z-80 px-2 py-4 text-2xl"
+          >
             {openMenu ? <FiX /> : <FiMenu />}
           </button>
         </div>
@@ -153,7 +161,10 @@ const Navbar = () => {
           </li>
         </ul>
       </aside>
-      <div onClick={handleCloseSidebar} className={`overlay z-60 ${openMenu ? 'show' : 'hide'}`} />
+      <div
+        onClick={handleCloseSidebar}
+        className={`overlay z-60 ${openMenu ? 'show' : 'hide'}`}
+      />
     </header>
   );
 };

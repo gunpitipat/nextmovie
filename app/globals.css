@@ -9,28 +9,19 @@
   --primary: #dddddd;
   --secondary: #ccc8cc;
   --muted: #b8b4b8;
-  --accent: #b0a7b0;
-  --accent-hover: #c4bbc4;
 }
 
 @theme inline {
-  /* Base Layer */
   --color-background: var(--background);
   --color-surface-1: var(--surface-1);
   --color-surface-2: var(--surface-2);
   --color-surface-3: var(--surface-3);
-
-  /* Text */
   --color-highlight: var(--highlight);
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
   --color-muted: var(--muted);
-
-  /* Interaction */
-  --color-accent: var(--accent);
-  --color-accent-hover: var(--accent-hover);
-
   --font-sans: var(--font-inter), sans-serif;
+  --breakpoint-2xl: 90rem; /* 1440px */
 }
 
 @layer base {
@@ -40,10 +31,10 @@
     line-height: 1.6;
   }
   button {
-    @apply cursor-pointer;
+    @apply cursor-pointer text-base outline-none;
   }
   a {
-    @apply inline-block cursor-pointer no-underline;
+    @apply inline-block cursor-pointer no-underline outline-none;
   }
 }
 
@@ -52,21 +43,36 @@
     @apply text-primary hover:text-highlight relative w-full px-5 py-4 text-base;
   }
   .nav-link-active {
-    @apply text-highlight bg-surface-1 after:border-primary rounded-sm after:absolute after:-bottom-px after:left-0 after:h-px after:w-full after:border-b-0 lg:bg-transparent lg:after:border-b;
+    @apply text-highlight bg-surface-1 after:border-primary rounded-lg after:absolute after:-bottom-px after:left-0 after:h-px after:w-full after:border-b-0 lg:bg-transparent lg:after:border-b;
   }
   .overlay {
     @apply fixed inset-0 h-dvh w-dvw bg-black/75 transition-opacity duration-300 ease-in-out;
   }
+  .gradient-overlay {
+    @apply from-background pointer-events-none absolute to-transparent;
+  }
+  .primary-btn {
+    @apply bg-primary hover:bg-highlight border-background text-background rounded-lg border px-3.5 py-2.5 font-medium whitespace-nowrap;
+  }
+  .secondary-btn {
+    @apply bg-background/50 hover:bg-surface-1/75 border-primary rounded-lg border px-2.5 py-2.5 font-medium whitespace-nowrap;
+  }
 }
 
 @layer utilities {
-  .text-gradient {
-    @apply from-highlight to-muted bg-linear-to-b bg-size-[100%_150%] bg-clip-text text-transparent;
+  .max-w-content {
+    max-width: 1440px;
   }
   .show {
     @apply pointer-events-auto opacity-100;
   }
   .hide {
     @apply pointer-events-none opacity-0;
+  }
+  .text-gradient {
+    @apply from-highlight to-muted bg-linear-to-b bg-size-[100%_150%] bg-clip-text text-transparent;
+  }
+  .text-fade-b {
+    mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
   }
 }
