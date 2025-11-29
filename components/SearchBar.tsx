@@ -31,7 +31,7 @@ const SearchBar = ({ setOpen, ref }: SearchBarProps) => {
           setQuery(e.target.value)
         }
         placeholder="Find your next movie"
-        className="from-surface-2 to-surface-1 placeholder:text-muted focus:border-muted w-full rounded-full border border-transparent bg-linear-to-b px-12 py-1.5 text-base transition-colors duration-150 placeholder:font-light focus:outline-none"
+        className="from-surface-3 to-surface-2 placeholder:text-muted focus:border-muted w-full rounded-full border border-transparent bg-linear-to-b px-12 py-1.5 text-base transition-colors duration-150 ease-out placeholder:font-light focus:outline-none"
       />
       <button
         type="button"

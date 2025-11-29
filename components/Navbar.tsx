@@ -2,8 +2,8 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
-import Link from 'next/link';
 import Image from 'next/image';
+import Link from 'next/link';
 import { FiMenu, FiX } from 'react-icons/fi';
 import { IoSearch } from 'react-icons/io5';
 import SearchBar from './SearchBar';
@@ -63,7 +63,7 @@ const Navbar = () => {
   }, [openSearch]);
 
   return (
-    <header className="bg-background/25 fixed top-0 left-0 z-50 w-full backdrop-blur-[2px]">
+    <header className="bg-background/25 hover:bg-background/50 fixed top-0 left-0 z-50 w-full backdrop-blur-[2px] transition duration-300 ease-in-out hover:backdrop-blur-xs">
       <nav className="max-w-content mx-auto flex items-center justify-between px-8">
         <Link href="/" className="flex items-end">
           <Image
@@ -102,7 +102,7 @@ const Navbar = () => {
           </li>
           <li>
             <Link href="/" className="nav-link">
-              TV Shows
+              TV Series
             </Link>
           </li>
           <li>
@@ -132,7 +132,7 @@ const Navbar = () => {
 
       {/* Mobile Sidebar Menu */}
       <aside
-        className={`border-surface-2 bg-background fixed top-0 right-0 z-70 h-dvh w-64 border-l transition-transform duration-300 ease-in-out ${openMenu ? 'translate-x-0' : 'translate-x-full'} lg:hidden`}
+        className={`bg-background fixed top-0 right-0 z-70 h-dvh w-64 transition-transform duration-300 ease-in-out ${openMenu ? 'translate-x-0' : 'translate-x-full'} lg:hidden`}
       >
         <ul className="flex flex-col gap-2 px-6 py-15">
           <li>
@@ -151,7 +151,7 @@ const Navbar = () => {
           </li>
           <li>
             <Link href="/" onClick={handleCloseSidebar} className="nav-link">
-              TV Shows
+              TV Series
             </Link>
           </li>
           <li>

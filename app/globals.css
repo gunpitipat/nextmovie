@@ -1,10 +1,10 @@
 @import 'tailwindcss';
 
 :root {
-  --background: #222222;
-  --surface-1: #333333;
-  --surface-2: #4a474a;
-  --surface-3: #8c858c;
+  --background: #1a1a1a;
+  --surface-1: #252525;
+  --surface-2: #333333;
+  --surface-3: #403f40;
   --highlight: #f0f0f0;
   --primary: #dddddd;
   --secondary: #ccc8cc;
@@ -34,28 +34,37 @@
     @apply cursor-pointer text-base outline-none;
   }
   a {
-    @apply inline-block cursor-pointer no-underline outline-none;
+    @apply text-primary inline-block cursor-pointer no-underline outline-none;
   }
 }
 
 @layer components {
   .nav-link {
-    @apply text-primary hover:text-highlight relative w-full px-5 py-4 text-base;
+    @apply hover:text-highlight relative w-full px-5 py-4 text-base transition-colors duration-200 ease-in-out;
   }
   .nav-link-active {
-    @apply text-highlight bg-surface-1 after:border-primary rounded-lg after:absolute after:-bottom-px after:left-0 after:h-px after:w-full after:border-b-0 lg:bg-transparent lg:after:border-b;
+    @apply text-highlight bg-surface-1 after:border-muted lg:after:border-primary rounded-r-lg after:absolute after:bottom-0 after:left-0 after:size-full after:border-l-3 lg:bg-transparent lg:after:border-b-3 lg:after:border-l-0;
   }
   .overlay {
     @apply fixed inset-0 h-dvh w-dvw bg-black/75 transition-opacity duration-300 ease-in-out;
   }
   .gradient-overlay {
-    @apply from-background pointer-events-none absolute to-transparent;
+    @apply to-background pointer-events-none absolute from-transparent;
   }
   .primary-btn {
-    @apply bg-primary hover:bg-highlight border-background text-background rounded-lg border px-3.5 py-2.5 font-medium whitespace-nowrap;
+    @apply bg-primary hover:bg-highlight border-background text-background rounded-lg border px-3.5 py-2.5 font-medium whitespace-nowrap transition-colors duration-200 ease-in-out;
   }
   .secondary-btn {
-    @apply bg-background/50 hover:bg-surface-1/75 border-primary rounded-lg border px-2.5 py-2.5 font-medium whitespace-nowrap;
+    @apply bg-background/50 hover:bg-surface-2/50 border-primary rounded-lg border px-2.5 py-2.5 font-medium whitespace-nowrap transition-colors duration-200 ease-in-out;
+  }
+  .carousel-section {
+    @apply relative mx-auto flex w-full max-w-[1440px] flex-col gap-6 px-4 sm:px-6 lg:px-8;
+  }
+  .carousel-heading {
+    @apply text-lg leading-none font-semibold lg:text-xl;
+  }
+  .carousel-btn {
+    @apply bg-background/50 border-primary hover:bg-surface-2/50 absolute top-1/2 hidden h-16 w-12 -translate-y-1/2 items-center justify-center rounded-lg border transition duration-200 ease-in-out lg:flex;
   }
 }
 
@@ -71,8 +80,5 @@
   }
   .text-gradient {
     @apply from-highlight to-muted bg-linear-to-b bg-size-[100%_150%] bg-clip-text text-transparent;
-  }
-  .text-fade-b {
-    mask-image: linear-gradient(to bottom, black 80%, transparent 100%);
   }
 }
