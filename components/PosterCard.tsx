@@ -10,6 +10,7 @@ interface PosterCardProps {
   rating: number;
   posterPath: string;
   imageBaseUrl: string;
+  inCarousel?: boolean;
 }
 
 const PosterCard = ({
@@ -19,11 +20,12 @@ const PosterCard = ({
   rating,
   posterPath,
   imageBaseUrl,
+  inCarousel,
 }: PosterCardProps) => {
   const posterUrl = `${imageBaseUrl}w342${posterPath}`;
 
   return (
-    <div className="keen-slider__slide min-w-40 lg:min-w-[175px]">
+    <div className={inCarousel ? 'keen-slider__slide carousel-slide' : ''}>
       <div className="bg-surface-2 relative h-full w-40 overflow-hidden rounded-lg lg:w-[175px]">
         {/* Poster */}
         <Link

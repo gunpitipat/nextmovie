@@ -11,6 +11,7 @@ export async function getTrendingMovies(
     revalidate: 12 * 60 * 60, // 12 hours
     expire: 24 * 60 * 60,
   });
+
   return fetchTMDB<PaginatedResponse<TrendingMovie>>(
     `/trending/movie/${timeWindow}?language=en-US`
   );
@@ -25,6 +26,7 @@ export async function getTrendingTV(
     revalidate: 12 * 60 * 60,
     expire: 24 * 60 * 60,
   });
+
   return fetchTMDB<PaginatedResponse<TrendingTV>>(
     `/trending/tv/${timeWindow}?language=en-US`
   );

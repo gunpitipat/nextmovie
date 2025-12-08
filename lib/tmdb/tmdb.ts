@@ -1,7 +1,7 @@
-import { BASE_URL } from '../constants';
+import { TMDB_BASE_URL } from '../constants';
 
 export async function fetchTMDB<T>(endpoint: string): Promise<T> {
-  const res = await fetch(`${BASE_URL}${endpoint}`, {
+  const res = await fetch(`${TMDB_BASE_URL}${endpoint}`, {
     headers: {
       Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
       Accept: 'application/json',

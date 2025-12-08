@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import Navbar from '@/components/Navbar';
+import Navbar from '@/components/navbar/Navbar';
+import BodyScrollBar from '@/components/BodyScrollBar';
 import './globals.css';
 
 const inter = Inter({
@@ -18,9 +19,14 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
-      <body className={`${inter.variable}`}>
+    <html lang="en" data-overlayscrollbars-initialize>
+      <body className={`${inter.variable}`} data-overlayscrollbars-initialize>
         <Navbar />
+        <BodyScrollBar />
+        <div
+          id="dropdown-root"
+          className="pointer-events-none fixed inset-0 z-50"
+        />
         <main className="pt-14">{children}</main>
       </body>
     </html>

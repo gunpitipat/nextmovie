@@ -6,7 +6,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FiMenu, FiX } from 'react-icons/fi';
 import { IoSearch } from 'react-icons/io5';
+import { NAV_ITEMS } from '@/lib/constants';
 import SearchBar from './SearchBar';
+import DesktopMenu from './DesktopMenu';
 
 const Navbar = () => {
   const [openMenu, setOpenMenu] = useState(false);
@@ -17,11 +19,6 @@ const Navbar = () => {
 
   const pathname = usePathname();
 
-  const handleCloseSidebar = () => {
-    if (!openMenu) return;
-    setOpenMenu(false);
-  };
-
   const handleOpenSearch = () => {
     setOpenSearch(true);
     if (window.innerWidth < 640 && inputRef.current) inputRef.current.focus();
@@ -29,9 +26,9 @@ const Navbar = () => {
 
   // Hide overlay when switching back to desktop while sidebar is open
   useEffect(() => {
-    const mediaQuery: MediaQueryList = window.matchMedia('(min-width: 1024px)'); // Tailwind lg breakpoint
-    const handleChange = (e: MediaQueryListEvent) => {
-      if (e.matches && openMenu) setOpenMenu(false);
+    const mediaQuery = window.matchMedia('(min-width: 1024px)'); // Tailwind lg breakpoint
+    const handleChange = (event: MediaQueryListEvent) => {
+      if (event.matches && openMenu) setOpenMenu(false);
     };
 
     mediaQuery.addEventListener('change', handleChange);
@@ -43,9 +40,9 @@ const Navbar = () => {
     const el = searchRef.current;
     if (!el) return;
 
-    const mediaQuery: MediaQueryList = window.matchMedia('(min-width: 640px)');
-    const handleChange = (e: MediaQueryListEvent) => {
-      if (!e.matches) return;
+    const mediaQuery = window.matchMedia('(min-width: 640px)');
+    const handleChange = (event: MediaQueryListEvent) => {
+      if (!event.matches) return;
 
       if (openSearch) setOpenSearch(false); // Hide overlay when crossing the breakpoint
 
@@ -63,7 +60,7 @@ const Navbar = () => {
   }, [openSearch]);
 
   return (
-    <header className="bg-background/25 hover:bg-background/50 fixed top-0 left-0 z-50 w-full backdrop-blur-[2px] transition duration-300 ease-in-out hover:backdrop-blur-xs">
+    <header className="nav-bg fixed top-0 left-0 z-50 w-full">
       <nav className="max-w-content mx-auto flex items-center justify-between px-8">
         <Link href="/" className="flex items-end">
           <Image
@@ -93,28 +90,12 @@ const Navbar = () => {
           className={`overlay z-90 ${openSearch ? 'show' : 'hide'}`}
         />
 
-        {/* Desktop Menu */}
-        <ul className="hidden items-center lg:flex">
-          <li>
-            <Link href="/" className="nav-link">
-              Movies
-            </Link>
-          </li>
-          <li>
-            <Link href="/" className="nav-link">
-              TV Series
-            </Link>
-          </li>
-          <li>
-            <Link href="/" className="nav-link">
-              Favorites
-            </Link>
-          </li>
-        </ul>
+        <DesktopMenu />
 
         {/* Mobile Buttons */}
         <div className="flex items-center gap-2 lg:hidden">
           <button
+            type="button"
             onClick={handleOpenSearch}
             className="px-2 py-4 text-2xl sm:hidden"
           >
@@ -122,6 +103,7 @@ const Navbar = () => {
           </button>
 
           <button
+            type="button"
             onClick={() => setOpenMenu(!openMenu)}
             className="z-80 px-2 py-4 text-2xl"
           >
@@ -135,34 +117,21 @@ const Navbar = () => {
         className={`bg-background fixed top-0 right-0 z-70 h-dvh w-64 transition-transform duration-300 ease-in-out ${openMenu ? 'translate-x-0' : 'translate-x-full'} lg:hidden`}
       >
         <ul className="flex flex-col gap-2 px-6 py-15">
-          <li>
-            <Link
-              href="/"
-              onClick={handleCloseSidebar}
-              className={`nav-link ${pathname === '/' ? 'nav-link-active' : ''}`}
-            >
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link href="/" onClick={handleCloseSidebar} className="nav-link">
-              Movies
-            </Link>
-          </li>
-          <li>
-            <Link href="/" onClick={handleCloseSidebar} className="nav-link">
-              TV Series
-            </Link>
-          </li>
-          <li>
-            <Link href="/" onClick={handleCloseSidebar} className="nav-link">
-              Favorites
-            </Link>
-          </li>
+          {NAV_ITEMS.map((item) => (
+            <li key={item.label}>
+              <Link
+                href={item.href}
+                onClick={() => setOpenMenu(false)}
+                className={`nav-link relative px-5 ${pathname.startsWith(item.href) ? 'text-highlight bg-surface-1 after:bg-muted rounded-r-lg after:absolute after:inset-0 after:w-[3px]' : ''}`}
+              >
+                {item.label}
+              </Link>
+            </li>
+          ))}
         </ul>
       </aside>
       <div
-        onClick={handleCloseSidebar}
+        onClick={() => setOpenMenu(false)}
         className={`overlay z-60 ${openMenu ? 'show' : 'hide'}`}
       />
     </header>

@@ -11,11 +11,11 @@ import type {
   KeenSliderPlugin,
 } from 'keen-slider';
 
-interface CarouselProps {
+interface MediaCarouselProps {
   children: React.ReactNode;
 }
 
-const Carousel = ({ children }: CarouselProps) => {
+const MediaCarousel = ({ children }: MediaCarouselProps) => {
   const [slidesPerView, setSlidesPerView] = useState(0);
   const [currentIdx, setCurrentIdx] = useState(0);
   const [minIdx, setMinIdx] = useState(0);
@@ -31,15 +31,19 @@ const Carousel = ({ children }: CarouselProps) => {
   const options: KeenSliderOptions = {
     initial: 0,
     dragSpeed: 0.75,
-    mode: 'free-snap',
+    mode: 'free',
     rubberband: false,
     slides: { perView: 'auto', spacing: 8 },
     breakpoints: {
       '(min-width: 640px)': { slides: { perView: 'auto', spacing: 12 } },
-      '(min-width: 1024px)': { slides: { perView: 'auto', spacing: 16 } },
+      '(min-width: 1024px)': {
+        mode: 'free-snap',
+        slides: { perView: 'auto', spacing: 16 },
+      },
     },
     created(slider) {
       updateSlidesPerView(slider);
+      setCurrentIdx(0);
       setMinIdx(slider.track.details.minIdx);
       setMaxIdx(slider.track.details.maxIdx);
     },
@@ -84,7 +88,7 @@ const Carousel = ({ children }: CarouselProps) => {
   const canScrollNext = currentIdx !== maxIdx;
 
   return (
-    <div className="w-full">
+    <div className="w-full lg:px-8">
       <div ref={sliderRef} className="keen-slider">
         {children}
       </div>
@@ -107,4 +111,4 @@ const Carousel = ({ children }: CarouselProps) => {
   );
 };
 
-export default Carousel;
+export default MediaCarousel;

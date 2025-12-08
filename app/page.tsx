@@ -1,6 +1,6 @@
 import { getTMDBConfig, getTrendingMovies, getTrendingTV } from '@/lib/tmdb';
 import Hero from '@/components/home/Hero';
-import Carousel from '@/components/carousel/Carousel';
+import MediaCarousel from '@/components/carousel/MediaCarousel';
 import PosterCard from '@/components/PosterCard';
 
 export default async function Home() {
@@ -45,7 +45,7 @@ export default async function Home() {
         className={`${heroMovie ? 'mt-[70vh] lg:mt-[calc(75vh-56px+24px)]' : 'mt-4 lg:mt-6'} carousel-section mb-14 lg:mb-17`} // lg:mt-[hero - navbar + carousel section gap]
       >
         <h2 className="carousel-heading">Trending Movies</h2>
-        <Carousel>
+        <MediaCarousel>
           {carouselMovies.map((movie) => (
             <PosterCard
               key={movie.id}
@@ -55,16 +55,17 @@ export default async function Home() {
               rating={movie.vote_average}
               posterPath={movie.poster_path}
               imageBaseUrl={imageBaseUrl}
+              inCarousel
             />
           ))}
-        </Carousel>
+        </MediaCarousel>
       </div>
 
       {heroTV && <Hero media={heroTV} imageBaseUrl={imageBaseUrl} />}
 
       <div className="carousel-section my-14 lg:mt-6 lg:mb-17">
         <h2 className="carousel-heading">Trending TV Series</h2>
-        <Carousel>
+        <MediaCarousel>
           {carouselTV.map((tv) => (
             <PosterCard
               key={tv.id}
@@ -74,9 +75,10 @@ export default async function Home() {
               rating={tv.vote_average}
               posterPath={tv.poster_path}
               imageBaseUrl={imageBaseUrl}
+              inCarousel
             />
           ))}
-        </Carousel>
+        </MediaCarousel>
       </div>
     </section>
   );
