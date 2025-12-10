@@ -25,10 +25,15 @@ const Subnav = ({ basePath, categories, genres }: SubnavProps) => {
 
   // Hide/show Subnav on scroll
   useEffect(() => {
+    const THRESHOLD = 20; // Mobile rubber-band protection
+
     const handleScroll = () => {
       const y = window.scrollY;
+      const maxY = document.body.scrollHeight - window.innerHeight;
 
-      if (y > lastY.current) {
+      if (y <= THRESHOLD) {
+        setShow(true);
+      } else if (y > lastY.current || y >= maxY - THRESHOLD) {
         setOpenGenres(false);
         setShow(false);
       } else {
@@ -40,22 +45,19 @@ const Subnav = ({ basePath, categories, genres }: SubnavProps) => {
 
     window.addEventListener('scroll', handleScroll);
 
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      setShow(true); // Reset to default to avoid stale state on remount
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
     <div
-      className={`${show ? 'show h-14' : 'hide h-7'} nav-bg fixed w-full overflow-hidden transition-[height,opacity] duration-300 ease-in-out`}
+      className={`${show ? 'pointer-events-auto translate-y-0' : 'pointer-events-none -translate-y-14'} border-surface-3 navbar-solid fixed z-40 w-full overflow-hidden border-b transition-transform duration-300 ease-in-out`}
     >
-      <nav className="max-w-content mx-auto pt-2 pb-3">
+      <nav className="max-w-content mx-auto py-2.5">
         <SubnavCarousel>
           <div className="keen-slider__slide subnav-item">
             <Link
               href={basePath}
-              className={`subnav-link ml-8 ${pathname === basePath ? 'subnav-link-active' : ''}`}
+              className={`subnav-link ml-4 sm:ml-6 lg:ml-8 ${pathname === basePath ? 'subnav-link-active' : ''}`}
             >
               All
             </Link>
@@ -77,7 +79,7 @@ const Subnav = ({ basePath, categories, genres }: SubnavProps) => {
               type="button"
               ref={buttonRef}
               onClick={() => setOpenGenres(!openGenres)}
-              className="subnav-link mr-8 flex items-center gap-1"
+              className="subnav-link mr-4 flex items-center gap-1 sm:mr-6 lg:mr-8"
             >
               <span>Genres</span>
               {openGenres ? (

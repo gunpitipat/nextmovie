@@ -16,7 +16,7 @@ export default async function MoviesLayout({
         categories={MOVIE_CATEGORIES}
         genres={movieGenres.genres}
       />
-      {children}
+      <div className="pt-14">{children}</div>
     </>
   );
 }

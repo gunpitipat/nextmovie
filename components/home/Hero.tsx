@@ -55,7 +55,7 @@ const Hero = ({ media, imageBaseUrl, preload }: HeroProps) => {
         {/* Gradient Overlays */}
         {/* Top */}
         {preload && (
-          <div className="gradient-overlay top-0 left-0 h-14 w-full bg-linear-to-t" />
+          <div className="gradient-overlay to-background/30 top-0 left-0 h-14 w-full bg-linear-to-t" />
         )}
         {/* Bottom */}
         <div className="gradient-overlay bottom-0 left-0 h-[50%] w-full bg-linear-to-b lg:hidden" />

@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { OverlayScrollbars } from 'overlayscrollbars';
 import 'overlayscrollbars/overlayscrollbars.css';
-import { slugify } from '@/lib/slug';
+import { slugify } from '@/lib/utils/slug';
 import type { Genre } from '@/types';
 
 interface DropdownMenuProps {
@@ -28,7 +28,7 @@ const DropdownMenu = ({
   const listRef = useRef<HTMLUListElement>(null);
   const pathname = usePathname();
 
-  const THRESHOLD = 8; // Spacing for dropdown positioning in px
+  const THRESHOLD = 10; // Spacing for dropdown positioning in px
 
   // Enable client-only DOM usage; prevent SSR mismatches
   useEffect(() => {
@@ -146,7 +146,7 @@ const DropdownMenu = ({
   return createPortal(
     <ul
       ref={listRef}
-      className={`${open ? 'show translate-y-0' : 'hide -translate-y-2'} bg-surface-2 absolute max-h-90 w-fit overflow-y-auto overscroll-contain rounded-lg py-1 transition duration-150 ease-out`}
+      className={`${open ? 'show translate-y-0' : 'hide -translate-y-2'} navbar-solid border-surface-3 absolute max-h-90 w-fit overflow-y-auto overscroll-contain rounded-lg border py-1 transition duration-150 ease-out`}
       data-overlayscrollbars-initialize
     >
       {genres.map((genre) => {
@@ -155,7 +155,7 @@ const DropdownMenu = ({
           <li key={genre.id}>
             <Link
               href={slug}
-              className={`${pathname === slug ? 'subnav-link-active' : ''} hover:text-highlight hover:bg-surface-3 size-full py-3 pr-6 pl-4 text-sm`}
+              className={`${pathname === slug ? 'subnav-link-active' : ''} hover:text-highlight hover:bg-surface-2 size-full py-3 pr-6 pl-4 text-sm`}
             >
               {genre.name}
             </Link>

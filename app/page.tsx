@@ -1,6 +1,7 @@
 import { getTMDBConfig, getTrendingMovies, getTrendingTV } from '@/lib/tmdb';
+import { filterPosterSlides } from '@/lib/utils/filterPosterSlides';
 import Hero from '@/components/home/Hero';
-import MediaCarousel from '@/components/carousel/MediaCarousel';
+import MediaCarouselWrapper from '@/components/carousel/MediaCarouselWrapper';
 import PosterCard from '@/components/PosterCard';
 
 export default async function Home() {
@@ -24,16 +25,13 @@ export default async function Home() {
     throw new Error('No suitable trending media found for Hero sections.');
   }
 
-  const carouselMovies = trendingMovies.results
-    .filter(
-      (movie): movie is typeof movie & { poster_path: string } =>
-        !!movie.poster_path
-    )
-    .filter((movie) => movie.id !== heroMovie?.id);
+  const carouselMovies = filterPosterSlides(trendingMovies.results).filter(
+    (movie) => movie.id !== heroMovie?.id
+  );
 
-  const carouselTV = trendingTV.results
-    .filter((tv): tv is typeof tv & { poster_path: string } => !!tv.poster_path)
-    .filter((tv) => tv.id !== heroTV?.id);
+  const carouselTV = filterPosterSlides(trendingTV.results).filter(
+    (tv) => tv.id !== heroTV?.id
+  );
 
   return (
     <section>
@@ -45,7 +43,7 @@ export default async function Home() {
         className={`${heroMovie ? 'mt-[70vh] lg:mt-[calc(75vh-56px+24px)]' : 'mt-4 lg:mt-6'} carousel-section mb-14 lg:mb-17`} // lg:mt-[hero - navbar + carousel section gap]
       >
         <h2 className="carousel-heading">Trending Movies</h2>
-        <MediaCarousel>
+        <MediaCarouselWrapper>
           {carouselMovies.map((movie) => (
             <PosterCard
               key={movie.id}
@@ -58,14 +56,14 @@ export default async function Home() {
               inCarousel
             />
           ))}
-        </MediaCarousel>
+        </MediaCarouselWrapper>
       </div>
 
       {heroTV && <Hero media={heroTV} imageBaseUrl={imageBaseUrl} />}
 
       <div className="carousel-section my-14 lg:mt-6 lg:mb-17">
         <h2 className="carousel-heading">Trending TV Series</h2>
-        <MediaCarousel>
+        <MediaCarouselWrapper>
           {carouselTV.map((tv) => (
             <PosterCard
               key={tv.id}
@@ -78,7 +76,7 @@ export default async function Home() {
               inCarousel
             />
           ))}
-        </MediaCarousel>
+        </MediaCarouselWrapper>
       </div>
     </section>
   );

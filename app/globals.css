@@ -39,14 +39,17 @@
 }
 
 @layer components {
-  .nav-bg {
-    @apply bg-background/50 backdrop-blur-xs;
+  .navbar-glass {
+    @apply bg-background/70 backdrop-blur-xs;
+  }
+  .navbar-solid {
+    @apply bg-background/95 backdrop-blur-sm;
   }
   .nav-link {
-    @apply hover:text-highlight w-full py-4 transition-colors duration-200 ease-in-out;
+    @apply hover:text-highlight w-full py-4 font-medium transition-colors duration-200 ease-in-out;
   }
   .subnav-link {
-    @apply bg-surface-2 hover:text-highlight rounded-lg px-3 py-2 text-sm whitespace-nowrap transition-colors duration-200 ease-in-out;
+    @apply hover:text-highlight bg-surface-2 rounded-lg px-3 py-2 text-sm whitespace-nowrap transition-colors duration-200 ease-in-out;
   }
   .subnav-link-active {
     @apply bg-primary text-background hover:text-background;
@@ -70,7 +73,7 @@
     @apply relative mx-auto flex w-full max-w-[1440px] flex-col gap-6;
   }
   .carousel-heading {
-    @apply px-4 text-lg leading-none font-semibold sm:px-6 lg:px-8 lg:text-xl;
+    @apply mx-4 w-fit text-lg leading-none font-semibold sm:mx-6 lg:mx-8 lg:text-xl;
   }
   .carousel-slide {
     @apply max-w-fit min-w-fit first:[&>div]:ml-4 last:[&>div]:mr-4 sm:first:[&>div]:ml-6 sm:last:[&>div]:mr-6 lg:first:[&>div]:ml-0 lg:last:[&>div]:mr-0;
@@ -93,6 +96,9 @@
   }
   .text-gradient {
     @apply from-highlight to-muted bg-linear-to-b bg-size-[100%_150%] bg-clip-text text-transparent;
+  }
+  .link-hover {
+    @apply hover:text-highlight hover:decoration-primary underline decoration-transparent underline-offset-2 transition-colors duration-200 ease-in-out;
   }
 }
 

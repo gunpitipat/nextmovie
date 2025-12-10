@@ -44,7 +44,7 @@ const PosterCard = ({
         <div className="flex flex-col gap-1 p-2 text-sm">
           <Link
             href="/"
-            className="hover:text-highlight hover:decoration-primary line-clamp-2 font-semibold wrap-anywhere underline decoration-transparent underline-offset-2 transition-colors duration-200 ease-in-out"
+            className="link-hover line-clamp-2 font-semibold wrap-anywhere"
           >
             {title}
           </Link>

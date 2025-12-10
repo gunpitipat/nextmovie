@@ -11,11 +11,7 @@ import type {
   KeenSliderPlugin,
 } from 'keen-slider';
 
-interface MediaCarouselProps {
-  children: React.ReactNode;
-}
-
-const MediaCarousel = ({ children }: MediaCarouselProps) => {
+const MediaCarousel = ({ children }: { children: React.ReactNode }) => {
   const [slidesPerView, setSlidesPerView] = useState(0);
   const [currentIdx, setCurrentIdx] = useState(0);
   const [minIdx, setMinIdx] = useState(0);
@@ -43,7 +39,6 @@ const MediaCarousel = ({ children }: MediaCarouselProps) => {
     },
     created(slider) {
       updateSlidesPerView(slider);
-      setCurrentIdx(0);
       setMinIdx(slider.track.details.minIdx);
       setMaxIdx(slider.track.details.maxIdx);
     },

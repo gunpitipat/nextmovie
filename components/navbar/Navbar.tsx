@@ -24,6 +24,17 @@ const Navbar = () => {
     if (window.innerWidth < 640 && inputRef.current) inputRef.current.focus();
   };
 
+  // Lock page scrolling when mobile sidebar is open
+  useEffect(() => {
+    if (openMenu) {
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+    }
+  }, [openMenu]);
+
   // Hide overlay when switching back to desktop while sidebar is open
   useEffect(() => {
     const mediaQuery = window.matchMedia('(min-width: 1024px)'); // Tailwind lg breakpoint
@@ -60,8 +71,10 @@ const Navbar = () => {
   }, [openSearch]);
 
   return (
-    <header className="nav-bg fixed top-0 left-0 z-50 w-full">
-      <nav className="max-w-content mx-auto flex items-center justify-between px-8">
+    <header
+      className={`${pathname === '/' ? 'navbar-glass' : 'navbar-solid'} fixed top-0 left-0 z-50 w-full`}
+    >
+      <nav className="max-w-content mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex items-end">
           <Image
             src="/images/logo.png"
@@ -114,7 +127,7 @@ const Navbar = () => {
 
       {/* Mobile Sidebar Menu */}
       <aside
-        className={`bg-background fixed top-0 right-0 z-70 h-dvh w-64 transition-transform duration-300 ease-in-out ${openMenu ? 'translate-x-0' : 'translate-x-full'} lg:hidden`}
+        className={`bg-background fixed top-0 right-0 z-70 h-dvh w-60 transition-transform duration-300 ease-in-out ${openMenu ? 'translate-x-0' : 'translate-x-full'} lg:hidden`}
       >
         <ul className="flex flex-col gap-2 px-6 py-15">
           {NAV_ITEMS.map((item) => (
