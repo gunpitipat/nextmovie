@@ -40,10 +40,13 @@
 
 @layer components {
   .navbar-glass {
-    @apply bg-background/70 backdrop-blur-xs;
+    @apply bg-background/70 border-transparent backdrop-blur-xs;
+    border-bottom-width: 0px;
   }
   .navbar-solid {
-    @apply bg-background/95 backdrop-blur-sm;
+    @apply bg-background/95 border-surface-3 backdrop-blur-sm;
+    border-bottom-width: 1px;
+    /* navbar bottom border is conditionally removed on subnav presence */
   }
   .nav-link {
     @apply hover:text-highlight w-full py-4 font-medium transition-colors duration-200 ease-in-out;
@@ -81,6 +84,10 @@
   }
   .carousel-btn {
     @apply bg-background/50 border-primary hover:bg-surface-2/50 absolute top-1/2 hidden h-16 w-12 -translate-y-1/2 items-center justify-center rounded-lg border transition duration-200 ease-in-out lg:flex;
+  }
+  .footer-spacer {
+    @apply: w-full;
+    height: min(env(safe-area-inset-bottom, 0), 12px);
   }
 }
 

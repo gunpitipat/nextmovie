@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import Navbar from '@/components/navbar/Navbar';
 import BodyScrollBar from '@/components/BodyScrollBar';
+import Footer from '@/components/footer/Footer';
 import './globals.css';
 
 const inter = Inter({
@@ -28,6 +29,7 @@ export default function RootLayout({
           className="pointer-events-none fixed inset-0 z-50"
         />
         <main className="pt-14">{children}</main>
+        <Footer />
       </body>
     </html>
   );

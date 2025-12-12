@@ -68,7 +68,7 @@ export default async function Movies() {
         </MediaCarouselWrapper>
       </div>
 
-      <div className="carousel-section mb-10 lg:mb-12">
+      <div className="carousel-section">
         <Link href={NOW_PLAYING.href} className="carousel-heading link-hover">
           {NOW_PLAYING.label} Movies
         </Link>

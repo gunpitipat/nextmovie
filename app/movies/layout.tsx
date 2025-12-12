@@ -1,6 +1,6 @@
 import { getGenres } from '@/lib/tmdb';
 import { MOVIE_CATEGORIES } from '@/lib/constants';
-import Subnav from '@/components/subnav/Subnav';
+import SubnavWrapper from '@/components/subnav/SubnavWrapper';
 
 export default async function MoviesLayout({
   children,
@@ -11,7 +11,7 @@ export default async function MoviesLayout({
 
   return (
     <>
-      <Subnav
+      <SubnavWrapper
         basePath="/movies"
         categories={MOVIE_CATEGORIES}
         genres={movieGenres.genres}

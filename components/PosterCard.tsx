@@ -41,14 +41,14 @@ const PosterCard = ({
         </Link>
 
         {/* Info */}
-        <div className="flex flex-col gap-1 p-2 text-sm">
+        <div className="flex flex-col gap-1 p-2">
           <Link
             href="/"
-            className="link-hover line-clamp-2 font-semibold wrap-anywhere"
+            className="link-hover line-clamp-2 text-sm font-semibold wrap-anywhere"
           >
             {title}
           </Link>
-          <div className="text-secondary flex items-center gap-1">
+          <div className="text-secondary flex items-center gap-1 text-sm">
             <FaStar />
             {rating.toFixed(1)}
           </div>

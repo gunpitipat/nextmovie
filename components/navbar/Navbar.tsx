@@ -77,8 +77,8 @@ const Navbar = () => {
       <nav className="max-w-content mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8">
         <Link href="/" className="flex items-end">
           <Image
-            src="/images/logo.png"
-            alt="nextmovie logo"
+            src="/images/nextmovie-logo.png"
+            alt="Nextmovie logo"
             width={24}
             height={24}
             className="block object-contain"

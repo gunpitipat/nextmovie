@@ -40,7 +40,7 @@ export default async function Home() {
       )}
 
       <div
-        className={`${heroMovie ? 'mt-[70vh] lg:mt-[calc(75vh-56px+24px)]' : 'mt-4 lg:mt-6'} carousel-section mb-14 lg:mb-17`} // lg:mt-[hero - navbar + carousel section gap]
+        className={`${heroMovie ? 'mt-[70vh] lg:mt-[calc(75vh-56px+24px)]' : 'mt-4 lg:mt-6'} carousel-section mb-14 lg:mb-16`} // lg:mt-[hero - navbar + carousel section gap]
       >
         <h2 className="carousel-heading">Trending Movies</h2>
         <MediaCarouselWrapper>
@@ -61,7 +61,7 @@ export default async function Home() {
 
       {heroTV && <Hero media={heroTV} imageBaseUrl={imageBaseUrl} />}
 
-      <div className="carousel-section my-14 lg:mt-6 lg:mb-17">
+      <div className="carousel-section mt-14 lg:mt-6">
         <h2 className="carousel-heading">Trending TV Series</h2>
         <MediaCarouselWrapper>
           {carouselTV.map((tv) => (

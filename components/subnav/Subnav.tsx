@@ -48,6 +48,17 @@ const Subnav = ({ basePath, categories, genres }: SubnavProps) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Remove navbar bottom border on subnav presence
+  useEffect(() => {
+    const navbar = document.querySelector<HTMLElement>('.navbar-solid');
+    if (!navbar) return;
+
+    navbar.style.borderBottomWidth = '0px';
+    return () => {
+      navbar.style.borderBottomWidth = '1px';
+    };
+  }, []);
+
   return (
     <div
       className={`${show ? 'pointer-events-auto translate-y-0' : 'pointer-events-none -translate-y-14'} border-surface-3 navbar-solid fixed z-40 w-full overflow-hidden border-b transition-transform duration-300 ease-in-out`}
