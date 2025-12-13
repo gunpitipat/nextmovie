@@ -1,5 +1,5 @@
 import { getTMDBConfig, getTrendingMovies, getTrendingTV } from '@/lib/tmdb';
-import { filterPosterSlides } from '@/lib/utils/filterPosterSlides';
+import { filterWithImages } from '@/lib/utils/filterWithImages';
 import Hero from '@/components/home/Hero';
 import MediaCarouselWrapper from '@/components/carousel/MediaCarouselWrapper';
 import PosterCard from '@/components/PosterCard';
@@ -25,11 +25,11 @@ export default async function Home() {
     throw new Error('No suitable trending media found for Hero sections.');
   }
 
-  const carouselMovies = filterPosterSlides(trendingMovies.results).filter(
+  const carouselMovies = filterWithImages(trendingMovies.results).filter(
     (movie) => movie.id !== heroMovie?.id
   );
 
-  const carouselTV = filterPosterSlides(trendingTV.results).filter(
+  const carouselTV = filterWithImages(trendingTV.results).filter(
     (tv) => tv.id !== heroTV?.id
   );
 

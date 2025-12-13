@@ -5,7 +5,7 @@ import {
   getTMDBConfig,
   getTopRatedMovies,
 } from '@/lib/tmdb';
-import { filterPosterSlides } from '@/lib/utils/filterPosterSlides';
+import { filterWithImages } from '@/lib/utils/filterWithImages';
 import { MOVIE_CATEGORIES } from '@/lib/constants';
 import MediaCarouselWrapper from '@/components/carousel/MediaCarouselWrapper';
 import PosterCard from '@/components/PosterCard';
@@ -20,15 +20,15 @@ export default async function Movies() {
 
   const imageBaseUrl = config.images.secure_base_url;
 
-  const popularSlides = filterPosterSlides(popular.results);
-  const topRatedSlides = filterPosterSlides(topRated.results);
-  const nowPlayingSlides = filterPosterSlides(nowPlaying.results);
+  const popularSlides = filterWithImages(popular.results);
+  const topRatedSlides = filterWithImages(topRated.results);
+  const nowPlayingSlides = filterWithImages(nowPlaying.results);
 
   const [POPULAR, TOP_RATED, NOW_PLAYING] = MOVIE_CATEGORIES;
 
   return (
     <section className="flex flex-col gap-10 lg:gap-12">
-      <div className="carousel-section mt-6 lg:mt-8">
+      <div className="carousel-section mt-8">
         <Link href={POPULAR.href} className="carousel-heading link-hover">
           {POPULAR.label} Movies
         </Link>

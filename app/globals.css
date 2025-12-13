@@ -8,7 +8,7 @@
   --highlight: #f0f0f0;
   --primary: #dddddd;
   --secondary: #ccc8cc;
-  --muted: #b8b4b8;
+  --muted: #a3a0a3;
 }
 
 @theme inline {
@@ -85,6 +85,9 @@
   .carousel-btn {
     @apply bg-background/50 border-primary hover:bg-surface-2/50 absolute top-1/2 hidden h-16 w-12 -translate-y-1/2 items-center justify-center rounded-lg border transition duration-200 ease-in-out lg:flex;
   }
+  .poster-grid {
+    @apply grid grid-cols-[repeat(auto-fill,minmax(160px,160px))] items-stretch justify-center gap-x-2 gap-y-4 min-[375px]:gap-x-4 min-[375px]:gap-y-6 lg:grid-cols-[repeat(auto-fill,minmax(175px,175px))] lg:gap-y-8;
+  }
   .footer-spacer {
     @apply: w-full;
     height: min(env(safe-area-inset-bottom, 0), 12px);
@@ -95,11 +98,20 @@
   .max-w-content {
     max-width: 1440px;
   }
+  .px-responsive {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
   .show {
     @apply pointer-events-auto opacity-100;
   }
   .hide {
     @apply pointer-events-none opacity-0;
+  }
+  .heading {
+    @apply text-lg leading-none font-semibold lg:text-xl;
+  }
+  .btn {
+    @apply bg-background/50 hover:bg-surface-2/50 border-primary rounded-lg border px-3 py-2 transition-colors duration-200 ease-in-out;
   }
   .text-gradient {
     @apply from-highlight to-muted bg-linear-to-b bg-size-[100%_150%] bg-clip-text text-transparent;

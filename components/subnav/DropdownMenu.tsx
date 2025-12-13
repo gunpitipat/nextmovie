@@ -37,7 +37,7 @@ const DropdownMenu = ({
 
   // Initialize OverlayScrollbars
   useEffect(() => {
-    if (!mounted || !listRef.current) return;
+    if (!mounted || !open || !listRef.current) return;
 
     const osInstance = OverlayScrollbars(listRef.current, {
       scrollbars: {
@@ -49,7 +49,7 @@ const DropdownMenu = ({
     });
 
     return () => osInstance.destroy();
-  }, [mounted]);
+  }, [mounted, open]);
 
   // Position dropdown relative to anchor; update on resize
   useEffect(() => {

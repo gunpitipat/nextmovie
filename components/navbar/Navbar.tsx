@@ -74,7 +74,7 @@ const Navbar = () => {
     <header
       className={`${pathname === '/' ? 'navbar-glass' : 'navbar-solid'} fixed top-0 left-0 z-50 w-full`}
     >
-      <nav className="max-w-content mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8">
+      <nav className="max-w-content px-responsive mx-auto flex items-center justify-between">
         <Link href="/" className="flex items-end">
           <Image
             src="/images/nextmovie-logo.png"
@@ -135,7 +135,7 @@ const Navbar = () => {
               <Link
                 href={item.href}
                 onClick={() => setOpenMenu(false)}
-                className={`nav-link relative px-5 ${pathname.startsWith(item.href) ? 'text-highlight bg-surface-1 after:bg-muted rounded-r-lg after:absolute after:inset-0 after:w-[3px]' : ''}`}
+                className={`nav-link relative px-5 ${pathname.startsWith(item.href) ? 'text-highlight bg-surface-1 after:bg-secondary rounded-r-lg after:absolute after:inset-0 after:w-[3px]' : ''}`}
               >
                 {item.label}
               </Link>
