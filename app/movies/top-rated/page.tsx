@@ -1,12 +1,12 @@
 import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
-import { getTMDBConfig, getPopularMovies } from '@/lib/tmdb';
+import { getTMDBConfig, getTopRatedMovies } from '@/lib/tmdb';
 import { filterWithImages } from '@/lib/utils/filterWithImages';
 import { MAX_TMDB_PAGES } from '@/lib/constants';
 import Pagination from '@/components/Pagination';
 import PosterCard from '@/components/PosterCard';
 
-async function PopularMovies({
+async function TopRatedMovies({
   searchParams,
 }: {
   searchParams: Promise<{ page?: string }>;
@@ -19,13 +19,13 @@ async function PopularMovies({
     notFound();
   }
 
-  const [config, popularData] = await Promise.all([
+  const [config, topRatedData] = await Promise.all([
     getTMDBConfig(),
-    getPopularMovies(currentPage),
+    getTopRatedMovies(currentPage),
   ]);
 
   // Limit total pages; TMDB may return impractical total_pages
-  const totalPages = Math.min(popularData.total_pages, MAX_TMDB_PAGES);
+  const totalPages = Math.min(topRatedData.total_pages, MAX_TMDB_PAGES);
 
   // Prevent pages from showing empty data
   if (currentPage > totalPages) {
@@ -33,7 +33,7 @@ async function PopularMovies({
   }
 
   const imageBaseUrl = config.images.secure_base_url;
-  const movies = filterWithImages(popularData.results);
+  const movies = filterWithImages(topRatedData.results);
 
   return (
     <section>
@@ -41,7 +41,7 @@ async function PopularMovies({
         {/* Use poster-grid to align heading with the first column */}
         <div className="poster-grid mt-8">
           <div className="col-span-full max-[360px]:text-center">
-            <h1 className="heading">Popular Movies</h1>
+            <h1 className="heading">Top Rated Movies</h1>
             {currentPage > 1 && (
               <p className="text-muted mt-1 text-sm">Page {currentPage}</p>
             )}
@@ -65,17 +65,17 @@ async function PopularMovies({
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
-          basePath="/movies/popular"
+          basePath="/movies/top-rated"
         />
       </div>
     </section>
   );
 }
 
-export default function Page({ searchParams }: PageProps<'/movies/popular'>) {
+export default function Page({ searchParams }: PageProps<'/movies/top-rated'>) {
   return (
     <Suspense>
-      <PopularMovies searchParams={searchParams} />
+      <TopRatedMovies searchParams={searchParams} />
     </Suspense>
   );
 }

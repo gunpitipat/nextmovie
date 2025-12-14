@@ -8,7 +8,7 @@ interface PaginationProps {
 
 const Pagination = ({ currentPage, totalPages, basePath }: PaginationProps) => {
   const isFirst = currentPage === 1;
-  const isLast = currentPage === totalPages;
+  const isLast = currentPage >= totalPages;
 
   const previousPath = `${basePath}?page=${currentPage - 1}`;
   const nextPath = `${basePath}?page=${currentPage + 1}`;
