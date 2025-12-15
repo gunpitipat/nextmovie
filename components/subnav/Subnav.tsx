@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
+import { slugify } from '@/lib/utils/slug';
 import SubnavCarousel from '../carousel/SubnavCarousel';
 import DropdownMenu from './DropdownMenu';
 import type { MenuItem, Genre } from '@/types';
@@ -22,6 +23,13 @@ const Subnav = ({ basePath, categories, genres }: SubnavProps) => {
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   const pathname = usePathname();
+
+  const inGenres = pathname.startsWith(`${basePath}/genres/`);
+  const activeGenre = inGenres
+    ? (genres.find(
+        (genre) => slugify(genre.name) === pathname.split('/').at(-1)
+      )?.name ?? null)
+    : null;
 
   // Hide/show Subnav on scroll
   useEffect(() => {
@@ -92,7 +100,17 @@ const Subnav = ({ basePath, categories, genres }: SubnavProps) => {
               onClick={() => setOpenGenres(!openGenres)}
               className="subnav-link mr-4 flex items-center gap-1 sm:mr-6 lg:mr-8"
             >
-              <span>Genres</span>
+              <div>
+                Genres
+                {activeGenre && (
+                  <span>
+                    :&nbsp;
+                    <span className="text-highlight decoration-muted font-medium underline underline-offset-2">
+                      {activeGenre}
+                    </span>
+                  </span>
+                )}
+              </div>
               {openGenres ? (
                 <FaAngleUp className="size-4" />
               ) : (

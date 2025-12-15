@@ -150,12 +150,12 @@ const DropdownMenu = ({
       data-overlayscrollbars-initialize
     >
       {genres.map((genre) => {
-        const slug = `${basePath}/genres/${slugify(genre.name)}`;
+        const href = `${basePath}/genres/${slugify(genre.name)}`;
         return (
           <li key={genre.id}>
             <Link
-              href={slug}
-              className={`${pathname === slug ? 'subnav-link-active' : ''} hover:text-highlight hover:bg-surface-2 size-full py-3 pr-6 pl-4 text-sm`}
+              href={href}
+              className={`${pathname === href ? 'subnav-link-active' : 'hover:text-highlight hover:bg-surface-2'} size-full py-3 pr-6 pl-4 text-sm`}
             >
               {genre.name}
             </Link>
