@@ -4,7 +4,10 @@ export * from './trending';
 export * from './genre';
 export * from './discover';
 
-// movie
 export * from './movie/popular';
 export * from './movie/top-rated';
 export * from './movie/now-playing';
+
+export * from './tv/popular';
+export * from './tv/top-rated';
+export * from './tv/on-the-air';

@@ -1,46 +1,46 @@
 import Link from 'next/link';
 import {
   getTMDBConfig,
-  getPopularMovies,
-  getTopRatedMovies,
-  getNowPlayingMovies,
+  getPopularTV,
+  getTopRatedTV,
+  getOnTheAirTV,
 } from '@/lib/tmdb';
 import { filterWithImages } from '@/lib/utils/filterWithImages';
-import { MOVIE_CATEGORIES } from '@/lib/constants';
+import { TV_CATEGORIES } from '@/lib/constants';
 import MediaCarouselWrapper from '@/components/carousel/MediaCarouselWrapper';
 import PosterCard from '@/components/PosterCard';
 
-export default async function Movies() {
-  const [config, popular, topRated, nowPlaying] = await Promise.all([
+export default async function TV() {
+  const [config, popular, topRated, onTheAir] = await Promise.all([
     getTMDBConfig(),
-    getPopularMovies(),
-    getTopRatedMovies(),
-    getNowPlayingMovies(),
+    getPopularTV(),
+    getTopRatedTV(),
+    getOnTheAirTV(),
   ]);
 
   const imageBaseUrl = config.images.secure_base_url;
 
   const popularSlides = filterWithImages(popular.results);
   const topRatedSlides = filterWithImages(topRated.results);
-  const nowPlayingSlides = filterWithImages(nowPlaying.results);
+  const onTheAirSlides = filterWithImages(onTheAir.results);
 
-  const [POPULAR, TOP_RATED, NOW_PLAYING] = MOVIE_CATEGORIES;
+  const [POPULAR, TOP_RATED, ON_THE_AIR] = TV_CATEGORIES;
 
   return (
     <section className="flex flex-col gap-10 lg:gap-12">
       <div className="carousel-section mt-8">
         <Link href={POPULAR.href} className="carousel-heading link-hover">
-          {POPULAR.label} Movies
+          {POPULAR.label} TV Shows
         </Link>
         <MediaCarouselWrapper>
-          {popularSlides.map((movie) => (
+          {popularSlides.map((tv) => (
             <PosterCard
-              key={movie.id}
-              mediaType="movie"
-              id={movie.id}
-              title={movie.title}
-              rating={movie.vote_average}
-              posterPath={movie.poster_path}
+              key={tv.id}
+              mediaType="tv"
+              id={tv.id}
+              title={tv.name}
+              rating={tv.vote_average}
+              posterPath={tv.poster_path}
               imageBaseUrl={imageBaseUrl}
               inCarousel
             />
@@ -50,17 +50,17 @@ export default async function Movies() {
 
       <div className="carousel-section">
         <Link href={TOP_RATED.href} className="carousel-heading link-hover">
-          {TOP_RATED.label} Movies
+          {TOP_RATED.label} TV Shows
         </Link>
         <MediaCarouselWrapper>
-          {topRatedSlides.map((movie) => (
+          {topRatedSlides.map((tv) => (
             <PosterCard
-              key={movie.id}
-              mediaType="movie"
-              id={movie.id}
-              title={movie.title}
-              rating={movie.vote_average}
-              posterPath={movie.poster_path}
+              key={tv.id}
+              mediaType="tv"
+              id={tv.id}
+              title={tv.name}
+              rating={tv.vote_average}
+              posterPath={tv.poster_path}
               imageBaseUrl={imageBaseUrl}
               inCarousel
             />
@@ -69,18 +69,18 @@ export default async function Movies() {
       </div>
 
       <div className="carousel-section">
-        <Link href={NOW_PLAYING.href} className="carousel-heading link-hover">
-          {NOW_PLAYING.label} Movies
+        <Link href={ON_THE_AIR.href} className="carousel-heading link-hover">
+          {ON_THE_AIR.label} TV Shows
         </Link>
         <MediaCarouselWrapper>
-          {nowPlayingSlides.map((movie) => (
+          {onTheAirSlides.map((tv) => (
             <PosterCard
-              key={movie.id}
-              mediaType="movie"
-              id={movie.id}
-              title={movie.title}
-              rating={movie.vote_average}
-              posterPath={movie.poster_path}
+              key={tv.id}
+              mediaType="tv"
+              id={tv.id}
+              title={tv.name}
+              rating={tv.vote_average}
+              posterPath={tv.poster_path}
               imageBaseUrl={imageBaseUrl}
               inCarousel
             />

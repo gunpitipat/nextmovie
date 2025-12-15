@@ -62,7 +62,7 @@ export default async function Home() {
       {heroTV && <Hero media={heroTV} imageBaseUrl={imageBaseUrl} />}
 
       <div className="carousel-section mt-14 lg:mt-6">
-        <h2 className="carousel-heading">Trending TV Series</h2>
+        <h2 className="carousel-heading">Trending TV Shows</h2>
         <MediaCarouselWrapper>
           {carouselTV.map((tv) => (
             <PosterCard

@@ -1,6 +1,6 @@
 import { cacheLife } from 'next/cache';
 import { fetchTMDB } from './tmdb';
-import type { PaginatedResponse, Movie, TVSeries } from '@/types';
+import type { PaginatedResponse, Movie, TVShow } from '@/types';
 
 export async function getMoviesByGenre(
   genreId: number,
@@ -14,14 +14,14 @@ export async function getMoviesByGenre(
   );
 }
 
-export async function getTVSeriesByGenre(
+export async function getTVShowsByGenre(
   genreId: number,
   page = 1
-): Promise<PaginatedResponse<TVSeries>> {
+): Promise<PaginatedResponse<TVShow>> {
   'use cache';
   cacheLife('days');
 
-  return fetchTMDB<PaginatedResponse<TVSeries>>(
+  return fetchTMDB<PaginatedResponse<TVShow>>(
     `/discover/tv?with_genres=${genreId}&page=${page}&include_adult=false&include_null_first_air_dates=false&language=en-US&sort_by=popularity.desc`
   );
 }

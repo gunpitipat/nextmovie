@@ -14,7 +14,7 @@ export interface Movie extends BaseMedia {
   release_date: string;
 }
 
-export interface TVSeries extends BaseMedia {
+export interface TVShow extends BaseMedia {
   name: string;
   first_air_date: string;
 }
@@ -23,7 +23,7 @@ export interface TrendingMovie extends Movie {
   media_type: 'movie';
 }
 
-export interface TrendingTV extends TVSeries {
+export interface TrendingTV extends TVShow {
   media_type: 'tv';
 }
 
