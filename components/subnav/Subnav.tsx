@@ -98,14 +98,14 @@ const Subnav = ({ basePath, categories, genres }: SubnavProps) => {
               type="button"
               ref={buttonRef}
               onClick={() => setOpenGenres(!openGenres)}
-              className="subnav-link mr-4 flex items-center gap-1 sm:mr-6 lg:mr-8"
+              className={`subnav-link mr-4 flex items-center gap-1 sm:mr-6 lg:mr-8 ${activeGenre ? 'bg-surface-3' : ''}`}
             >
               <div>
                 Genres
                 {activeGenre && (
                   <span>
                     :&nbsp;
-                    <span className="text-highlight decoration-muted font-medium underline underline-offset-2">
+                    <span className="text-highlight font-medium">
                       {activeGenre}
                     </span>
                   </span>

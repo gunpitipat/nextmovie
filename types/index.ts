@@ -1,4 +1,4 @@
-export * from './menu';
+export * from './navigation';
 export * from './tmdb/config';
 export * from './tmdb/pagination';
 export * from './tmdb/media';

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
+import { NotFoundProvider } from '@/contexts/not-found-context';
 import Navbar from '@/components/navbar/Navbar';
 import BodyScrollBar from '@/components/BodyScrollBar';
 import Footer from '@/components/footer/Footer';
@@ -22,14 +23,16 @@ export default function RootLayout({
   return (
     <html lang="en" data-overlayscrollbars-initialize>
       <body className={`${inter.variable}`} data-overlayscrollbars-initialize>
-        <Navbar />
-        <BodyScrollBar />
-        <div
-          id="dropdown-root"
-          className="pointer-events-none fixed inset-0 z-50"
-        />
-        <main className="pt-14">{children}</main>
-        <Footer />
+        <NotFoundProvider>
+          <Navbar />
+          <BodyScrollBar />
+          <div
+            id="dropdown-root"
+            className="pointer-events-none fixed inset-0 z-50"
+          />
+          <main className="pt-14">{children}</main>
+          <Footer />
+        </NotFoundProvider>
       </body>
     </html>
   );

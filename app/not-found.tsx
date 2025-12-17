@@ -1,6 +1,17 @@
+'use client';
+
 import Link from 'next/link';
+import { useEffect } from 'react';
+import { useNotFound } from '@/contexts/not-found-context';
 
 export default function NotFound() {
+  const { setIsNotFound } = useNotFound();
+
+  useEffect(() => {
+    setIsNotFound(true);
+    return () => setIsNotFound(false);
+  }, [setIsNotFound]);
+
   return (
     <section className="flex flex-col items-center gap-4">
       <h1 className="heading mt-14">Page Not Found</h1>

@@ -6,6 +6,8 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FiMenu, FiX } from 'react-icons/fi';
 import { IoSearch } from 'react-icons/io5';
+import { useNotFound } from '@/contexts/not-found-context';
+import { getActiveNavState } from '@/lib/navigation';
 import { NAV_ITEMS } from '@/lib/constants';
 import SearchBar from './SearchBar';
 import DesktopMenu from './DesktopMenu';
@@ -13,11 +15,13 @@ import DesktopMenu from './DesktopMenu';
 const Navbar = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const [openSearch, setOpenSearch] = useState(false);
+  const { isNotFound } = useNotFound();
 
   const searchRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const pathname = usePathname();
+  const { basePath } = getActiveNavState(pathname, isNotFound);
 
   const handleOpenSearch = () => {
     setOpenSearch(true);
@@ -135,7 +139,7 @@ const Navbar = () => {
               <Link
                 href={item.href}
                 onClick={() => setOpenMenu(false)}
-                className={`nav-link relative px-5 ${pathname.startsWith(item.href) ? 'text-highlight bg-surface-1 after:bg-secondary rounded-r-lg after:absolute after:inset-0 after:w-[3px]' : ''}`}
+                className={`nav-link relative px-5 ${basePath === item.href ? 'text-highlight bg-surface-1 after:bg-secondary rounded-r-lg after:absolute after:inset-0 after:w-[3px]' : ''}`}
               >
                 {item.label}
               </Link>
