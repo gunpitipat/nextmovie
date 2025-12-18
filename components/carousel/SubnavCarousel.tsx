@@ -5,11 +5,7 @@ import 'keen-slider/keen-slider.min.css';
 import { WheelControls } from './plugins/wheel-controls';
 import type { KeenSliderOptions, KeenSliderPlugin } from 'keen-slider';
 
-interface SubnavCarouselProps {
-  children: React.ReactNode;
-}
-
-const SubnavCarousel = ({ children }: SubnavCarouselProps) => {
+const SubnavCarousel = ({ children }: { children: React.ReactNode }) => {
   const options: KeenSliderOptions = {
     dragSpeed: 0.75,
     mode: 'free',

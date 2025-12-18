@@ -1,5 +1,6 @@
 import { getTMDBConfig, getTrendingMovies, getTrendingTV } from '@/lib/tmdb';
 import { filterWithImages } from '@/lib/utils/filterWithImages';
+import { slugify } from '@/lib/utils/slug';
 import Hero from '@/components/home/Hero';
 import MediaCarouselWrapper from '@/components/carousel/MediaCarouselWrapper';
 import PosterCard from '@/components/PosterCard';
@@ -36,7 +37,12 @@ export default async function Home() {
   return (
     <section>
       {heroMovie && (
-        <Hero media={heroMovie} imageBaseUrl={imageBaseUrl} preload />
+        <Hero
+          media={heroMovie}
+          imageBaseUrl={imageBaseUrl}
+          href={`/${heroMovie.media_type}/${heroMovie.id}-${slugify(heroMovie.title)}`}
+          preload
+        />
       )}
 
       <div
@@ -59,7 +65,13 @@ export default async function Home() {
         </MediaCarouselWrapper>
       </div>
 
-      {heroTV && <Hero media={heroTV} imageBaseUrl={imageBaseUrl} />}
+      {heroTV && (
+        <Hero
+          media={heroTV}
+          imageBaseUrl={imageBaseUrl}
+          href={`/${heroTV.media_type}/${heroTV.id}-${slugify(heroTV.name)}`}
+        />
+      )}
 
       <div className="carousel-section mt-14 lg:mt-6">
         <h2 className="carousel-heading">Trending TV Shows</h2>

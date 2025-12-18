@@ -1,7 +1,9 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { FaStar } from 'react-icons/fa';
+import { slugify } from '@/lib/utils/slug';
 import BookmarkButton from './BookmarkButton';
+import CarouselLink from './carousel/CarouselLink';
 
 interface PosterCardProps {
   mediaType: 'movie' | 'tv';
@@ -20,16 +22,19 @@ const PosterCard = ({
   rating,
   posterPath,
   imageBaseUrl,
-  inCarousel,
+  inCarousel = false,
 }: PosterCardProps) => {
   const posterUrl = `${imageBaseUrl}w342${posterPath}`;
+  const href = `/${mediaType}/${id}-${slugify(title)}`;
+
+  const LinkWrapper = inCarousel ? CarouselLink : Link;
 
   return (
     <div className={inCarousel ? 'keen-slider__slide carousel-slide' : ''}>
       <div className="bg-surface-2 relative h-full w-40 overflow-hidden rounded-lg lg:w-[175px]">
         {/* Poster */}
-        <Link
-          href="/"
+        <LinkWrapper
+          href={href}
           className="relative block aspect-2/3 w-full transition-[filter] duration-200 ease-in-out hover:brightness-105 hover:contrast-105 hover:saturate-105"
         >
           <Image
@@ -38,16 +43,16 @@ const PosterCard = ({
             fill
             sizes="(max-width: 1023px) 160px, 175px"
           />
-        </Link>
+        </LinkWrapper>
 
         {/* Info */}
         <div className="flex flex-col gap-1 p-2">
-          <Link
-            href="/"
+          <LinkWrapper
+            href={href}
             className="link-hover line-clamp-2 text-sm font-semibold wrap-anywhere"
           >
             {title}
-          </Link>
+          </LinkWrapper>
           <div className="text-secondary flex items-center gap-1 text-sm">
             <FaStar />
             {rating.toFixed(1)}

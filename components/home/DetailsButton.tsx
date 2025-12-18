@@ -1,10 +1,10 @@
-'use client';
+import Link from 'next/link';
 
-const DetailsButton = () => {
+const DetailsButton = ({ href }: { href: string }) => {
   return (
-    <button type="button" className="primary-btn">
+    <Link href={href} className="primary-btn">
       View Details
-    </button>
+    </Link>
   );
 };
 

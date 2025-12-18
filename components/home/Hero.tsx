@@ -6,10 +6,11 @@ import type { TrendingMedia } from '@/types';
 interface HeroProps {
   media: TrendingMedia;
   imageBaseUrl: string;
+  href: string;
   preload?: boolean;
 }
 
-const Hero = ({ media, imageBaseUrl, preload }: HeroProps) => {
+const Hero = ({ media, imageBaseUrl, href, preload }: HeroProps) => {
   const title = media.media_type === 'movie' ? media.title : media.name;
   const posterUrl = `${imageBaseUrl}w780${media.poster_path}`;
   const backdropUrl = `${imageBaseUrl}original${media.backdrop_path}`;
@@ -74,7 +75,7 @@ const Hero = ({ media, imageBaseUrl, preload }: HeroProps) => {
           {media.overview}
         </p>
         <div className="mt-1 flex gap-3 lg:mt-2">
-          <DetailsButton />
+          <DetailsButton href={href} />
           <FavoriteButton />
         </div>
       </div>
