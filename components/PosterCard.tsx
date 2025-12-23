@@ -13,6 +13,7 @@ interface PosterCardProps {
   posterPath: string;
   imageBaseUrl: string;
   inCarousel?: boolean;
+  from?: string;
 }
 
 const PosterCard = ({
@@ -23,9 +24,11 @@ const PosterCard = ({
   posterPath,
   imageBaseUrl,
   inCarousel = false,
+  from,
 }: PosterCardProps) => {
   const posterUrl = `${imageBaseUrl}w342${posterPath}`;
-  const href = `/${mediaType}/${id}-${slugify(title)}`;
+  const pathname = `/${mediaType}/${id}-${slugify(title)}`;
+  const href = from ? `${pathname}?from=${encodeURIComponent(from)}` : pathname;
 
   const LinkWrapper = inCarousel ? CarouselLink : Link;
 

@@ -72,11 +72,14 @@
   .secondary-btn {
     @apply bg-background/50 hover:bg-surface-2/50 border-primary rounded-lg border px-2.5 py-2.5 font-medium whitespace-nowrap transition-colors duration-200 ease-in-out;
   }
+  .favorite-cta {
+    @apply bg-primary hover:bg-highlight border-background text-background block rounded-lg border px-4 py-3 text-sm font-medium whitespace-nowrap transition-colors duration-200 ease-in-out lg:px-5 lg:text-base;
+  }
+  .image-cover {
+    @apply block object-cover object-center;
+  }
   .carousel-section {
     @apply relative mx-auto flex w-full max-w-[1440px] flex-col gap-6;
-  }
-  .carousel-heading {
-    @apply mx-4 w-fit text-lg leading-none font-semibold sm:mx-6 lg:mx-8 lg:text-xl;
   }
   .carousel-slide {
     @apply max-w-fit min-w-fit first:[&>div]:ml-4 last:[&>div]:mr-4 sm:first:[&>div]:ml-6 sm:last:[&>div]:mr-6 lg:first:[&>div]:ml-0 lg:last:[&>div]:mr-0;
@@ -95,11 +98,14 @@
 }
 
 @layer utilities {
-  .max-w-content {
+  .max-w-layout {
     max-width: 1440px;
   }
-  .px-responsive {
+  .px-layout {
     @apply px-4 sm:px-6 lg:px-8;
+  }
+  .px-content {
+    @apply px-4 min-[480px]:px-8 md:px-12 lg:px-16 xl:px-20;
   }
   .show {
     @apply pointer-events-auto opacity-100;

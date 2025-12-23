@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import {
   getTMDBConfig,
   getPopularTV,
@@ -7,6 +6,7 @@ import {
 } from '@/lib/tmdb';
 import { filterWithImages } from '@/lib/utils/filterWithImages';
 import { TV_CATEGORIES } from '@/lib/constants';
+import CarouselHeader from '@/components/carousel/CarouselHeader';
 import MediaCarouselWrapper from '@/components/carousel/MediaCarouselWrapper';
 import PosterCard from '@/components/PosterCard';
 
@@ -29,9 +29,10 @@ export default async function TV() {
   return (
     <section className="flex flex-col gap-10 lg:gap-12">
       <div className="carousel-section mt-8">
-        <Link href={POPULAR.href} className="carousel-heading link-hover">
-          {POPULAR.label} TV Shows
-        </Link>
+        <CarouselHeader
+          title={`${POPULAR.label} TV Shows`}
+          href={POPULAR.href}
+        />
         <MediaCarouselWrapper>
           {popularSlides.map((tv) => (
             <PosterCard
@@ -49,9 +50,10 @@ export default async function TV() {
       </div>
 
       <div className="carousel-section">
-        <Link href={TOP_RATED.href} className="carousel-heading link-hover">
-          {TOP_RATED.label} TV Shows
-        </Link>
+        <CarouselHeader
+          title={`${TOP_RATED.label} TV Shows`}
+          href={TOP_RATED.href}
+        />
         <MediaCarouselWrapper>
           {topRatedSlides.map((tv) => (
             <PosterCard
@@ -69,9 +71,10 @@ export default async function TV() {
       </div>
 
       <div className="carousel-section">
-        <Link href={ON_THE_AIR.href} className="carousel-heading link-hover">
-          {ON_THE_AIR.label} TV Shows
-        </Link>
+        <CarouselHeader
+          title={`${ON_THE_AIR.label} TV Shows`}
+          href={ON_THE_AIR.href}
+        />
         <MediaCarouselWrapper>
           {onTheAirSlides.map((tv) => (
             <PosterCard

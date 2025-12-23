@@ -78,7 +78,7 @@ const Navbar = () => {
     <header
       className={`${pathname === '/' ? 'navbar-glass' : 'navbar-solid'} fixed top-0 left-0 z-50 w-full`}
     >
-      <nav className="max-w-content px-responsive mx-auto flex items-center justify-between">
+      <nav className="max-w-layout px-layout mx-auto flex items-center justify-between">
         <Link href="/" className="flex items-end">
           <Image
             src="/images/nextmovie-logo.png"

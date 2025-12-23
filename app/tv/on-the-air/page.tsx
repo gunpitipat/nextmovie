@@ -30,7 +30,7 @@ async function OnTheAirTV({
 
   return (
     <section>
-      <div className="max-w-content px-responsive mx-auto">
+      <div className="max-w-layout px-layout mx-auto">
         <div className="poster-grid mt-8">
           <div className="col-span-full max-[360px]:text-center">
             <h1 className="heading">On The Air TV Shows</h1>
@@ -50,6 +50,7 @@ async function OnTheAirTV({
               rating={tv.vote_average}
               posterPath={tv.poster_path}
               imageBaseUrl={imageBaseUrl}
+              from={`/tv/on-the-air?page=${currentPage}`}
             />
           ))}
         </div>

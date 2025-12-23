@@ -2,6 +2,7 @@ import { getTMDBConfig, getTrendingMovies, getTrendingTV } from '@/lib/tmdb';
 import { filterWithImages } from '@/lib/utils/filterWithImages';
 import { slugify } from '@/lib/utils/slug';
 import Hero from '@/components/home/Hero';
+import CarouselHeader from '@/components/carousel/CarouselHeader';
 import MediaCarouselWrapper from '@/components/carousel/MediaCarouselWrapper';
 import PosterCard from '@/components/PosterCard';
 
@@ -40,7 +41,7 @@ export default async function Home() {
         <Hero
           media={heroMovie}
           imageBaseUrl={imageBaseUrl}
-          href={`/${heroMovie.media_type}/${heroMovie.id}-${slugify(heroMovie.title)}`}
+          pathname={`/${heroMovie.media_type}/${heroMovie.id}-${slugify(heroMovie.title)}`}
           preload
         />
       )}
@@ -48,7 +49,7 @@ export default async function Home() {
       <div
         className={`${heroMovie ? 'mt-[70vh] lg:mt-[calc(75vh-56px+24px)]' : 'mt-4 lg:mt-6'} carousel-section mb-14 lg:mb-16`} // lg:mt-[hero - navbar + carousel section gap]
       >
-        <h2 className="carousel-heading">Trending Movies</h2>
+        <CarouselHeader title="Trending Movies" />
         <MediaCarouselWrapper>
           {carouselMovies.map((movie) => (
             <PosterCard
@@ -60,6 +61,7 @@ export default async function Home() {
               posterPath={movie.poster_path}
               imageBaseUrl={imageBaseUrl}
               inCarousel
+              from="/"
             />
           ))}
         </MediaCarouselWrapper>
@@ -69,12 +71,12 @@ export default async function Home() {
         <Hero
           media={heroTV}
           imageBaseUrl={imageBaseUrl}
-          href={`/${heroTV.media_type}/${heroTV.id}-${slugify(heroTV.name)}`}
+          pathname={`/${heroTV.media_type}/${heroTV.id}-${slugify(heroTV.name)}`}
         />
       )}
 
       <div className="carousel-section mt-14 lg:mt-6">
-        <h2 className="carousel-heading">Trending TV Shows</h2>
+        <CarouselHeader title="Trending TV Shows" />
         <MediaCarouselWrapper>
           {carouselTV.map((tv) => (
             <PosterCard
@@ -86,6 +88,7 @@ export default async function Home() {
               posterPath={tv.poster_path}
               imageBaseUrl={imageBaseUrl}
               inCarousel
+              from="/"
             />
           ))}
         </MediaCarouselWrapper>

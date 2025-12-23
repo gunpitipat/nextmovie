@@ -7,6 +7,7 @@ export * from './discover';
 export * from './movie/popular';
 export * from './movie/top-rated';
 export * from './movie/now-playing';
+export * from './movie/detail';
 
 export * from './tv/popular';
 export * from './tv/top-rated';

@@ -37,7 +37,7 @@ async function NowPlayingMovies({
 
   return (
     <section>
-      <div className="max-w-content px-responsive mx-auto">
+      <div className="max-w-layout px-layout mx-auto">
         {/* Use poster-grid to align heading with the first column */}
         <div className="poster-grid mt-8">
           <div className="col-span-full max-[360px]:text-center">
@@ -58,6 +58,7 @@ async function NowPlayingMovies({
               rating={movie.vote_average}
               posterPath={movie.poster_path}
               imageBaseUrl={imageBaseUrl}
+              from={`/movies/now-playing?page=${currentPage}`}
             />
           ))}
         </div>

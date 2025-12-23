@@ -1,23 +1,23 @@
 import Image from 'next/image';
 import DetailsButton from './DetailsButton';
-import FavoriteButton from './FavoriteButton';
+import FavoriteButton from '../FavoriteButton';
 import type { TrendingMedia } from '@/types';
 
 interface HeroProps {
   media: TrendingMedia;
   imageBaseUrl: string;
-  href: string;
+  pathname: string;
   preload?: boolean;
 }
 
-const Hero = ({ media, imageBaseUrl, href, preload }: HeroProps) => {
+const Hero = ({ media, imageBaseUrl, pathname, preload }: HeroProps) => {
   const title = media.media_type === 'movie' ? media.title : media.name;
   const posterUrl = `${imageBaseUrl}w780${media.poster_path}`;
   const backdropUrl = `${imageBaseUrl}original${media.backdrop_path}`;
 
   return (
     <div
-      className={`${preload ? 'absolute top-0 left-1/2 -translate-x-1/2' : 'relative mx-auto'} max-w-content flex h-[70vh] w-full flex-col items-center overflow-hidden lg:h-[75vh] 2xl:pr-8`}
+      className={`${preload ? 'absolute top-0 left-1/2 -translate-x-1/2' : 'relative mx-auto'} max-w-layout flex h-[70vh] w-full flex-col items-center overflow-hidden lg:h-[75vh] 2xl:pr-8`}
     >
       {/* Tablet Backdrop (decorative) */}
       <div className="absolute inset-0 hidden size-full mask-y-from-75% sm:block lg:hidden">
@@ -28,7 +28,7 @@ const Hero = ({ media, imageBaseUrl, href, preload }: HeroProps) => {
           fill
           sizes="(max-width: 640px) 0px, (max-width: 1023px) 50vw, 0px" // Use 50vw to force browser to pick a lighter backdrop (blurred and dimmed)
           quality={50}
-          className="block object-cover object-center opacity-25 blur-[2px]"
+          className="image-cover opacity-25 blur-xs"
         />
       </div>
 
@@ -40,7 +40,7 @@ const Hero = ({ media, imageBaseUrl, href, preload }: HeroProps) => {
           preload={preload}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1023px) 640px, 0px"
-          className={`block object-cover object-center ${!preload ? 'rounded-t-2xl' : ''} lg:hidden`}
+          className={`image-cover ${!preload ? 'rounded-t-2xl' : ''} lg:hidden`}
         />
 
         {/* Desktop Backdrop */}
@@ -75,8 +75,8 @@ const Hero = ({ media, imageBaseUrl, href, preload }: HeroProps) => {
           {media.overview}
         </p>
         <div className="mt-1 flex gap-3 lg:mt-2">
-          <DetailsButton href={href} />
-          <FavoriteButton />
+          <DetailsButton pathname={pathname} from="/" />
+          <FavoriteButton className="secondary-btn" />
         </div>
       </div>
     </div>

@@ -37,7 +37,7 @@ async function PopularMovies({
 
   return (
     <section>
-      <div className="max-w-content px-responsive mx-auto">
+      <div className="max-w-layout px-layout mx-auto">
         {/* Use poster-grid to align heading with the first column */}
         <div className="poster-grid mt-8">
           <div className="col-span-full max-[360px]:text-center">
@@ -58,6 +58,7 @@ async function PopularMovies({
               rating={movie.vote_average}
               posterPath={movie.poster_path}
               imageBaseUrl={imageBaseUrl}
+              from={`/movies/popular?page=${currentPage}`}
             />
           ))}
         </div>

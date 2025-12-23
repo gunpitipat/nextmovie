@@ -1,6 +1,5 @@
 export interface BaseMedia {
   id: number;
-  genre_ids: number[];
   overview: string;
   poster_path: string | null;
   backdrop_path: string | null;
@@ -12,11 +11,13 @@ export interface BaseMedia {
 export interface Movie extends BaseMedia {
   title: string;
   release_date: string;
+  genre_ids: number[];
 }
 
 export interface TVShow extends BaseMedia {
   name: string;
   first_air_date: string;
+  genre_ids: number[];
 }
 
 export interface TrendingMovie extends Movie {
