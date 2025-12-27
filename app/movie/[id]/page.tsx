@@ -4,8 +4,11 @@ import { getTMDBConfig, getMovieDetail } from '@/lib/tmdb';
 import { formatReleaseYear } from '@/lib/utils/formatDate';
 import { formatRuntime } from '@/lib/utils/formatRuntime';
 import { formatVoteCount } from '@/lib/utils/formatVoteCount';
+import { getTrailers } from '@/lib/utils/getTrailers';
 import BackButton from '@/components/BackButton';
 import DetailHeader from '@/components/details/DetailHeader';
+import Trailer from '@/components/details/Trailer';
+import Overview from '@/components/details/Overview';
 import type { TMDBConfig, MovieDetail } from '@/types';
 
 async function Movie({ params }: { params: Promise<{ id: string }> }) {
@@ -38,8 +41,10 @@ async function Movie({ params }: { params: Promise<{ id: string }> }) {
     .filter((crew) => crew.job === 'Director')
     .map((director) => director.name);
 
+  const trailers = getTrailers(movie.videos.results);
+
   return (
-    <section>
+    <section className="flex flex-col items-center gap-10 lg:gap-12">
       <BackButton fallbackHref="/movies" />
 
       <DetailHeader
@@ -55,6 +60,10 @@ async function Movie({ params }: { params: Promise<{ id: string }> }) {
         voteCount={formatVoteCount(movie.vote_count)}
         genres={movie.genres}
       />
+
+      {trailers.length > 0 && <Trailer videos={trailers} />}
+
+      <Overview overview={movie.overview} />
     </section>
   );
 }

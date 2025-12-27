@@ -34,7 +34,7 @@ const DetailHeader = ({
   const backdropUrl = `${imageBaseUrl}original${backdropPath}`;
 
   return (
-    <div className="max-w-layout mx-auto flex w-full flex-col items-center">
+    <div className="max-w-layout flex w-full flex-col items-center">
       {/* Decorative Backdrop - enhances color under mask */}
       <div className="pointer-events-none absolute top-14 -z-2 hidden aspect-video max-h-[65vh] w-7xl mask-x-from-80% mask-b-from-40% xl:block">
         <Image
@@ -74,7 +74,7 @@ const DetailHeader = ({
 
           {/* Content */}
           <div className="flex flex-col gap-1">
-            <h1 className="text-highlight text-2xl font-bold wrap-anywhere max-[375px]:text-xl lg:text-3xl">
+            <h1 className="text-highlight text-2xl font-bold wrap-break-word max-[375px]:text-xl lg:text-3xl">
               {title}
             </h1>
 

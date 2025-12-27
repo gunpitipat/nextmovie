@@ -73,7 +73,7 @@ const Subnav = ({ basePath, categories, genres }: SubnavProps) => {
     >
       <nav className="max-w-layout mx-auto py-2.5">
         <SubnavCarousel>
-          <div className="keen-slider__slide subnav-item">
+          <div className="keen-slider__slide keen-slide-w-fit">
             <Link
               href={basePath}
               className={`subnav-link ml-4 sm:ml-6 lg:ml-8 ${pathname === basePath ? 'subnav-link-active' : ''}`}
@@ -83,7 +83,10 @@ const Subnav = ({ basePath, categories, genres }: SubnavProps) => {
           </div>
 
           {categories.map((item) => (
-            <div key={item.label} className="keen-slider__slide subnav-item">
+            <div
+              key={item.label}
+              className="keen-slider__slide keen-slide-w-fit"
+            >
               <Link
                 href={item.href}
                 className={`subnav-link ${pathname === item.href ? 'subnav-link-active' : ''}`}
@@ -93,7 +96,7 @@ const Subnav = ({ basePath, categories, genres }: SubnavProps) => {
             </div>
           ))}
 
-          <div className="keen-slider__slide subnav-item">
+          <div className="keen-slider__slide keen-slide-w-fit">
             <button
               type="button"
               ref={buttonRef}

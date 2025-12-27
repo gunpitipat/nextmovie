@@ -44,12 +44,11 @@ const MediaCarousel = ({ children }: { children: React.ReactNode }) => {
     },
     updated(slider) {
       updateSlidesPerView(slider);
-      setCurrentIdx(slider.track.details.abs);
       setMinIdx(slider.track.details.minIdx);
       setMaxIdx(slider.track.details.maxIdx);
     },
-    slideChanged(slide) {
-      setCurrentIdx(slide.track.details.abs);
+    slideChanged(slider) {
+      setCurrentIdx(slider.track.details.abs);
     },
   };
 

@@ -57,9 +57,6 @@
   .subnav-link-active {
     @apply bg-primary text-background hover:text-background;
   }
-  .subnav-item {
-    @apply max-w-fit min-w-fit;
-  }
   .overlay {
     @apply fixed inset-0 h-dvh w-dvw bg-black/75 transition-opacity duration-300 ease-in-out;
   }
@@ -81,9 +78,12 @@
   .carousel-section {
     @apply relative mx-auto flex w-full max-w-[1440px] flex-col gap-6;
   }
-  .carousel-slide {
-    @apply max-w-fit min-w-fit first:[&>div]:ml-4 last:[&>div]:mr-4 sm:first:[&>div]:ml-6 sm:last:[&>div]:mr-6 lg:first:[&>div]:ml-0 lg:last:[&>div]:mr-0;
+  .carousel-px-layout {
+    @apply first:[&>div]:ml-4 last:[&>div]:mr-4 sm:first:[&>div]:ml-6 sm:last:[&>div]:mr-6 lg:first:[&>div]:ml-0 lg:last:[&>div]:mr-0;
     /* Avoid adding margin or padding directly to .keen-slider or .keen-slider__slide; it can cause Keen Slider to miscalculate layout. */
+  }
+  .keen-slide-w-fit {
+    @apply max-w-fit min-w-fit;
   }
   .carousel-btn {
     @apply bg-background/50 border-primary hover:bg-surface-2/50 absolute top-1/2 hidden h-16 w-12 -translate-y-1/2 items-center justify-center rounded-lg border transition duration-200 ease-in-out lg:flex;
@@ -125,6 +125,9 @@
   .link-hover {
     @apply hover:text-highlight hover:decoration-primary underline decoration-transparent underline-offset-2 transition-colors duration-200 ease-in-out;
   }
+  .media-hover {
+    @apply transition-[filter] duration-200 ease-in-out hover:brightness-105 hover:contrast-105 hover:saturate-105;
+  }
 }
 
 /* OverlayScrollbars */
@@ -143,4 +146,9 @@
 }
 .os-scrollbar.os-scrollbar-auto-hide-hidden {
   transition-duration: 300ms;
+}
+@media (min-width: 1024px) {
+  .trailer-thumbnails [data-overlayscrollbars-viewport] {
+    overscroll-behavior: contain;
+  }
 }

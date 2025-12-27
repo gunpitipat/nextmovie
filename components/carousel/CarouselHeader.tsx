@@ -7,11 +7,7 @@ interface CarouselHeaderProps {
 }
 
 const CarouselHeader = ({ title, href }: CarouselHeaderProps) => {
-  const Heading = (
-    <h2 className="ml-4 text-lg leading-none font-semibold sm:ml-6 lg:ml-8 lg:text-xl">
-      {title}
-    </h2>
-  );
+  const Heading = <h2 className="heading ml-4 sm:ml-6 lg:ml-8">{title}</h2>;
 
   if (!href) return Heading;
 

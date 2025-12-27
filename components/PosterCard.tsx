@@ -33,12 +33,18 @@ const PosterCard = ({
   const LinkWrapper = inCarousel ? CarouselLink : Link;
 
   return (
-    <div className={inCarousel ? 'keen-slider__slide carousel-slide' : ''}>
+    <div
+      className={
+        inCarousel
+          ? 'keen-slider__slide keen-slide-w-fit carousel-px-layout'
+          : ''
+      }
+    >
       <div className="bg-surface-2 relative h-full w-40 overflow-hidden rounded-lg lg:w-[175px]">
         {/* Poster */}
         <LinkWrapper
           href={href}
-          className="relative block aspect-2/3 w-full transition-[filter] duration-200 ease-in-out hover:brightness-105 hover:contrast-105 hover:saturate-105"
+          className="media-hover relative block aspect-2/3 w-full"
         >
           <Image
             src={posterUrl}
