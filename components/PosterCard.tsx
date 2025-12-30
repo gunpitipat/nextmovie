@@ -4,6 +4,7 @@ import { FaStar } from 'react-icons/fa';
 import { slugify } from '@/lib/utils/slug';
 import BookmarkButton from './BookmarkButton';
 import CarouselLink from './carousel/CarouselLink';
+import type { SectionSpacing } from '@/types';
 
 interface PosterCardProps {
   mediaType: 'movie' | 'tv';
@@ -13,6 +14,7 @@ interface PosterCardProps {
   posterPath: string;
   imageBaseUrl: string;
   inCarousel?: boolean;
+  carouselSpacing?: SectionSpacing;
   from?: string;
 }
 
@@ -24,11 +26,18 @@ const PosterCard = ({
   posterPath,
   imageBaseUrl,
   inCarousel = false,
+  carouselSpacing = 'layout',
   from,
 }: PosterCardProps) => {
   const posterUrl = `${imageBaseUrl}w342${posterPath}`;
   const pathname = `/${mediaType}/${id}-${slugify(title)}`;
   const href = from ? `${pathname}?from=${encodeURIComponent(from)}` : pathname;
+
+  const carouselPaddingX = inCarousel
+    ? carouselSpacing === 'layout'
+      ? 'carousel-px-layout'
+      : 'carousel-px-content'
+    : '';
 
   const LinkWrapper = inCarousel ? CarouselLink : Link;
 
@@ -36,7 +45,7 @@ const PosterCard = ({
     <div
       className={
         inCarousel
-          ? 'keen-slider__slide keen-slide-w-fit carousel-px-layout'
+          ? `keen-slider__slide keen-slide-w-fit ${carouselPaddingX}`
           : ''
       }
     >
@@ -51,6 +60,7 @@ const PosterCard = ({
             alt={title}
             fill
             sizes="(max-width: 1023px) 160px, 175px"
+            className="image-cover"
           />
         </LinkWrapper>
 

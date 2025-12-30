@@ -6,7 +6,7 @@ import {
 } from '@/lib/tmdb';
 import { filterWithImages } from '@/lib/utils/filterWithImages';
 import { TV_CATEGORIES } from '@/lib/constants';
-import CarouselHeader from '@/components/carousel/CarouselHeader';
+import CarouselSection from '@/components/carousel/CarouselSection';
 import MediaCarouselWrapper from '@/components/carousel/MediaCarouselWrapper';
 import PosterCard from '@/components/PosterCard';
 
@@ -28,11 +28,11 @@ export default async function TV() {
 
   return (
     <section className="flex flex-col gap-10 lg:gap-12">
-      <div className="carousel-section mt-8">
-        <CarouselHeader
-          title={`${POPULAR.label} TV Shows`}
-          href={POPULAR.href}
-        />
+      <CarouselSection
+        title={`${POPULAR.label} TV Shows`}
+        href={POPULAR.href}
+        className="mt-8"
+      >
         <MediaCarouselWrapper>
           {popularSlides.map((tv) => (
             <PosterCard
@@ -47,13 +47,12 @@ export default async function TV() {
             />
           ))}
         </MediaCarouselWrapper>
-      </div>
+      </CarouselSection>
 
-      <div className="carousel-section">
-        <CarouselHeader
-          title={`${TOP_RATED.label} TV Shows`}
-          href={TOP_RATED.href}
-        />
+      <CarouselSection
+        title={`${TOP_RATED.label} TV Shows`}
+        href={TOP_RATED.href}
+      >
         <MediaCarouselWrapper>
           {topRatedSlides.map((tv) => (
             <PosterCard
@@ -68,13 +67,12 @@ export default async function TV() {
             />
           ))}
         </MediaCarouselWrapper>
-      </div>
+      </CarouselSection>
 
-      <div className="carousel-section">
-        <CarouselHeader
-          title={`${ON_THE_AIR.label} TV Shows`}
-          href={ON_THE_AIR.href}
-        />
+      <CarouselSection
+        title={`${ON_THE_AIR.label} TV Shows`}
+        href={ON_THE_AIR.href}
+      >
         <MediaCarouselWrapper>
           {onTheAirSlides.map((tv) => (
             <PosterCard
@@ -89,7 +87,7 @@ export default async function TV() {
             />
           ))}
         </MediaCarouselWrapper>
-      </div>
+      </CarouselSection>
     </section>
   );
 }

@@ -6,7 +6,7 @@ import {
 } from '@/lib/tmdb';
 import { filterWithImages } from '@/lib/utils/filterWithImages';
 import { MOVIE_CATEGORIES } from '@/lib/constants';
-import CarouselHeader from '@/components/carousel/CarouselHeader';
+import CarouselSection from '@/components/carousel/CarouselSection';
 import MediaCarouselWrapper from '@/components/carousel/MediaCarouselWrapper';
 import PosterCard from '@/components/PosterCard';
 
@@ -28,8 +28,11 @@ export default async function Movies() {
 
   return (
     <section className="flex flex-col gap-10 lg:gap-12">
-      <div className="carousel-section mt-8">
-        <CarouselHeader title={`${POPULAR.label} Movies`} href={POPULAR.href} />
+      <CarouselSection
+        title={`${POPULAR.label} Movies`}
+        href={POPULAR.href}
+        className="mt-8"
+      >
         <MediaCarouselWrapper>
           {popularSlides.map((movie) => (
             <PosterCard
@@ -44,13 +47,12 @@ export default async function Movies() {
             />
           ))}
         </MediaCarouselWrapper>
-      </div>
+      </CarouselSection>
 
-      <div className="carousel-section">
-        <CarouselHeader
-          title={`${TOP_RATED.label} Movies`}
-          href={TOP_RATED.href}
-        />
+      <CarouselSection
+        title={`${TOP_RATED.label} Movies`}
+        href={TOP_RATED.href}
+      >
         <MediaCarouselWrapper>
           {topRatedSlides.map((movie) => (
             <PosterCard
@@ -65,13 +67,12 @@ export default async function Movies() {
             />
           ))}
         </MediaCarouselWrapper>
-      </div>
+      </CarouselSection>
 
-      <div className="carousel-section">
-        <CarouselHeader
-          title={`${NOW_PLAYING.label} Movies`}
-          href={NOW_PLAYING.href}
-        />
+      <CarouselSection
+        title={`${NOW_PLAYING.label} Movies`}
+        href={NOW_PLAYING.href}
+      >
         <MediaCarouselWrapper>
           {nowPlayingSlides.map((movie) => (
             <PosterCard
@@ -86,7 +87,7 @@ export default async function Movies() {
             />
           ))}
         </MediaCarouselWrapper>
-      </div>
+      </CarouselSection>
     </section>
   );
 }

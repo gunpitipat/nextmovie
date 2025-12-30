@@ -75,18 +75,18 @@
   .image-cover {
     @apply block object-cover object-center;
   }
-  .carousel-section {
-    @apply relative mx-auto flex w-full max-w-[1440px] flex-col gap-6;
-  }
   .carousel-px-layout {
     @apply first:[&>div]:ml-4 last:[&>div]:mr-4 sm:first:[&>div]:ml-6 sm:last:[&>div]:mr-6 lg:first:[&>div]:ml-0 lg:last:[&>div]:mr-0;
     /* Avoid adding margin or padding directly to .keen-slider or .keen-slider__slide; it can cause Keen Slider to miscalculate layout. */
+  }
+  .carousel-px-content {
+    @apply first:[&>div]:ml-4 last:[&>div]:mr-4 min-[480px]:first:[&>div]:ml-8 min-[480px]:last:[&>div]:mr-8 md:first:[&>div]:ml-12 md:last:[&>div]:mr-12 lg:first:[&>div]:ml-0 lg:last:[&>div]:mr-0;
   }
   .keen-slide-w-fit {
     @apply max-w-fit min-w-fit;
   }
   .carousel-btn {
-    @apply bg-background/50 border-primary hover:bg-surface-2/50 absolute top-1/2 hidden h-16 w-12 -translate-y-1/2 items-center justify-center rounded-lg border transition duration-200 ease-in-out lg:flex;
+    @apply bg-background/50 border-primary hover:bg-surface-2/50 absolute top-[40%] hidden h-16 w-12 -translate-y-1/2 items-center justify-center rounded-lg border transition duration-200 ease-in-out lg:flex;
   }
   .poster-grid {
     @apply grid grid-cols-[repeat(auto-fill,minmax(160px,160px))] items-stretch justify-center gap-x-2 gap-y-4 min-[375px]:gap-x-4 min-[375px]:gap-y-6 lg:grid-cols-[repeat(auto-fill,minmax(175px,175px))] lg:gap-y-8;

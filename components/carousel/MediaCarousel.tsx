@@ -19,7 +19,7 @@ const MediaCarousel = ({ children }: { children: React.ReactNode }) => {
 
   const updateSlidesPerView = (slider: KeenSliderInstance) => {
     const perView = slider.track.details.slides.filter(
-      (slide) => slide.portion >= 0.99
+      (slide) => slide.portion >= 0.95
     ).length;
     setSlidesPerView(perView);
   };
@@ -82,7 +82,7 @@ const MediaCarousel = ({ children }: { children: React.ReactNode }) => {
   const canScrollNext = currentIdx !== maxIdx;
 
   return (
-    <div className="w-full lg:px-8">
+    <div className="relative">
       <div ref={sliderRef} className="keen-slider">
         {children}
       </div>
@@ -90,14 +90,14 @@ const MediaCarousel = ({ children }: { children: React.ReactNode }) => {
       <button
         type="button"
         onClick={() => scrollByView('prev')}
-        className={`carousel-btn left-0 ${canScrollPrev ? 'show' : 'hide'}`}
+        className={`carousel-btn left-0 -translate-x-[60%] ${canScrollPrev ? 'show' : 'hide'}`}
       >
         <FaChevronLeft className="size-7" />
       </button>
       <button
         type="button"
         onClick={() => scrollByView('next')}
-        className={`carousel-btn right-0 ${canScrollNext ? 'show' : 'hide'}`}
+        className={`carousel-btn right-0 translate-x-[60%] ${canScrollNext ? 'show' : 'hide'}`}
       >
         <FaChevronRight className="size-7" />
       </button>
