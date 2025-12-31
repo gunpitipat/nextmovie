@@ -1,15 +1,23 @@
 import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import { getTMDBConfig, getMovieDetail } from '@/lib/tmdb';
-import { formatReleaseYear } from '@/lib/utils/formatDate';
-import { formatRuntime } from '@/lib/utils/formatRuntime';
-import { formatVoteCount } from '@/lib/utils/formatVoteCount';
-import { getTrailers } from '@/lib/utils/getTrailers';
+import {
+  formatReleaseYear,
+  formatRuntime,
+  formatVoteCount,
+  getTrailers,
+  getTopCast,
+  getKeyCrewEntries,
+} from '@/lib/utils';
 import BackButton from '@/components/BackButton';
 import DetailHeader from '@/components/details/DetailHeader';
 import Trailer from '@/components/details/Trailer';
 import Overview from '@/components/details/Overview';
-import type { TMDBConfig, MovieDetail } from '@/types';
+import CarouselSection from '@/components/carousel/CarouselSection';
+import MediaCarouselWrapper from '@/components/carousel/MediaCarouselWrapper';
+import CastCard from '@/components/CastCard';
+import KeyCrew from '@/components/details/KeyCrew';
+import type { TMDBConfig, MovieDetail, SectionSpacing } from '@/types';
 
 async function Movie({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -42,6 +50,10 @@ async function Movie({ params }: { params: Promise<{ id: string }> }) {
     .map((director) => director.name);
 
   const trailers = getTrailers(movie.videos.results);
+  const topCast = getTopCast(movie.credits.cast);
+  const keyCrew = getKeyCrewEntries(movie.credits.crew);
+
+  const sectionSpacing: SectionSpacing = 'content';
 
   return (
     <section className="flex flex-col items-center gap-10 lg:gap-12">
@@ -64,6 +76,22 @@ async function Movie({ params }: { params: Promise<{ id: string }> }) {
       {trailers.length > 0 && <Trailer videos={trailers} />}
 
       <Overview overview={movie.overview} />
+
+      <CarouselSection title="Top Cast" spacing={sectionSpacing}>
+        <MediaCarouselWrapper>
+          {topCast.map((cast) => (
+            <CastCard
+              key={cast.id}
+              name={cast.name}
+              character={cast.character}
+              profilePath={cast.profile_path}
+              imageBaseUrl={imageBaseUrl}
+            />
+          ))}
+        </MediaCarouselWrapper>
+      </CarouselSection>
+
+      {keyCrew.length > 0 && <KeyCrew keyCrewEntries={keyCrew} />}
     </section>
   );
 }

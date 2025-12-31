@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
-import { slugify } from '@/lib/utils/slug';
+import { slugify } from '@/lib/utils';
 import SubnavCarousel from '../carousel/SubnavCarousel';
 import DropdownMenu from './DropdownMenu';
 import type { MenuItem, Genre } from '@/types';

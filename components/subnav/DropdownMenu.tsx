@@ -6,7 +6,7 @@ import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { OverlayScrollbars } from 'overlayscrollbars';
 import 'overlayscrollbars/overlayscrollbars.css';
-import { slugify } from '@/lib/utils/slug';
+import { slugify } from '@/lib/utils';
 import type { Genre } from '@/types';
 
 interface DropdownMenuProps {

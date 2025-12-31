@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { FaStar } from 'react-icons/fa';
-import { slugify } from '@/lib/utils/slug';
+import { slugify } from '@/lib/utils';
 import BookmarkButton from './BookmarkButton';
 import CarouselLink from './carousel/CarouselLink';
 import type { SectionSpacing } from '@/types';

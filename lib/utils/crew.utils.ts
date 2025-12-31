@@ -1,0 +1,95 @@
+import type { Crew } from '@/types';
+
+// Use `job` for grouping; TMDB's `known_for_department` and `department` are inconsistent and not specific enough.
+const CREW_GROUPS = {
+  directors: ['Director'],
+  writers: ['Screenplay', 'Story', 'Characters', 'Writer', 'Original Story'],
+  producers: [
+    'Executive Producer',
+    'Co-Executive Producer',
+    'Producer',
+    'Co-Producer',
+    'Associate Producer',
+  ],
+  composers: ['Original Music Composer', 'Music Composer'],
+  cinematographers: ['Director of Photography', 'Director of Cinematography'],
+  editors: ['Editor'],
+  casting: ['Casting', 'Casting Director'],
+  production_designers: ['Production Design', 'Production Designer'],
+  art_directors: ['Art Direction', 'Art Director', 'Supervising Art Director'],
+  animation_directors: [
+    'Animation Direction',
+    'Animation Director',
+    'Supervising Animation Director',
+  ],
+  action_directors: ['Action Direction', 'Action Director'],
+  costume_designers: [
+    'Costume Design',
+    'Costume Designer',
+    'Co-Costume Designer',
+  ],
+  sound: [
+    'Sound Direction',
+    'Sound Director',
+    'Supervising Sound Editor',
+    'Sound Designer',
+  ],
+  visual_effects: [
+    'Visual Effects Supervisor',
+    'Senior Visual Effects Supervisor',
+    'CGI Director',
+    'CG Supervisor',
+  ],
+} as const;
+
+export type CrewGroup = keyof typeof CREW_GROUPS;
+
+const CREW_GROUP_ORDER = Object.keys(CREW_GROUPS) as CrewGroup[];
+
+// Reverse CREW_GROUPS into a lookup map (e.g. { "Screenplay": "writers", "Story": "writers", ... })
+const CREW_LOOKUP: Record<string, CrewGroup> = Object.fromEntries(
+  Object.entries(CREW_GROUPS).flatMap(([group, jobs]) =>
+    jobs.map((job) => [job, group as CrewGroup])
+  )
+);
+
+const groupKeyCrew = (people: Crew[]): Partial<Record<CrewGroup, Crew[]>> => {
+  const keyCrew = people.filter((person) => CREW_LOOKUP[person.job]);
+  const groupedCrew = Object.groupBy(
+    keyCrew,
+    (person) => CREW_LOOKUP[person.job]
+  );
+
+  // Remove duplicate crew per group
+  for (const group of Object.keys(groupedCrew) as CrewGroup[]) {
+    const crew = groupedCrew[group]!;
+    const uniqueIds = new Set<number>();
+
+    groupedCrew[group] = crew.filter((person) => {
+      if (uniqueIds.has(person.id)) return false;
+      uniqueIds.add(person.id);
+      return true;
+    });
+  }
+
+  return groupedCrew;
+};
+
+export type KeyCrewEntry = [CrewGroup, Crew[]];
+
+export function getKeyCrewEntries(people: Crew[]): KeyCrewEntry[] {
+  const groupedCrew = groupKeyCrew(people);
+
+  return CREW_GROUP_ORDER.flatMap((group) => {
+    const crew = groupedCrew[group];
+    if (!crew) return [];
+
+    return [[group, crew]];
+  });
+}
+
+export function formatGroupName(group: CrewGroup): string {
+  return group
+    .replace(/_/g, ' ')
+    .replace(/\b\w/g, (char) => char.toUpperCase());
+}

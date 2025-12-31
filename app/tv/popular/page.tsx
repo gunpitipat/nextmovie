@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import { getTMDBConfig, getPopularTV } from '@/lib/tmdb';
-import { filterWithImages } from '@/lib/utils/filterWithImages';
+import { filterWithImages } from '@/lib/utils';
 import { MAX_TMDB_PAGES } from '@/lib/constants';
 import Pagination from '@/components/Pagination';
 import PosterCard from '@/components/PosterCard';

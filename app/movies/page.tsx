@@ -4,7 +4,7 @@ import {
   getTopRatedMovies,
   getNowPlayingMovies,
 } from '@/lib/tmdb';
-import { filterWithImages } from '@/lib/utils/filterWithImages';
+import { filterWithImages } from '@/lib/utils';
 import { MOVIE_CATEGORIES } from '@/lib/constants';
 import CarouselSection from '@/components/carousel/CarouselSection';
 import MediaCarouselWrapper from '@/components/carousel/MediaCarouselWrapper';

@@ -1,8 +1,7 @@
 import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import { getTMDBConfig, getGenres, getTVShowsByGenre } from '@/lib/tmdb';
-import { slugify } from '@/lib/utils/slug';
-import { filterWithImages } from '@/lib/utils/filterWithImages';
+import { slugify, filterWithImages } from '@/lib/utils';
 import { MAX_TMDB_PAGES } from '@/lib/constants';
 import Pagination from '@/components/Pagination';
 import PosterCard from '@/components/PosterCard';
