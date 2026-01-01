@@ -18,19 +18,19 @@ const CastCard = ({
 
   return (
     <div className="keen-slider__slide keen-slide-w-fit carousel-px-content">
-      <div className="h-full w-40 lg:w-43">
+      <div className="h-full w-40 lg:w-[175px]">
         <div className="relative aspect-square w-full overflow-hidden rounded-full">
           {profileUrl ? (
             <Image
               src={profileUrl}
               alt={name}
               fill
-              sizes="(max-width: 1023px) 160px, 172px"
+              sizes="(max-width: 1023px) 160px, 175px"
               className="block object-cover object-[50%_25%]"
             />
           ) : (
             <div className="bg-surface-1 flex size-full items-center justify-center">
-              <HiMiniUser className="text-muted/50 size-23 lg:size-26" />
+              <HiMiniUser className="text-muted/50 size-24 lg:size-26" />
             </div>
           )}
         </div>

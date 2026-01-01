@@ -59,7 +59,7 @@ const DetailHeader = ({
         <div className="gradient-overlay bottom-0 left-0 h-[50%] w-full bg-linear-to-b lg:h-[60%]" />
       </div>
 
-      <div className="px-content -mt-14 flex w-full max-w-7xl flex-col gap-5 sm:flex-row sm:items-center sm:justify-between sm:gap-6 lg:-mt-28">
+      <div className="px-content max-w-content -mt-14 flex w-full flex-col gap-5 sm:flex-row sm:items-center sm:justify-between sm:gap-6 lg:-mt-28">
         <div className="flex items-center gap-4">
           {/* Poster */}
           <div className="relative aspect-2/3 w-30 flex-none overflow-hidden rounded-lg">

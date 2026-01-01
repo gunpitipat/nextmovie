@@ -1,13 +1,17 @@
 import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
-import { getTMDBConfig, getMovieDetail } from '@/lib/tmdb';
+import { getTMDBConfig, getMovieDetail, getCollection } from '@/lib/tmdb';
 import {
+  buildFromStack,
   formatReleaseYear,
   formatRuntime,
   formatVoteCount,
   getTrailers,
   getTopCast,
   getKeyCrewEntries,
+  filterRelatedMovies,
+  filterWithImages,
+  sortSimilarMovies,
 } from '@/lib/utils';
 import BackButton from '@/components/BackButton';
 import DetailHeader from '@/components/details/DetailHeader';
@@ -17,9 +21,21 @@ import CarouselSection from '@/components/carousel/CarouselSection';
 import MediaCarouselWrapper from '@/components/carousel/MediaCarouselWrapper';
 import CastCard from '@/components/CastCard';
 import KeyCrew from '@/components/details/KeyCrew';
-import type { TMDBConfig, MovieDetail, SectionSpacing } from '@/types';
+import PosterCard from '@/components/PosterCard';
+import type {
+  TMDBConfig,
+  MovieDetail,
+  SectionSpacing,
+  MediaMovie,
+} from '@/types';
 
-async function Movie({ params }: { params: Promise<{ id: string }> }) {
+async function Movie({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ id: string }>;
+  searchParams: Promise<{ from?: string }>;
+}) {
   const { id } = await params;
   const movieId = id.split('-')[0];
 
@@ -43,6 +59,26 @@ async function Movie({ params }: { params: Promise<{ id: string }> }) {
 
   if (!posterPath || !backdropPath) notFound();
 
+  const { from } = await searchParams;
+  const fromParam = buildFromStack(`/movie/${id}`, from);
+
+  const collectionId = movie.belongs_to_collection?.id;
+  let relatedMovies: (MediaMovie & {
+    poster_path: string;
+    backdrop_path: string;
+  })[] = [];
+
+  if (collectionId) {
+    try {
+      const collection = await getCollection(collectionId);
+      relatedMovies = filterWithImages(
+        filterRelatedMovies(collection.parts, movie.id)
+      );
+    } catch {
+      relatedMovies = [];
+    }
+  }
+
   const imageBaseUrl = config.images.secure_base_url;
   const status = movie.status !== 'Released' ? movie.status : undefined;
   const directors = movie.credits.crew
@@ -52,6 +88,9 @@ async function Movie({ params }: { params: Promise<{ id: string }> }) {
   const trailers = getTrailers(movie.videos.results);
   const topCast = getTopCast(movie.credits.cast);
   const keyCrew = getKeyCrewEntries(movie.credits.crew);
+  const similarMovies = filterWithImages(
+    sortSimilarMovies(movie.similar.results)
+  );
 
   const sectionSpacing: SectionSpacing = 'content';
 
@@ -92,14 +131,59 @@ async function Movie({ params }: { params: Promise<{ id: string }> }) {
       </CarouselSection>
 
       {keyCrew.length > 0 && <KeyCrew keyCrewEntries={keyCrew} />}
+
+      {relatedMovies.length > 0 && (
+        <CarouselSection title="Related Movies" spacing={sectionSpacing}>
+          <MediaCarouselWrapper>
+            {relatedMovies.map((movie) => (
+              <PosterCard
+                key={movie.id}
+                mediaType={movie.media_type}
+                id={movie.id}
+                title={movie.title}
+                rating={movie.vote_average}
+                posterPath={movie.poster_path}
+                imageBaseUrl={imageBaseUrl}
+                inCarousel
+                carouselSpacing={sectionSpacing}
+                from={fromParam}
+              />
+            ))}
+          </MediaCarouselWrapper>
+        </CarouselSection>
+      )}
+
+      {similarMovies.length > 0 && (
+        <CarouselSection title="Similar Movies" spacing={sectionSpacing}>
+          <MediaCarouselWrapper>
+            {similarMovies.map((movie) => (
+              <PosterCard
+                key={movie.id}
+                mediaType="movie"
+                id={movie.id}
+                title={movie.title}
+                rating={movie.vote_average}
+                posterPath={movie.poster_path}
+                imageBaseUrl={imageBaseUrl}
+                inCarousel
+                carouselSpacing={sectionSpacing}
+                from={fromParam}
+              />
+            ))}
+          </MediaCarouselWrapper>
+        </CarouselSection>
+      )}
     </section>
   );
 }
 
-export default function Page({ params }: PageProps<'/movie/[id]'>) {
+export default function Page({
+  params,
+  searchParams,
+}: PageProps<'/movie/[id]'>) {
   return (
     <Suspense>
-      <Movie params={params} />
+      <Movie params={params} searchParams={searchParams} />
     </Suspense>
   );
 }

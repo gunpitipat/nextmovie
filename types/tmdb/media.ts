@@ -20,12 +20,12 @@ export interface TVShow extends BaseMedia {
   genre_ids: number[];
 }
 
-export interface TrendingMovie extends Movie {
+export interface MediaMovie extends Movie {
   media_type: 'movie';
 }
 
-export interface TrendingTV extends TVShow {
+export interface MediaTV extends TVShow {
   media_type: 'tv';
 }
 
-export type TrendingMedia = TrendingMovie | TrendingTV;
+export type Media = MediaMovie | MediaTV;

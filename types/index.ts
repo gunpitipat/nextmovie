@@ -3,6 +3,7 @@ export * from './layout';
 export * from './tmdb/config';
 export * from './tmdb/pagination';
 export * from './tmdb/media';
+export * from './tmdb/collection';
 export * from './tmdb/genre';
 export * from './tmdb/credits';
 export * from './tmdb/video';

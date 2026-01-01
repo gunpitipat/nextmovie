@@ -32,10 +32,13 @@ const KeyCrew = ({ keyCrewEntries }: KeyCrewProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
 
-  const directors = keyCrewEntries.find(([group]) => group === 'directors');
-  const writers = keyCrewEntries.find(([group]) => group === 'writers');
+  let pinnedEntries = keyCrewEntries.filter(
+    ([group]) => group === 'directors' || group === 'writers'
+  );
+  if (pinnedEntries.length === 0) pinnedEntries = keyCrewEntries.slice(0, 2);
+
   const restEntries = keyCrewEntries.filter(
-    ([group]) => group !== 'directors' && group !== 'writers'
+    ([group]) => !pinnedEntries.some(([pinnedGroup]) => pinnedGroup === group)
   );
 
   // Expand and collapse content
@@ -60,32 +63,35 @@ const KeyCrew = ({ keyCrewEntries }: KeyCrewProps) => {
   }, [isExpanded]);
 
   return (
-    <div className="px-content w-full max-w-7xl">
+    <div className="px-content max-w-content w-full">
       <h2 className="heading">Key Crew</h2>
 
       <div className="mt-6 flex flex-col gap-2">
-        {directors && <KeyCrewItem group={directors[0]} crew={directors[1]} />}
-        {writers && <KeyCrewItem group={writers[0]} crew={writers[1]} />}
-      </div>
-
-      <div
-        ref={contentRef}
-        className="mt-2 flex flex-col gap-2 overflow-hidden transition-[max_height] duration-400 ease-in-out"
-      >
-        {restEntries.map(([group, crew]) => (
+        {pinnedEntries.map(([group, crew]) => (
           <KeyCrewItem key={group} group={group} crew={crew} />
         ))}
       </div>
 
       {restEntries.length > 0 && (
-        <button
-          type="button"
-          onClick={() => setIsExpanded(!isExpanded)}
-          className="hover:text-highlight flex h-11 items-center justify-center gap-1 text-base transition-colors duration-200 ease-in-out"
-        >
-          {!isExpanded ? 'Show more' : 'Show less'}
-          {!isExpanded ? <FaChevronDown /> : <FaChevronUp />}
-        </button>
+        <>
+          <div
+            ref={contentRef}
+            className="mt-2 flex flex-col gap-2 overflow-hidden transition-[max_height] duration-400 ease-in-out"
+          >
+            {restEntries.map(([group, crew]) => (
+              <KeyCrewItem key={group} group={group} crew={crew} />
+            ))}
+          </div>
+
+          <button
+            type="button"
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="hover:text-highlight flex h-11 items-center justify-center gap-1 text-base transition-colors duration-200 ease-in-out"
+          >
+            {!isExpanded ? 'Show more' : 'Show less'}
+            {!isExpanded ? <FaChevronDown /> : <FaChevronUp />}
+          </button>
+        </>
       )}
     </div>
   );

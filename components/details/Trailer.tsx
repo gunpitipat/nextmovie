@@ -44,7 +44,7 @@ const Trailer = ({ videos }: TrailerProps) => {
   };
 
   return (
-    <div className="flex w-full max-w-7xl flex-col gap-5 lg:flex-row lg:px-16 xl:px-20">
+    <div className="max-w-content flex w-full flex-col gap-5 lg:flex-row lg:px-16 xl:px-18">
       <div className="w-full px-4 min-[480px]:px-8 md:px-12 lg:px-0">
         <h2 className="heading">Trailer</h2>
         <div

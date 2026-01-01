@@ -2,6 +2,7 @@
 
 import { useRouter, useSearchParams } from 'next/navigation';
 import { FaChevronLeft } from 'react-icons/fa';
+import { DELIMITER } from '@/lib/utils';
 
 interface BackButtonProps {
   fallbackHref?: string;
@@ -12,9 +13,26 @@ const BackButton = ({ fallbackHref = '/' }: BackButtonProps) => {
   const searchParams = useSearchParams();
   const from = searchParams.get('from');
 
+  let immediate: string | undefined;
+  let remaining: string | undefined;
+
+  if (from) {
+    const idx = from.indexOf(DELIMITER);
+    if (idx !== -1) {
+      immediate = from.slice(0, idx);
+      remaining = from.slice(idx + DELIMITER.length);
+    } else {
+      immediate = from;
+      remaining = undefined;
+    }
+  }
+
   const handleBack = () => {
-    if (from?.startsWith('/')) {
-      router.push(from);
+    if (immediate?.startsWith('/')) {
+      const href = remaining
+        ? `${immediate}?from=${encodeURIComponent(remaining)}`
+        : immediate;
+      router.push(href);
     } else {
       router.push(fallbackHref);
     }

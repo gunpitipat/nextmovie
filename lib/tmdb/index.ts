@@ -3,6 +3,7 @@ export * from './configuration';
 export * from './trending';
 export * from './genre';
 export * from './discover';
+export * from './collection';
 
 export * from './movie/popular';
 export * from './movie/top-rated';

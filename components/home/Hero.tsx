@@ -1,10 +1,10 @@
 import Image from 'next/image';
 import DetailsButton from './DetailsButton';
 import FavoriteButton from '../FavoriteButton';
-import type { TrendingMedia } from '@/types';
+import type { Media } from '@/types';
 
 interface HeroProps {
-  media: TrendingMedia;
+  media: Media;
   imageBaseUrl: string;
   pathname: string;
   preload?: boolean;

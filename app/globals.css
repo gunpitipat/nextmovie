@@ -101,11 +101,14 @@
   .max-w-layout {
     max-width: 1440px;
   }
+  .max-w-content {
+    max-width: 1280px;
+  }
   .px-layout {
     @apply px-4 sm:px-6 lg:px-8;
   }
   .px-content {
-    @apply px-4 min-[480px]:px-8 md:px-12 lg:px-16 xl:px-20;
+    @apply px-4 min-[480px]:px-8 md:px-12 lg:px-16 xl:px-18;
   }
   .show {
     @apply pointer-events-auto opacity-100;

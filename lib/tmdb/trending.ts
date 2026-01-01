@@ -1,10 +1,10 @@
 import { cacheLife } from 'next/cache';
 import { fetchTMDB } from './tmdb';
-import type { PaginatedResponse, TrendingMovie, TrendingTV } from '@/types';
+import type { PaginatedResponse, MediaMovie, MediaTV } from '@/types';
 
 export async function getTrendingMovies(
   timeWindow: 'day' | 'week' = 'week'
-): Promise<PaginatedResponse<TrendingMovie>> {
+): Promise<PaginatedResponse<MediaMovie>> {
   'use cache';
   cacheLife({
     stale: 5 * 60,
@@ -12,14 +12,14 @@ export async function getTrendingMovies(
     expire: 24 * 60 * 60,
   });
 
-  return fetchTMDB<PaginatedResponse<TrendingMovie>>(
+  return fetchTMDB<PaginatedResponse<MediaMovie>>(
     `/trending/movie/${timeWindow}?language=en-US`
   );
 }
 
 export async function getTrendingTV(
   timeWindow: 'day' | 'week' = 'week'
-): Promise<PaginatedResponse<TrendingTV>> {
+): Promise<PaginatedResponse<MediaTV>> {
   'use cache';
   cacheLife({
     stale: 5 * 60,
@@ -27,7 +27,7 @@ export async function getTrendingTV(
     expire: 24 * 60 * 60,
   });
 
-  return fetchTMDB<PaginatedResponse<TrendingTV>>(
+  return fetchTMDB<PaginatedResponse<MediaTV>>(
     `/trending/tv/${timeWindow}?language=en-US`
   );
 }

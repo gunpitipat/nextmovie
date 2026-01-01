@@ -23,7 +23,7 @@ export function getTrailers(videos: Video[]): Video[] {
         (/(official\s*)?(teaser\s*trailer|trailer\s*teaser)$/i.test(
           video.name
         ) ||
-          /^official\s*(teaser|trailer)/i.test(video.name)) &&
+          /^official\s*(teaser|trailer)$/i.test(video.name)) &&
         !/now\s*playing|in\s*theaters|on\s*sale|tickets?|online\s*now/i.test(
           video.name
         )

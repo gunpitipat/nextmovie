@@ -17,10 +17,10 @@ const CarouselSection = ({
   spacing = 'layout',
   children,
 }: CarouselSectionProps) => {
-  const maxWidth = spacing === 'layout' ? 'max-w-layout' : 'max-w-7xl';
+  const maxWidth = spacing === 'layout' ? 'max-w-layout' : 'max-w-content';
   const headingPaddingX = spacing === 'layout' ? 'px-layout' : 'px-content';
   const carouselPaddingX =
-    spacing === 'layout' ? 'lg:px-8' : 'lg:px-16 xl:px-20';
+    spacing === 'layout' ? 'lg:px-8' : 'lg:px-16 xl:px-18';
   const linkMarginX = spacing === 'layout' ? 'mr-4 sm:mr-6 lg:mr-8' : '';
 
   const Heading = <h2 className={`heading ${headingPaddingX}`}>{title}</h2>;
