@@ -18,7 +18,7 @@ interface KeyCrewProps {
 const KeyCrewItem = ({ group, crew }: KeyCrewItemProps) => {
   return (
     <div className="border-surface-2 flex gap-2.5 border-b pb-2">
-      <h3 className="border-surface-3 bg-surface-2 flex-none self-start rounded-lg border px-2 py-px text-sm font-medium">
+      <h3 className="badge flex-none self-start px-2 py-px text-sm font-medium">
         {formatGroupName(group)}
       </h3>
       <p className="text-secondary self-center text-sm">
@@ -64,7 +64,7 @@ const KeyCrew = ({ keyCrewEntries }: KeyCrewProps) => {
 
   return (
     <div className="px-content max-w-content w-full">
-      <h2 className="heading">Key Crew</h2>
+      <h2 className="heading heading-bar">Key Crew</h2>
 
       <div className="mt-6 flex flex-col gap-2">
         {pinnedEntries.map(([group, crew]) => (

@@ -46,10 +46,10 @@ const Trailer = ({ videos }: TrailerProps) => {
   return (
     <div className="max-w-content flex w-full flex-col gap-5 lg:flex-row lg:px-16 xl:px-18">
       <div className="w-full px-4 min-[480px]:px-8 md:px-12 lg:px-0">
-        <h2 className="heading">Trailer</h2>
+        <h2 className="heading heading-bar">Trailer</h2>
         <div
           // Use :after for responsive backdrop behind the centered 16:9 video
-          className={`sm:after:border-surface-3 relative mt-5 sm:after:absolute sm:after:top-0 sm:after:left-0 sm:after:-z-1 sm:after:h-[315px] sm:after:w-full sm:after:rounded-lg sm:after:border sm:after:bg-black md:after:h-[360px] ${hasMultipleVideos ? 'lg:after:hidden' : 'xl:after:h-[405px]'}`}
+          className={`sm:after:border-surface-3 relative mt-6 sm:after:absolute sm:after:top-0 sm:after:left-0 sm:after:-z-1 sm:after:h-[315px] sm:after:w-full sm:after:rounded-lg sm:after:border sm:after:bg-black md:after:h-[360px] ${hasMultipleVideos ? 'lg:after:hidden' : 'xl:after:h-[405px]'}`}
         >
           <div
             className={`border-surface-3 relative mx-auto aspect-video w-full overflow-hidden rounded-lg border sm:w-[560px] sm:rounded-none sm:border-x-0 md:w-[640px] ${hasMultipleVideos ? 'lg:mx-0 lg:rounded-lg lg:border-x' : ''} xl:w-[720px]`}
@@ -86,7 +86,7 @@ const Trailer = ({ videos }: TrailerProps) => {
 
       {hasMultipleVideos && (
         <div
-          className="w-full lg:mt-[calc(20px+20px)]" // lg:mt-(heading size + gap)
+          className="w-full lg:mt-[calc(20px+24px)]" // lg:mt-(heading size + gap)
         >
           <TrailerThumbnails
             videos={videos}

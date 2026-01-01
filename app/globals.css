@@ -95,6 +95,9 @@
     @apply: w-full;
     height: min(env(safe-area-inset-bottom, 0), 12px);
   }
+  .badge {
+    @apply border-surface-3 bg-surface-2 rounded-lg border;
+  }
 }
 
 @layer utilities {
@@ -103,6 +106,12 @@
   }
   .max-w-content {
     max-width: 1280px;
+  }
+  .mx-layout {
+    @apply mx-4 sm:mx-6 lg:mx-8;
+  }
+  .mx-content {
+    @apply mx-4 min-[480px]:mx-8 md:mx-12 lg:mx-16 xl:mx-18;
   }
   .px-layout {
     @apply px-4 sm:px-6 lg:px-8;
@@ -117,7 +126,10 @@
     @apply pointer-events-none opacity-0;
   }
   .heading {
-    @apply text-highlight text-lg leading-none font-semibold lg:text-xl;
+    @apply relative text-lg leading-none font-semibold lg:text-xl;
+  }
+  .heading-bar {
+    @apply after:bg-primary pl-4 after:absolute after:top-0 after:left-0 after:h-full after:w-1 after:rounded-xs;
   }
   .btn {
     @apply bg-background/50 hover:bg-surface-2/50 border-primary rounded-lg border px-3 py-2 transition-colors duration-200 ease-in-out;

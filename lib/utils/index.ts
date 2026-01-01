@@ -7,5 +7,6 @@ export * from './formatVoteCount';
 export * from './getTrailers';
 export * from './getTopCast';
 export * from './crew.utils';
+export * from './formatLanguage';
 export * from './filterRelatedMovies';
 export * from './sortSimilarMovies';

@@ -9,6 +9,8 @@ import {
   getTrailers,
   getTopCast,
   getKeyCrewEntries,
+  formatDate,
+  formatLanguage,
   filterRelatedMovies,
   filterWithImages,
   sortSimilarMovies,
@@ -21,6 +23,7 @@ import CarouselSection from '@/components/carousel/CarouselSection';
 import MediaCarouselWrapper from '@/components/carousel/MediaCarouselWrapper';
 import CastCard from '@/components/CastCard';
 import KeyCrew from '@/components/details/KeyCrew';
+import Details from '@/components/details/Details';
 import PosterCard from '@/components/PosterCard';
 import type {
   TMDBConfig,
@@ -88,6 +91,12 @@ async function Movie({
   const trailers = getTrailers(movie.videos.results);
   const topCast = getTopCast(movie.credits.cast);
   const keyCrew = getKeyCrewEntries(movie.credits.crew);
+  const productionCountries = movie.production_countries.map(
+    (country) => country.name
+  );
+  const productionCompanies = movie.production_companies.map(
+    (company) => company.name
+  );
   const similarMovies = filterWithImages(
     sortSimilarMovies(movie.similar.results)
   );
@@ -131,6 +140,13 @@ async function Movie({
       </CarouselSection>
 
       {keyCrew.length > 0 && <KeyCrew keyCrewEntries={keyCrew} />}
+
+      <Details
+        releaseDate={formatDate(movie.release_date)}
+        originalLanguage={formatLanguage(movie.original_language)}
+        productionCountries={productionCountries}
+        productionCompanies={productionCompanies}
+      />
 
       {relatedMovies.length > 0 && (
         <CarouselSection title="Related Movies" spacing={sectionSpacing}>

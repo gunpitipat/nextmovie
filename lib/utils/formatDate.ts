@@ -15,3 +15,14 @@ export function formatPublishedAt(date: string): string {
     day: 'numeric',
   });
 }
+
+// 2000-10-18 -> October 18, 2000
+export function formatDate(date: string): string {
+  if (!date) return '';
+
+  return new Date(date).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+}
