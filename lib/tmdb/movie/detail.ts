@@ -11,6 +11,6 @@ export async function getMovieDetail(id: string): Promise<MovieDetail> {
   });
 
   return fetchTMDB<MovieDetail>(
-    `/movie/${id}?language=en-US&append_to_response=credits,videos,similar`
+    `/movie/${id}?language=en-US&append_to_response=credits,videos,recommendations,similar`
   );
 }

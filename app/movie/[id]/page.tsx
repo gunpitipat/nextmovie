@@ -97,9 +97,19 @@ async function Movie({
   const productionCompanies = movie.production_companies.map(
     (company) => company.name
   );
+
+  const uniqueRecommended = movie.recommendations.results.filter(
+    (recommended) =>
+      !relatedMovies.some((related) => related.id === recommended.id)
+  );
+  const recommendedMovies = filterWithImages(uniqueRecommended);
   const similarMovies = filterWithImages(
     sortSimilarMovies(movie.similar.results)
   );
+
+  const shouldShowSimilar =
+    similarMovies.length !== 0 &&
+    (relatedMovies.length === 0 || recommendedMovies.length === 0);
 
   const sectionSpacing: SectionSpacing = 'content';
 
@@ -121,9 +131,9 @@ async function Movie({
         genres={movie.genres}
       />
 
-      {trailers.length > 0 && <Trailer videos={trailers} />}
-
       <Overview overview={movie.overview} />
+
+      {trailers.length > 0 && <Trailer videos={trailers} />}
 
       <CarouselSection title="Top Cast" spacing={sectionSpacing}>
         <MediaCarouselWrapper>
@@ -169,7 +179,28 @@ async function Movie({
         </CarouselSection>
       )}
 
-      {similarMovies.length > 0 && (
+      {recommendedMovies.length > 0 && (
+        <CarouselSection title="Recommended Movies" spacing={sectionSpacing}>
+          <MediaCarouselWrapper>
+            {recommendedMovies.map((movie) => (
+              <PosterCard
+                key={movie.id}
+                mediaType={movie.media_type}
+                id={movie.id}
+                title={movie.title}
+                rating={movie.vote_average}
+                posterPath={movie.poster_path}
+                imageBaseUrl={imageBaseUrl}
+                inCarousel
+                carouselSpacing={sectionSpacing}
+                from={fromParam}
+              />
+            ))}
+          </MediaCarouselWrapper>
+        </CarouselSection>
+      )}
+
+      {shouldShowSimilar && (
         <CarouselSection title="Similar Movies" spacing={sectionSpacing}>
           <MediaCarouselWrapper>
             {similarMovies.map((movie) => (

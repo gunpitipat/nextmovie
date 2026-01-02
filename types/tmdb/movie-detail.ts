@@ -1,4 +1,4 @@
-import type { BaseMedia, Movie } from './media';
+import type { BaseMedia, MediaMovie, Movie } from './media';
 import type { Genre } from './genre';
 import type { Credits } from './credits';
 import type { VideoResponse } from './video';
@@ -23,5 +23,6 @@ export interface MovieDetail extends BaseMedia {
   // Append to response
   credits: Credits;
   videos: VideoResponse;
+  recommendations: PaginatedResponse<MediaMovie>;
   similar: PaginatedResponse<Movie>;
 }
