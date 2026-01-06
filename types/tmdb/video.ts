@@ -3,7 +3,7 @@ export interface Video {
   name: string;
   key: string;
   site: string; // e.g. 'YouTube'
-  type: string; // e.g. 'Trailer' | 'Teaser' | 'Featurette' | 'Clip' | 'Behind the Scenes'
+  type: string; // e.g. 'Trailer' | 'Teaser' | 'Featurette' | 'Clip' | 'Behind the Scenes' | Opening Credits
   official: boolean;
   published_at: string;
 }

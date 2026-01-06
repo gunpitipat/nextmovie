@@ -78,14 +78,16 @@ const DetailHeader = ({
               {title}
             </h1>
 
-            <h2>
-              <span className="text-secondary text-sm lg:text-base">
-                Directed by{' '}
-              </span>
-              <span className="text-base font-medium lg:text-lg">
-                {directors.join(', ')}
-              </span>
-            </h2>
+            {directors.length > 0 && (
+              <h2>
+                <span className="text-secondary text-sm lg:text-base">
+                  Directed by{' '}
+                </span>
+                <span className="text-base font-medium lg:text-lg">
+                  {directors.join(', ')}
+                </span>
+              </h2>
+            )}
 
             <p className="text-secondary text-sm lg:text-base">
               <span>{releaseYear}</span>

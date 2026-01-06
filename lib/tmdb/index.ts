@@ -13,3 +13,4 @@ export * from './movie/detail';
 export * from './tv/popular';
 export * from './tv/top-rated';
 export * from './tv/on-the-air';
+export * from './tv/detail';

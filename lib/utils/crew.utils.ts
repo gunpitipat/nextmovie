@@ -1,15 +1,25 @@
-import type { Crew } from '@/types';
+import type { Crew, TVCrew, AggregateTVCrew } from '@/types';
 
 // Use `job` for grouping; TMDB's `known_for_department` and `department` are inconsistent and not specific enough.
 const CREW_GROUPS = {
-  directors: ['Director'],
-  writers: ['Screenplay', 'Story', 'Characters', 'Writer', 'Original Story'],
+  directors: ['Director', 'Co-Director'],
+  writers: [
+    'Screenplay',
+    'Story',
+    'Characters',
+    'Writer',
+    'Original Story',
+    'Teleplay',
+    'Staff Writer',
+    'Executive Story Editor',
+    'Story Editor',
+  ],
   producers: [
     'Executive Producer',
     'Co-Executive Producer',
+    'Supervising Producer',
     'Producer',
     'Co-Producer',
-    'Associate Producer',
   ],
   composers: ['Original Music Composer', 'Music Composer'],
   cinematographers: ['Director of Photography', 'Director of Cinematography'],
@@ -53,7 +63,23 @@ const CREW_LOOKUP: Record<string, CrewGroup> = Object.fromEntries(
   )
 );
 
-const groupKeyCrew = (people: Crew[]): Partial<Record<CrewGroup, Crew[]>> => {
+// Normalize aggregate jobs to single primary job
+export function normalizeAggregateTVCrew(people: AggregateTVCrew[]): TVCrew[] {
+  return people.map((person) => {
+    const sortedJobs = person.jobs.toSorted(
+      (a, b) => b.episode_count - a.episode_count
+    );
+
+    const primaryJob =
+      sortedJobs.find((item) => CREW_LOOKUP[item.job]) ?? sortedJobs[0];
+
+    return { ...person, job: primaryJob.job };
+  });
+}
+
+const groupKeyCrew = <T extends Crew>(
+  people: T[]
+): Partial<Record<CrewGroup, T[]>> => {
   const keyCrew = people.filter((person) => CREW_LOOKUP[person.job]);
   const groupedCrew = Object.groupBy(
     keyCrew,
@@ -75,9 +101,11 @@ const groupKeyCrew = (people: Crew[]): Partial<Record<CrewGroup, Crew[]>> => {
   return groupedCrew;
 };
 
-export type KeyCrewEntry = [CrewGroup, Crew[]];
+export type KeyCrewEntry<T extends Crew> = [CrewGroup, T[]];
 
-export function getKeyCrewEntries(people: Crew[]): KeyCrewEntry[] {
+export function getKeyCrewEntries<T extends Crew>(
+  people: T[]
+): KeyCrewEntry<T>[] {
   const groupedCrew = groupKeyCrew(people);
 
   return CREW_GROUP_ORDER.flatMap((group) => {

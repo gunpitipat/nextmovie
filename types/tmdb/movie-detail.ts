@@ -1,6 +1,7 @@
-import type { BaseMedia, MediaMovie, Movie } from './media';
+import type { BaseMedia, Movie, MediaMovie } from './media';
 import type { Genre } from './genre';
-import type { Credits } from './credits';
+import type { Company } from './company';
+import type { MovieCredits } from './credits';
 import type { VideoResponse } from './video';
 import type { PaginatedResponse } from './pagination';
 
@@ -12,7 +13,7 @@ export interface MovieDetail extends BaseMedia {
   status: string; // e.g. 'Released'
   budget: number;
   revenue: number;
-  production_companies: { name: string; logo_path: string | null }[];
+  production_companies: Company[];
   production_countries: { name: string }[];
   original_language: string; // ISO 639-1
   belongs_to_collection: {
@@ -21,7 +22,7 @@ export interface MovieDetail extends BaseMedia {
   } | null;
 
   // Append to response
-  credits: Credits;
+  credits: MovieCredits;
   videos: VideoResponse;
   recommendations: PaginatedResponse<MediaMovie>;
   similar: PaginatedResponse<Movie>;

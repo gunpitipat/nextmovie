@@ -4,25 +4,47 @@ import { useEffect, useRef, useState } from 'react';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import { formatGroupName } from '@/lib/utils';
 import type { CrewGroup, KeyCrewEntry } from '@/lib/utils';
-import type { Crew } from '@/types';
+import type { Crew, TVCrew } from '@/types';
 
 interface KeyCrewItemProps {
   group: CrewGroup;
-  crew: Crew[];
+  crew: (Crew | TVCrew)[];
 }
 
 interface KeyCrewProps {
-  keyCrewEntries: KeyCrewEntry[];
+  keyCrewEntries: KeyCrewEntry<Crew | TVCrew>[];
 }
 
 const KeyCrewItem = ({ group, crew }: KeyCrewItemProps) => {
+  // Crew list is expected to be homogeneous (all Crew or all TVCrew),
+  // based on TMDB API response shape and grouping utils.
+  const isTVCrew = (people: (Crew | TVCrew)[]): people is TVCrew[] =>
+    'total_episode_count' in people[0];
+
   return (
     <div className="border-surface-2 flex gap-2.5 border-b pb-2">
       <h3 className="badge flex-none self-start px-2 py-px text-sm font-medium">
         {formatGroupName(group)}
       </h3>
+
       <p className="text-secondary self-center text-sm">
-        {crew.map((person) => person.name).join(' • ')}
+        {isTVCrew(crew)
+          ? crew.map((person, idx) => (
+              <span key={person.id}>
+                {person.name}
+                <span className="text-muted">
+                  {' '}
+                  ({person.total_episode_count}&nbsp;ep)
+                </span>
+                {idx < crew.length - 1 && ' • '}
+              </span>
+            ))
+          : crew.map((person, idx) => (
+              <span key={person.id}>
+                {person.name}
+                {idx < crew.length - 1 && ' • '}
+              </span>
+            ))}
       </p>
     </div>
   );

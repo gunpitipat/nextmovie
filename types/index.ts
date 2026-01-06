@@ -7,4 +7,6 @@ export * from './tmdb/collection';
 export * from './tmdb/genre';
 export * from './tmdb/credits';
 export * from './tmdb/video';
+export * from './tmdb/company';
 export * from './tmdb/movie-detail';
+export * from './tmdb/tv-detail';
