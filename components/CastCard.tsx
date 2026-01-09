@@ -4,6 +4,7 @@ import { HiMiniUser } from 'react-icons/hi2';
 interface CastCardProps {
   name: string;
   character: string;
+  episodeCount?: number;
   profilePath: string | null;
   imageBaseUrl: string;
 }
@@ -11,6 +12,7 @@ interface CastCardProps {
 const CastCard = ({
   name,
   character,
+  episodeCount,
   profilePath,
   imageBaseUrl,
 }: CastCardProps) => {
@@ -35,9 +37,16 @@ const CastCard = ({
           )}
         </div>
 
-        <div className="mt-2 text-center">
+        <div className="mt-2.5 flex flex-col gap-1 text-center">
           <p className="text-sm font-semibold">{name}</p>
-          <p className="text-muted line-clamp-2 text-sm">{character}</p>
+          <p className="text-muted line-clamp-1 text-sm font-medium">
+            {character}
+          </p>
+          {episodeCount && episodeCount > 0 && (
+            <p className="text-muted text-sm">
+              ({episodeCount} episode{episodeCount === 1 ? '' : 's'})
+            </p>
+          )}
         </div>
       </div>
     </div>

@@ -5,6 +5,20 @@ import type { Company } from './company';
 import type { VideoResponse } from './video';
 import type { PaginatedResponse } from './pagination';
 
+export interface TVEpisode {
+  id: number;
+  name: string;
+  overview: string;
+  air_date: string;
+  episode_number: number;
+  episode_type: string;
+  runtime: number | null;
+  season_number: number;
+  still_path: string | null;
+  vote_average: number;
+  vote_count: number;
+}
+
 export interface TVSeason {
   id: number;
   name: string;
@@ -21,7 +35,8 @@ export interface TVDetail extends BaseMedia {
   created_by: Person[];
   first_air_date: string | null;
   last_air_date: string | null;
-  last_episode_to_air: { id: number; season_number: number } | null; // Used to determine default season
+  last_episode_to_air: TVEpisode | null;
+  next_episode_to_air: TVEpisode | null;
   number_of_seasons: number;
   number_of_episodes: number;
   genres: Genre[];

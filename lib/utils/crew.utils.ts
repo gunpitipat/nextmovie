@@ -103,9 +103,7 @@ const groupKeyCrew = <T extends Crew>(
 
 export type KeyCrewEntry<T extends Crew> = [CrewGroup, T[]];
 
-export function getKeyCrewEntries<T extends Crew>(
-  people: T[]
-): KeyCrewEntry<T>[] {
+export function getKeyCrewEntries(people: Crew[]): KeyCrewEntry<Crew>[] {
   const groupedCrew = groupKeyCrew(people);
 
   return CREW_GROUP_ORDER.flatMap((group) => {
@@ -113,6 +111,20 @@ export function getKeyCrewEntries<T extends Crew>(
     if (!crew) return [];
 
     return [[group, crew]];
+  });
+}
+
+export function getTVKeyCrewEntries(people: TVCrew[]): KeyCrewEntry<TVCrew>[] {
+  const groupedCrew = groupKeyCrew(people);
+
+  return CREW_GROUP_ORDER.flatMap((group) => {
+    const crew = groupedCrew[group];
+    if (!crew) return [];
+
+    const sortedCrew = crew.toSorted(
+      (a, b) => b.total_episode_count - a.total_episode_count
+    );
+    return [[group, sortedCrew]];
   });
 }
 

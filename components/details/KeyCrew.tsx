@@ -2,57 +2,31 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
-import { formatGroupName } from '@/lib/utils';
-import type { CrewGroup, KeyCrewEntry } from '@/lib/utils';
+import KeyCrewItem from './KeyCrewItem';
+import type { KeyCrewEntry } from '@/lib/utils';
 import type { Crew, TVCrew } from '@/types';
-
-interface KeyCrewItemProps {
-  group: CrewGroup;
-  crew: (Crew | TVCrew)[];
-}
 
 interface KeyCrewProps {
   keyCrewEntries: KeyCrewEntry<Crew | TVCrew>[];
+  creators?: string[];
 }
 
-const KeyCrewItem = ({ group, crew }: KeyCrewItemProps) => {
-  // Crew list is expected to be homogeneous (all Crew or all TVCrew),
-  // based on TMDB API response shape and grouping utils.
-  const isTVCrew = (people: (Crew | TVCrew)[]): people is TVCrew[] =>
-    'total_episode_count' in people[0];
-
+const CreatorsItem = ({ names }: { names: string[] }) => {
   return (
     <div className="border-surface-2 flex gap-2.5 border-b pb-2">
       <h3 className="badge flex-none self-start px-2 py-px text-sm font-medium">
-        {formatGroupName(group)}
+        Creators
       </h3>
-
-      <p className="text-secondary self-center text-sm">
-        {isTVCrew(crew)
-          ? crew.map((person, idx) => (
-              <span key={person.id}>
-                {person.name}
-                <span className="text-muted">
-                  {' '}
-                  ({person.total_episode_count}&nbsp;ep)
-                </span>
-                {idx < crew.length - 1 && ' • '}
-              </span>
-            ))
-          : crew.map((person, idx) => (
-              <span key={person.id}>
-                {person.name}
-                {idx < crew.length - 1 && ' • '}
-              </span>
-            ))}
-      </p>
+      <p className="text-secondary py-0.5 text-sm">{names.join(' • ')}</p>
     </div>
   );
 };
 
-const KeyCrew = ({ keyCrewEntries }: KeyCrewProps) => {
+const KeyCrew = ({ keyCrewEntries, creators }: KeyCrewProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
+
   const contentRef = useRef<HTMLDivElement>(null);
+  const isItemExpandingRef = useRef(false);
 
   let pinnedEntries = keyCrewEntries.filter(
     ([group]) => group === 'directors' || group === 'writers'
@@ -72,11 +46,12 @@ const KeyCrew = ({ keyCrewEntries }: KeyCrewProps) => {
       ? `${contentEl.scrollHeight}px`
       : '0px';
 
-    // Update max height on resize while expanded
+    // Update max-height on resize while expanded
     const observer = new ResizeObserver(() => {
-      if (isExpanded) {
-        contentEl.style.maxHeight = `${contentEl.scrollHeight}px`;
-      }
+      if (!isExpanded) return;
+      if (isItemExpandingRef.current) return; // Avoid overwriting max-height set in `onItemExpand`
+
+      contentEl.style.maxHeight = `${contentEl.scrollHeight}px`;
     });
 
     observer.observe(contentEl);
@@ -84,11 +59,21 @@ const KeyCrew = ({ keyCrewEntries }: KeyCrewProps) => {
     return () => observer.disconnect();
   }, [isExpanded]);
 
+  // Pre-expand container max-height so it animates in sync with item expansion
+  const onItemExpand = (delta: number) => {
+    const contentEl = contentRef.current;
+    if (!contentEl) return;
+    if (!isExpanded) return;
+
+    contentEl.style.maxHeight = `${contentEl.scrollHeight + delta}px`;
+  };
+
   return (
     <div className="px-content max-w-content w-full">
       <h2 className="heading heading-bar">Key Crew</h2>
 
       <div className="mt-6 flex flex-col gap-2">
+        {creators && creators.length > 0 && <CreatorsItem names={creators} />}
         {pinnedEntries.map(([group, crew]) => (
           <KeyCrewItem key={group} group={group} crew={crew} />
         ))}
@@ -101,7 +86,18 @@ const KeyCrew = ({ keyCrewEntries }: KeyCrewProps) => {
             className="mt-2 flex flex-col gap-2 overflow-hidden transition-[max_height] duration-400 ease-in-out"
           >
             {restEntries.map(([group, crew]) => (
-              <KeyCrewItem key={group} group={group} crew={crew} />
+              <KeyCrewItem
+                key={group}
+                group={group}
+                crew={crew}
+                onExpandStart={() => {
+                  isItemExpandingRef.current = true;
+                }}
+                onExpandEnd={() => {
+                  isItemExpandingRef.current = false;
+                }}
+                onExpand={onItemExpand}
+              />
             ))}
           </div>
 

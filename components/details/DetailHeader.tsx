@@ -8,10 +8,13 @@ interface DetailHeaderProps {
   posterPath: string;
   backdropPath: string;
   title: string;
-  directors: string[];
+  directors?: string[];
+  creators?: string[];
   releaseYear: string;
   status?: string;
-  runtime: string;
+  runtime?: string;
+  seasonCount?: number;
+  episodeCount?: number;
   voteAverage: string;
   voteCount: string;
   genres: Genre[];
@@ -23,9 +26,12 @@ const DetailHeader = ({
   backdropPath,
   title,
   directors,
+  creators,
   releaseYear,
   status,
   runtime,
+  seasonCount,
+  episodeCount,
   voteAverage,
   voteCount,
   genres,
@@ -78,7 +84,7 @@ const DetailHeader = ({
               {title}
             </h1>
 
-            {directors.length > 0 && (
+            {directors && directors.length > 0 && (
               <h2>
                 <span className="text-secondary text-sm lg:text-base">
                   Directed by{' '}
@@ -89,11 +95,35 @@ const DetailHeader = ({
               </h2>
             )}
 
+            {creators && creators.length > 0 && (
+              <h2>
+                <span className="text-secondary text-sm lg:text-base">
+                  Created by{' '}
+                </span>
+                <span className="text-base font-medium lg:text-lg">
+                  {creators.join(', ')}
+                </span>
+              </h2>
+            )}
+
             <p className="text-secondary text-sm lg:text-base">
               <span>{releaseYear}</span>
               {status && <span> ({status})</span>}
               {runtime && (
-                <span className="whitespace-nowrap"> &bull; {runtime}</span>
+                <span className="whitespace-nowrap"> •&nbsp;{runtime}</span>
+              )}
+              {seasonCount && seasonCount > 0 && (
+                <span>
+                  {' '}
+                  •&nbsp;{seasonCount}&nbsp;season{seasonCount === 1 ? '' : 's'}
+                </span>
+              )}
+              {episodeCount && episodeCount > 0 && (
+                <span>
+                  {' '}
+                  •&nbsp;{episodeCount}&nbsp;episode
+                  {episodeCount === 1 ? '' : 's'}
+                </span>
               )}
             </p>
 
