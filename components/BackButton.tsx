@@ -29,10 +29,13 @@ const BackButton = ({ fallbackHref = '/' }: BackButtonProps) => {
 
   const handleBack = () => {
     if (immediate?.startsWith('/')) {
-      const href = remaining
-        ? `${immediate}?from=${encodeURIComponent(remaining)}`
-        : immediate;
-      router.push(href);
+      if (remaining) {
+        const joiner = immediate.includes('?') ? '&' : '?';
+        const href = `${immediate}${joiner}from=${encodeURIComponent(remaining)}`;
+        router.push(href);
+      } else {
+        router.push(immediate);
+      }
     } else {
       router.push(fallbackHref);
     }

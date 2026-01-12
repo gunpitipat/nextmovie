@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
-import { getTMDBConfig, getTVDetail } from '@/lib/tmdb';
+import { getTMDBConfig, getTVDetail, getTVSeasonDetail } from '@/lib/tmdb';
 import {
   buildFromStack,
   formatReleaseYear,
@@ -10,11 +10,14 @@ import {
   formatTVRoles,
   normalizeAggregateTVCrew,
   getTVKeyCrewEntries,
+  getSeasonNumbers,
+  getDefaultSeasonNumber,
 } from '@/lib/utils';
 import BackButton from '@/components/BackButton';
 import DetailHeader from '@/components/details/DetailHeader';
-import Trailer from '@/components/details/Trailer';
 import Overview from '@/components/details/Overview';
+import Trailer from '@/components/details/Trailer';
+import SeasonSection from '@/components/details/tv-season/SeasonSection';
 import CarouselSection from '@/components/carousel/CarouselSection';
 import MediaCarouselWrapper from '@/components/carousel/MediaCarouselWrapper';
 import CastCard from '@/components/CastCard';
@@ -26,7 +29,7 @@ async function TV({
   searchParams,
 }: {
   params: Promise<{ id: string }>;
-  searchParams: Promise<{ from?: string }>;
+  searchParams: Promise<{ season?: string; from?: string }>;
 }) {
   const { id } = await params;
   const tvId = id.split('-')[0];
@@ -51,7 +54,19 @@ async function TV({
 
   if (!posterPath || !backdropPath) notFound();
 
-  const { from } = await searchParams;
+  const { season, from } = await searchParams;
+  const parsedSeason = season ? Number(season) : null;
+
+  const seasonNumbers = getSeasonNumbers(tvDetail.seasons);
+  const selectedSeason =
+    parsedSeason && seasonNumbers.includes(parsedSeason)
+      ? parsedSeason
+      : getDefaultSeasonNumber(tvDetail);
+
+  if (!selectedSeason) notFound();
+
+  const seasonDetail = await getTVSeasonDetail(tvId, selectedSeason);
+
   const fromParam = buildFromStack(`/tv/${id}`, from);
 
   const imageBaseUrl = config.images.secure_base_url;
@@ -69,7 +84,15 @@ async function TV({
         : `${firstAirYear}`
     : '';
 
-  const trailers = getTrailers(tvDetail.videos.results);
+  const showTrailers = getTrailers(tvDetail.videos.results);
+  const seasonTrailers = getTrailers(seasonDetail.videos.results);
+  const uniqueKeys = new Set<string>();
+  const trailers = [...seasonTrailers, ...showTrailers].filter((video) => {
+    if (uniqueKeys.has(video.key)) return false;
+    uniqueKeys.add(video.key);
+    return true;
+  });
+
   const topCast = getTopCast(tvDetail.aggregate_credits.cast);
   const keyCrew = getTVKeyCrewEntries(
     normalizeAggregateTVCrew(tvDetail.aggregate_credits.crew)
@@ -78,7 +101,10 @@ async function TV({
   const sectionSpacing: SectionSpacing = 'content';
 
   return (
-    <section className="flex flex-col items-center gap-10 lg:gap-12">
+    <section
+      key={selectedSeason}
+      className="flex flex-col items-center gap-10 lg:gap-12"
+    >
       <BackButton fallbackHref="/tv" />
 
       <DetailHeader
@@ -98,6 +124,11 @@ async function TV({
       <Overview overview={tvDetail.overview} />
 
       {trailers.length > 0 && <Trailer videos={trailers} />}
+
+      <SeasonSection
+        selectedSeason={selectedSeason}
+        seasonNumbers={seasonNumbers}
+      />
 
       <CarouselSection title="Top Cast" spacing={sectionSpacing}>
         <MediaCarouselWrapper>

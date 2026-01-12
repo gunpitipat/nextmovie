@@ -10,3 +10,4 @@ export * from './crew.utils';
 export * from './formatLanguage';
 export * from './filterRelatedMovies';
 export * from './sortSimilarMovies';
+export * from './tvSeasons.utils';

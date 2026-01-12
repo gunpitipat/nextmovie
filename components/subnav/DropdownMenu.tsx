@@ -146,7 +146,7 @@ const DropdownMenu = ({
   return createPortal(
     <ul
       ref={listRef}
-      className={`${open ? 'show translate-y-0' : 'hide -translate-y-2'} navbar-solid border-surface-3 absolute max-h-90 w-fit overflow-y-auto overscroll-contain rounded-lg border py-1 transition duration-150 ease-out`}
+      className={`${open ? 'show translate-y-0' : 'hide -translate-y-2'} bg-background/95 border-surface-3 absolute max-h-90 w-fit overflow-y-auto overscroll-contain rounded-lg border py-1 backdrop-blur-sm transition duration-150 ease-out`}
       data-overlayscrollbars-initialize
     >
       {genres.map((genre) => {

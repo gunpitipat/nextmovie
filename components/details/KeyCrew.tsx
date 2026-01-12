@@ -17,7 +17,7 @@ const CreatorsItem = ({ names }: { names: string[] }) => {
       <h3 className="badge flex-none self-start px-2 py-px text-sm font-medium">
         Creators
       </h3>
-      <p className="text-secondary py-0.5 text-sm">{names.join(' • ')}</p>
+      <p className="text-secondary my-0.5 text-sm">{names.join(' • ')}</p>
     </div>
   );
 };

@@ -162,6 +162,10 @@
 .os-scrollbar.os-scrollbar-auto-hide-hidden {
   transition-duration: 300ms;
 }
+
+.season-dropdown [data-overlayscrollbars-viewport] {
+  overscroll-behavior: contain;
+}
 @media (min-width: 1024px) {
   .trailer-thumbnails [data-overlayscrollbars-viewport] {
     overscroll-behavior: contain;

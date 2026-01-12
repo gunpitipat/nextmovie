@@ -16,7 +16,7 @@ const DetailItem = ({ label, value }: DetailItemProps) => {
       <h3 className="badge flex-none self-start px-2 py-px text-sm font-medium">
         {label}
       </h3>
-      <p className="text-secondary self-center text-sm">{value}</p>
+      <p className="text-secondary my-0.5 text-sm">{value}</p>
     </div>
   );
 };

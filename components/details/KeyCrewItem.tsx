@@ -90,7 +90,7 @@ const KeyCrewItem = ({
 
       <div
         ref={containerRef}
-        className="text-secondary overflow-hidden py-0.5 text-sm transition-[max_height] duration-400 ease-in-out"
+        className="text-secondary my-0.5 overflow-hidden text-sm transition-[max_height] duration-400 ease-in-out"
       >
         <span ref={visibleContentRef}>
           {isTVCrew(visibleCrew)

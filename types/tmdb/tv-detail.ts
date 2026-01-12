@@ -5,29 +5,35 @@ import type { Company } from './company';
 import type { VideoResponse } from './video';
 import type { PaginatedResponse } from './pagination';
 
-export interface TVEpisode {
-  id: number;
-  name: string;
-  overview: string;
-  air_date: string;
-  episode_number: number;
-  episode_type: string;
-  runtime: number | null;
-  season_number: number;
-  still_path: string | null;
-  vote_average: number;
-  vote_count: number;
-}
-
-export interface TVSeason {
+export interface TVAiredUnit {
   id: number;
   name: string;
   overview: string;
   air_date: string | null;
-  poster_path: string | null;
   season_number: number;
-  episode_count: number;
   vote_average: number;
+}
+
+export interface TVEpisode extends TVAiredUnit {
+  episode_number: number;
+  episode_type: string;
+  runtime: number | null;
+  still_path: string | null;
+  vote_count: number;
+}
+
+export interface TVSeason extends TVAiredUnit {
+  poster_path: string | null;
+  episode_count: number;
+}
+
+export interface TVSeasonDetail extends TVAiredUnit {
+  poster_path: string | null;
+  episodes: TVEpisode[];
+  networks: Company[];
+
+  // Append to response
+  videos: VideoResponse;
 }
 
 export interface TVDetail extends BaseMedia {
