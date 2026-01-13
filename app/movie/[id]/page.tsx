@@ -9,7 +9,7 @@ import {
   getTrailers,
   getTopCast,
   getKeyCrewEntries,
-  formatDate,
+  formatDateLong,
   formatLanguage,
   filterRelatedMovies,
   filterWithImages,
@@ -152,7 +152,7 @@ async function Movie({
       {keyCrew.length > 0 && <KeyCrew keyCrewEntries={keyCrew} />}
 
       <Details
-        releaseDate={formatDate(movie.release_date)}
+        releaseDate={formatDateLong(movie.release_date)}
         originalLanguage={formatLanguage(movie.original_language)}
         productionCountries={productionCountries}
         productionCompanies={productionCompanies}

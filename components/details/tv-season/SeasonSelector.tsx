@@ -1,37 +1,31 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { usePathname, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { OverlayScrollbars } from 'overlayscrollbars';
 import 'overlayscrollbars/overlayscrollbars.css';
 import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
-import { buildFromStack } from '@/lib/utils';
 
 interface SeasonSelectorProps {
   selectedSeason: number;
   seasonNumbers: number[];
+  basePath: string;
+  from: string;
 }
 
 const SeasonSelector = ({
   selectedSeason,
   seasonNumbers,
+  basePath,
+  from,
 }: SeasonSelectorProps) => {
   const [openDropdown, setOpenDropdown] = useState(false);
 
   const buttonRef = useRef<HTMLButtonElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
 
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
-
-  const from = searchParams.get('from');
-  const seasonParam = searchParams.get('season');
-  const currentPath = `${pathname}?season=${seasonParam ?? selectedSeason}`;
-  const fromParam = buildFromStack(currentPath, from);
-
   const targetHref = (seasonNumber: number) =>
-    `${pathname}?season=${seasonNumber}&from=${encodeURIComponent(fromParam)}`;
+    `${basePath}?season=${seasonNumber}&from=${encodeURIComponent(from)}`;
 
   // Initialize OverlayScrollbars
   useEffect(() => {

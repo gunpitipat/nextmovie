@@ -5,8 +5,8 @@ export function formatReleaseYear(date: string | null): string {
   return new Date(date).getFullYear().toString();
 }
 
-/* 2000-10-18T16:12:08.000 -> Oct 18, 2000 */
-export function formatPublishedAt(date: string): string {
+/* 2000-10-18 -> Oct 18, 2000 */
+export function formatDateShort(date: string | null): string {
   if (!date) return '';
 
   return new Date(date).toLocaleDateString('en-US', {
@@ -17,7 +17,7 @@ export function formatPublishedAt(date: string): string {
 }
 
 // 2000-10-18 -> October 18, 2000
-export function formatDate(date: string): string {
+export function formatDateLong(date: string | null): string {
   if (!date) return '';
 
   return new Date(date).toLocaleDateString('en-US', {

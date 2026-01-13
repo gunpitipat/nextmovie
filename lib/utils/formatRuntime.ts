@@ -1,5 +1,5 @@
-export function formatRuntime(minutes: number): string {
-  if (minutes === 0) return '';
+export function formatRuntime(minutes: number | null): string {
+  if (minutes === 0 || minutes === null) return '';
 
   const h = Math.floor(minutes / 60);
   const m = minutes % 60;

@@ -67,7 +67,7 @@ async function TV({
 
   const seasonDetail = await getTVSeasonDetail(tvId, selectedSeason);
 
-  const fromParam = buildFromStack(`/tv/${id}`, from);
+  const fromParam = buildFromStack(`/tv/${id}?season=${selectedSeason}`, from);
 
   const imageBaseUrl = config.images.secure_base_url;
   const creators = tvDetail.created_by.map((creator) => creator.name);
@@ -128,6 +128,12 @@ async function TV({
       <SeasonSection
         selectedSeason={selectedSeason}
         seasonNumbers={seasonNumbers}
+        basePath={`/tv/${id}`}
+        from={fromParam}
+        overview={seasonDetail.overview}
+        episodes={seasonDetail.episodes}
+        imageBaseUrl={imageBaseUrl}
+        fallbackImagePath={backdropPath}
       />
 
       <CarouselSection title="Top Cast" spacing={sectionSpacing}>
