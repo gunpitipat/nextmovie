@@ -9,5 +9,5 @@ export * from './cast.utils';
 export * from './crew.utils';
 export * from './formatLanguage';
 export * from './filterRelatedMovies';
-export * from './sortSimilarMovies';
+export * from './sortSimilarMedia';
 export * from './tvSeasons.utils';

@@ -5,6 +5,8 @@ interface DetailItemProps {
 
 interface DetailsProps {
   releaseDate: string;
+  status?: string;
+  networks?: string[];
   originalLanguage: string;
   productionCountries: string[];
   productionCompanies: string[];
@@ -23,6 +25,8 @@ const DetailItem = ({ label, value }: DetailItemProps) => {
 
 const Details = ({
   releaseDate,
+  status,
+  networks,
   originalLanguage,
   productionCountries,
   productionCompanies,
@@ -33,15 +37,24 @@ const Details = ({
 
       <div className="mt-6 flex flex-col gap-2">
         {releaseDate && <DetailItem label="Release date" value={releaseDate} />}
+
+        {status && <DetailItem label="Status" value={status} />}
+
+        {networks && networks.length > 0 && (
+          <DetailItem label="Networks" value={networks.join(' • ')} />
+        )}
+
         {originalLanguage && (
           <DetailItem label="Original language" value={originalLanguage} />
         )}
+
         {productionCountries.length > 0 && (
           <DetailItem
             label="Production countries"
             value={productionCountries.join(' • ')}
           />
         )}
+
         {productionCompanies.length > 0 && (
           <DetailItem
             label="Production companies"

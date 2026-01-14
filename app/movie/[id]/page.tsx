@@ -13,7 +13,7 @@ import {
   formatLanguage,
   filterRelatedMovies,
   filterWithImages,
-  sortSimilarMovies,
+  sortSimilarMedia,
 } from '@/lib/utils';
 import BackButton from '@/components/BackButton';
 import DetailHeader from '@/components/details/DetailHeader';
@@ -104,11 +104,11 @@ async function Movie({
   );
   const recommendedMovies = filterWithImages(uniqueRecommended);
   const similarMovies = filterWithImages(
-    sortSimilarMovies(movie.similar.results)
+    sortSimilarMedia(movie.similar.results)
   );
 
   const shouldShowSimilar =
-    similarMovies.length !== 0 &&
+    similarMovies.length > 0 &&
     (relatedMovies.length === 0 || recommendedMovies.length === 0);
 
   const sectionSpacing: SectionSpacing = 'content';

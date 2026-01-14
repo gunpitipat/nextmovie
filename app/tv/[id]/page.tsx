@@ -12,6 +12,10 @@ import {
   getTVKeyCrewEntries,
   getSeasonNumbers,
   getDefaultSeasonNumber,
+  formatDateLong,
+  formatLanguage,
+  filterWithImages,
+  sortSimilarMedia,
 } from '@/lib/utils';
 import BackButton from '@/components/BackButton';
 import DetailHeader from '@/components/details/DetailHeader';
@@ -22,6 +26,8 @@ import CarouselSection from '@/components/carousel/CarouselSection';
 import MediaCarouselWrapper from '@/components/carousel/MediaCarouselWrapper';
 import CastCard from '@/components/CastCard';
 import KeyCrew from '@/components/details/KeyCrew';
+import Details from '@/components/details/Details';
+import PosterCard from '@/components/PosterCard';
 import type { TMDBConfig, TVDetail, SectionSpacing } from '@/types';
 
 async function TV({
@@ -97,6 +103,19 @@ async function TV({
   const keyCrew = getTVKeyCrewEntries(
     normalizeAggregateTVCrew(tvDetail.aggregate_credits.crew)
   );
+  const status = tvDetail.status;
+  const networks = tvDetail.networks.map((network) => network.name);
+  const productionCountries = tvDetail.production_countries.map(
+    (country) => country.name
+  );
+  const productionCompanies = tvDetail.production_companies.map(
+    (company) => company.name
+  );
+
+  const recommendedTV = filterWithImages(tvDetail.recommendations.results);
+  const similarTV = filterWithImages(
+    sortSimilarMedia(tvDetail.similar.results)
+  );
 
   const sectionSpacing: SectionSpacing = 'content';
 
@@ -153,6 +172,57 @@ async function TV({
 
       {keyCrew.length > 0 && (
         <KeyCrew keyCrewEntries={keyCrew} creators={creators} />
+      )}
+
+      <Details
+        releaseDate={formatDateLong(tvDetail.first_air_date)}
+        status={status}
+        networks={networks}
+        originalLanguage={formatLanguage(tvDetail.original_language)}
+        productionCountries={productionCountries}
+        productionCompanies={productionCompanies}
+      />
+
+      {recommendedTV.length > 0 && (
+        <CarouselSection title="Recommended TV Shows" spacing={sectionSpacing}>
+          <MediaCarouselWrapper>
+            {recommendedTV.map((tv) => (
+              <PosterCard
+                key={tv.id}
+                mediaType={tv.media_type}
+                id={tv.id}
+                title={tv.name}
+                rating={tv.vote_average}
+                posterPath={tv.poster_path}
+                imageBaseUrl={imageBaseUrl}
+                inCarousel
+                carouselSpacing={sectionSpacing}
+                from={fromParam}
+              />
+            ))}
+          </MediaCarouselWrapper>
+        </CarouselSection>
+      )}
+
+      {similarTV.length > 0 && (
+        <CarouselSection title="Similar TV Shows" spacing={sectionSpacing}>
+          <MediaCarouselWrapper>
+            {similarTV.map((tv) => (
+              <PosterCard
+                key={tv.id}
+                mediaType="tv"
+                id={tv.id}
+                title={tv.name}
+                rating={tv.vote_average}
+                posterPath={tv.poster_path}
+                imageBaseUrl={imageBaseUrl}
+                inCarousel
+                carouselSpacing={sectionSpacing}
+                from={fromParam}
+              />
+            ))}
+          </MediaCarouselWrapper>
+        </CarouselSection>
       )}
     </section>
   );
