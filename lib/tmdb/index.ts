@@ -1,5 +1,6 @@
 export * from './tmdb';
 export * from './configuration';
+export * from './search';
 export * from './trending';
 export * from './genre';
 export * from './discover';
