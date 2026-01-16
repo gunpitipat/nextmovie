@@ -69,7 +69,7 @@ const TrailerThumbnails = ({
       data-overlayscrollbars-initialize
       className="trailer-thumbnails lg:border-surface-3 lg:h-fit lg:max-h-[360px] lg:rounded-lg lg:border xl:max-h-[405px]"
     >
-      <div className="flex w-fit gap-2.5 px-4 min-[480px]:px-8 md:px-12 lg:w-full lg:flex-col lg:py-1 lg:pr-4 lg:pl-1">
+      <div className="xs:px-8 flex w-fit gap-2.5 px-4 md:px-12 lg:w-full lg:flex-col lg:py-1 lg:pr-4 lg:pl-1">
         {videos.map((video) => (
           <div
             key={video.id}
@@ -85,6 +85,7 @@ const TrailerThumbnails = ({
                 alt={video.name}
                 fill
                 sizes="(max-width: 1279px) 140px, 150px"
+                draggable={false}
                 className="image-cover"
               />
             </button>

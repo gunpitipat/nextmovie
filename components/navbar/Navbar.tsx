@@ -9,7 +9,7 @@ import { IoSearch } from 'react-icons/io5';
 import { useNotFound } from '@/contexts/not-found-context';
 import { getActiveNavState } from '@/lib/navigation';
 import { NAV_ITEMS } from '@/lib/constants';
-import SearchBar from './SearchBar';
+import SearchBar from './search/SearchBar';
 import DesktopMenu from './DesktopMenu';
 
 const Navbar = () => {
@@ -28,16 +28,16 @@ const Navbar = () => {
     if (window.innerWidth < 640 && inputRef.current) inputRef.current.focus();
   };
 
-  // Lock page scrolling when mobile sidebar is open
+  // Lock page scrolling when mobile sidebar or search is open
   useEffect(() => {
-    if (openMenu) {
+    if (openMenu || openSearch) {
       document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';
     } else {
       document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
     }
-  }, [openMenu]);
+  }, [openMenu, openSearch]);
 
   // Hide overlay when switching back to desktop while sidebar is open
   useEffect(() => {
@@ -85,9 +85,10 @@ const Navbar = () => {
             alt="Nextmovie logo"
             width={24}
             height={24}
+            draggable={false}
             className="block object-contain"
           />
-          <p className="text-gradient text-2xl leading-none font-semibold">
+          <p className="text-gradient text-2xl leading-none font-semibold select-none">
             extmovie
           </p>
         </Link>

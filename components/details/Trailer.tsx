@@ -45,7 +45,7 @@ const Trailer = ({ videos }: TrailerProps) => {
 
   return (
     <div className="max-w-content flex w-full flex-col gap-5 lg:flex-row lg:px-16 xl:px-18">
-      <div className="w-full px-4 min-[480px]:px-8 md:px-12 lg:px-0">
+      <div className="xs:px-8 w-full px-4 md:px-12 lg:px-0">
         <h2 className="heading heading-bar">Trailer</h2>
         <div
           // Use :after for responsive backdrop behind the centered 16:9 video

@@ -22,6 +22,7 @@
   --color-muted: var(--muted);
   --font-sans: var(--font-inter), sans-serif;
   --breakpoint-2xl: 90rem; /* 1440px */
+  --breakpoint-xs: 30rem; /* 480px */
 }
 
 @layer base {
@@ -35,6 +36,9 @@
   }
   a {
     @apply text-primary inline-block cursor-pointer text-base no-underline outline-none;
+  }
+  img {
+    @apply select-none;
   }
 }
 
@@ -80,7 +84,7 @@
     /* Avoid adding margin or padding directly to .keen-slider or .keen-slider__slide; it can cause Keen Slider to miscalculate layout. */
   }
   .carousel-px-content {
-    @apply first:[&>div]:ml-4 last:[&>div]:mr-4 min-[480px]:first:[&>div]:ml-8 min-[480px]:last:[&>div]:mr-8 md:first:[&>div]:ml-12 md:last:[&>div]:mr-12 lg:first:[&>div]:ml-0 lg:last:[&>div]:mr-0;
+    @apply xs:first:[&>div]:ml-8 xs:last:[&>div]:mr-8 first:[&>div]:ml-4 last:[&>div]:mr-4 md:first:[&>div]:ml-12 md:last:[&>div]:mr-12 lg:first:[&>div]:ml-0 lg:last:[&>div]:mr-0;
   }
   .keen-slide-w-fit {
     @apply max-w-fit min-w-fit;
@@ -111,13 +115,13 @@
     @apply mx-4 sm:mx-6 lg:mx-8;
   }
   .mx-content {
-    @apply mx-4 min-[480px]:mx-8 md:mx-12 lg:mx-16 xl:mx-18;
+    @apply xs:mx-8 mx-4 md:mx-12 lg:mx-16 xl:mx-18;
   }
   .px-layout {
     @apply px-4 sm:px-6 lg:px-8;
   }
   .px-content {
-    @apply px-4 min-[480px]:px-8 md:px-12 lg:px-16 xl:px-18;
+    @apply xs:px-8 px-4 md:px-12 lg:px-16 xl:px-18;
   }
   .show {
     @apply pointer-events-auto opacity-100;

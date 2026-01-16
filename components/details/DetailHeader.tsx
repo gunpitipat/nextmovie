@@ -49,6 +49,7 @@ const DetailHeader = ({
           fill
           sizes="(max-width: 1279px) 0px, 1280px"
           quality={50}
+          draggable={false}
           className="image-cover"
         />
       </div>
@@ -60,6 +61,7 @@ const DetailHeader = ({
           alt={`${title} backdrop`}
           fill
           sizes="(max-width: 1280px) 100vw, 1280px"
+          draggable={false}
           className="image-cover"
         />
         <div className="gradient-overlay bottom-0 left-0 h-[50%] w-full bg-linear-to-b lg:h-[60%]" />
@@ -74,6 +76,7 @@ const DetailHeader = ({
               alt={`${title} poster`}
               fill
               sizes="120px"
+              draggable={false}
               className="image-cover"
             />
           </div>

@@ -10,6 +10,7 @@ const TMDBAttribution = () => {
           alt="TMDB logo"
           width={108}
           height={14}
+          draggable={false}
           className="block h-auto object-contain"
         />
       </Link>
