@@ -1,11 +1,11 @@
 export const DELIMITER = '::';
 
-// Build a stacked `from` param for nested navigation between movie detail pages.
+// Build a stacked `from` param for nested navigation between detail pages
 export function buildFromStack(
-  pathname: string,
+  base: string,
   currentFrom?: string | null
 ): string {
   return currentFrom?.startsWith('/')
-    ? `${pathname}${DELIMITER}${currentFrom}`
-    : pathname;
+    ? `${base}${DELIMITER}${currentFrom}`
+    : base;
 }

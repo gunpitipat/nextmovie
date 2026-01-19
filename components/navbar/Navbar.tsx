@@ -15,6 +15,7 @@ import DesktopMenu from './DesktopMenu';
 const Navbar = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const [openSearch, setOpenSearch] = useState(false);
+  const [searchActive, setSearchActive] = useState(false);
   const { isNotFound } = useNotFound();
 
   const searchRef = useRef<HTMLDivElement>(null);
@@ -25,7 +26,13 @@ const Navbar = () => {
 
   const handleOpenSearch = () => {
     setOpenSearch(true);
-    if (window.innerWidth < 640 && inputRef.current) inputRef.current.focus();
+    setSearchActive(true);
+    inputRef.current?.focus();
+  };
+
+  const handleCloseSearch = () => {
+    setSearchActive(false);
+    setOpenSearch(false);
   };
 
   // Lock page scrolling when mobile sidebar or search is open
@@ -50,17 +57,27 @@ const Navbar = () => {
     return () => mediaQuery.removeEventListener('change', handleChange);
   }, [openMenu]);
 
-  // Prevent search bar transitions when resizing across Tailwind sm breakpoint
+  // Handle search bar behavior when crossing sm breakpoint
   useEffect(() => {
     const el = searchRef.current;
     if (!el) return;
 
     const mediaQuery = window.matchMedia('(min-width: 640px)');
     const handleChange = (event: MediaQueryListEvent) => {
-      if (!event.matches) return;
+      if (!event.matches) {
+        // Keep search open on mobile when search is active on desktop
+        if (searchActive) {
+          setOpenSearch(true);
+        }
+        return;
+      }
 
-      if (openSearch) setOpenSearch(false); // Hide overlay when crossing the breakpoint
+      // Hide overlay on desktop when search is open on mobile
+      if (openSearch) {
+        setOpenSearch(false);
+      }
 
+      // Prevent search bar transitions on resize across breakpoint
       el.classList.remove('transition', 'duration-150');
       // NOTE: Keep 'transition duration-150' in JSX — React re-applies them on re-render (when openSearch changes),
       // ensuring mobile animations still work after this removal.
@@ -72,7 +89,7 @@ const Navbar = () => {
 
     mediaQuery.addEventListener('change', handleChange);
     return () => mediaQuery.removeEventListener('change', handleChange);
-  }, [openSearch]);
+  }, [openSearch, searchActive]);
 
   return (
     <header
@@ -101,10 +118,15 @@ const Navbar = () => {
               : 'pointer-events-none -translate-y-2 opacity-0'
           } fixed left-1/2 z-100 flex -translate-x-1/2 items-center justify-center transition duration-150 ease-out sm:pointer-events-auto sm:static sm:z-50 sm:flex-1 sm:translate-0 sm:px-10 sm:opacity-100 sm:transition-none`}
         >
-          <SearchBar ref={inputRef} setOpen={setOpenSearch} />
+          <SearchBar
+            ref={inputRef}
+            isActive={searchActive}
+            setIsActive={setSearchActive}
+            onCloseSearch={handleCloseSearch}
+          />
         </div>
         <div
-          onClick={() => setOpenSearch(false)}
+          onClick={handleCloseSearch}
           className={`overlay z-90 ${openSearch ? 'show' : 'hide'}`}
         />
 
