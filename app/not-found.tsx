@@ -19,7 +19,7 @@ export default function NotFound() {
         The page you are looking for does not exist or is temporarily
         unavailable.
       </p>
-      <Link href="/" className="primary-btn mt-2">
+      <Link href="/" className="primary-btn mt-2 px-3.5 py-2.5">
         Back to Home
       </Link>
     </section>

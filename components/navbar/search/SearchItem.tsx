@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { slugify } from '@/lib/utils';
@@ -30,7 +32,9 @@ const SearchItem = ({
   return (
     <Link
       href={href}
-      className="border-surface-3 hover:bg-surface-2 flex gap-3 border-b p-2 first:rounded-t-lg"
+      // Note: `last:border-b-0` applies to the last <a> in the container.
+      // When "View all results" is not rendered, the last search item becomes the last <a> and its bottom border is hidden.
+      className="border-surface-3 hover:bg-surface-2 flex gap-3 border-b p-2 first:rounded-t-lg last:border-b-0"
       onClick={onClosePanel}
     >
       <div className="relative aspect-2/3 w-12 shrink-0 overflow-hidden rounded-sm">

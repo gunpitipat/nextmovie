@@ -1,3 +1,5 @@
+'use client';
+
 import { usePathname, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { FaArrowRight } from 'react-icons/fa';
@@ -12,6 +14,7 @@ interface SearchResultsProps {
   isTyping: boolean;
   loading: boolean;
   results: (Media & { poster_path: string; backdrop_path: string })[];
+  totalResults: number;
   query: string;
   onClosePanel: () => void;
 }
@@ -21,6 +24,7 @@ const SearchResults = ({
   isTyping,
   loading,
   results,
+  totalResults,
   query,
   onClosePanel,
 }: SearchResultsProps) => {
@@ -42,7 +46,7 @@ const SearchResults = ({
   const showSkeletons = isTyping || loading;
   const showNotFound = !showSkeletons && results.length === 0;
   const showResults = !showSkeletons && results.length > 0;
-  const showViewAll = !showSkeletons && results.length > MAX_SEARCH_RESULTS;
+  const showViewAll = showResults && totalResults > MAX_SEARCH_RESULTS;
 
   return (
     <div

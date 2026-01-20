@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import DetailsButton from './DetailsButton';
-import FavoriteButton from '../FavoriteButton';
+import FavoriteButton from './FavoriteButton';
 import type { Media } from '@/types';
 
 interface HeroProps {
@@ -78,7 +78,11 @@ const Hero = ({ media, imageBaseUrl, pathname, preload }: HeroProps) => {
           {media.overview}
         </p>
         <div className="mt-1 flex gap-3 lg:mt-2">
-          <DetailsButton pathname={pathname} from="/" />
+          <DetailsButton
+            pathname={pathname}
+            from="/"
+            className="primary-btn px-3.5 py-2.5"
+          />
           <FavoriteButton className="secondary-btn" />
         </div>
       </div>

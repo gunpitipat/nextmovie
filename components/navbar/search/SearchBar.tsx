@@ -26,6 +26,7 @@ const SearchBar = ({
   const [isTyping, setIsTyping] = useState(false);
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState<Media[]>([]);
+  const [totalResults, setTotalResults] = useState(0);
   const isMobile = useMediaQuery('(max-width: 639px)'); // Tailwind sm breakpoint
 
   const containerRef = useRef<HTMLDivElement>(null);
@@ -73,11 +74,13 @@ const SearchBar = ({
           const err: APIError = await res.json();
           showToast(err.error);
           setResults([]);
+          setTotalResults(0);
           return;
         }
 
         const data: APIResponse<PaginatedResponse<Media>> = await res.json();
         setResults(data.data.results);
+        setTotalResults(data.data.total_results);
       } catch (err) {
         // Ignore abort error
         if (err instanceof DOMException && err.name === 'AbortError') {
@@ -86,6 +89,7 @@ const SearchBar = ({
 
         showToast('Network error. Please try again.');
         setResults([]);
+        setTotalResults(0);
       } finally {
         if (!controller.signal.aborted) {
           setLoading(false);
@@ -136,6 +140,7 @@ const SearchBar = ({
         isTyping={isTyping}
         loading={loading}
         results={filterWithImages(results)}
+        totalResults={totalResults}
         query={query.trim()}
         onClosePanel={onCloseSearch}
       />

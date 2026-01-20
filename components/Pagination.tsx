@@ -10,8 +10,9 @@ const Pagination = ({ currentPage, totalPages, basePath }: PaginationProps) => {
   const isFirst = currentPage === 1;
   const isLast = currentPage >= totalPages;
 
-  const previousPath = `${basePath}?page=${currentPage - 1}`;
-  const nextPath = `${basePath}?page=${currentPage + 1}`;
+  const joiner = basePath.includes('?') ? '&' : '?';
+  const previousPath = `${basePath}${joiner}page=${currentPage - 1}`;
+  const nextPath = `${basePath}${joiner}page=${currentPage + 1}`;
 
   return (
     <div className="mt-14 flex -translate-x-2.5 items-center justify-center">

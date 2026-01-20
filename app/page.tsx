@@ -1,6 +1,6 @@
 import { getTMDBConfig, getTrendingMovies, getTrendingTV } from '@/lib/tmdb';
 import { filterWithImages, slugify } from '@/lib/utils';
-import Hero from '@/components/home/Hero';
+import Hero from '@/components/Hero';
 import CarouselSection from '@/components/carousel/CarouselSection';
 import MediaCarouselWrapper from '@/components/carousel/MediaCarouselWrapper';
 import PosterCard from '@/components/PosterCard';

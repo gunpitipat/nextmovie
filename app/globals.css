@@ -77,7 +77,7 @@
     @apply to-background pointer-events-none absolute from-transparent;
   }
   .primary-btn {
-    @apply bg-primary hover:bg-highlight border-background text-background rounded-lg border px-3.5 py-2.5 font-medium whitespace-nowrap transition-colors duration-200 ease-in-out;
+    @apply bg-primary hover:bg-highlight border-background text-background rounded-lg border font-medium whitespace-nowrap transition-colors duration-200 ease-in-out;
   }
   .secondary-btn {
     @apply bg-background/50 hover:bg-surface-2/50 border-primary rounded-lg border px-2.5 py-2.5 font-medium whitespace-nowrap transition-colors duration-200 ease-in-out;
