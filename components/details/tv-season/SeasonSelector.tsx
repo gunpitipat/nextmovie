@@ -82,7 +82,7 @@ const SeasonSelector = ({
 
       <ul
         ref={listRef}
-        className={`${openDropdown ? 'show translate-y-0' : 'hide -translate-y-2'} season-dropdown bg-background/95 border-surface-3 absolute z-10 max-h-[250px] w-full overflow-y-auto overscroll-contain rounded-lg border py-1 backdrop-blur-sm transition duration-150 ease-out`}
+        className={`${openDropdown ? 'show translate-y-0' : 'hide -translate-y-2'} season-dropdown border-surface-3 surface-solid absolute z-10 max-h-[250px] w-full overflow-y-auto overscroll-contain rounded-lg border py-1 transition duration-150 ease-out`}
         data-overlayscrollbars-initialize
       >
         {seasonNumbers.map((season) => (

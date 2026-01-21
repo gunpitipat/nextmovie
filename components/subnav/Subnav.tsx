@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { FaAngleDown, FaAngleUp } from 'react-icons/fa';
+import { useNavbarLayout } from '@/contexts/navbar-layout-context';
 import { slugify } from '@/lib/utils';
 import SubnavCarousel from '../carousel/SubnavCarousel';
 import DropdownMenu from './DropdownMenu';
@@ -18,6 +19,7 @@ interface SubnavProps {
 const Subnav = ({ basePath, categories, genres }: SubnavProps) => {
   const [show, setShow] = useState(true);
   const [openGenres, setOpenGenres] = useState(false);
+  const { setHasSubnav } = useNavbarLayout();
 
   const lastY = useRef(0);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -56,20 +58,14 @@ const Subnav = ({ basePath, categories, genres }: SubnavProps) => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Remove navbar bottom border on subnav presence
   useEffect(() => {
-    const navbar = document.querySelector<HTMLElement>('.navbar-solid');
-    if (!navbar) return;
-
-    navbar.style.borderBottomWidth = '0px';
-    return () => {
-      navbar.style.borderBottomWidth = '1px';
-    };
-  }, []);
+    setHasSubnav(true);
+    return () => setHasSubnav(false);
+  }, [setHasSubnav]);
 
   return (
     <div
-      className={`${show ? 'pointer-events-auto translate-y-0' : 'pointer-events-none -translate-y-14'} border-surface-3 navbar-solid fixed z-40 w-full overflow-hidden border-b transition-transform duration-300 ease-in-out`}
+      className={`${show ? 'pointer-events-auto translate-y-0' : 'pointer-events-none -translate-y-14'} border-surface-3 surface-solid fixed z-40 w-full overflow-hidden border-b transition-transform duration-300 ease-in-out`}
     >
       <nav className="max-w-layout mx-auto py-2.5">
         <SubnavCarousel>

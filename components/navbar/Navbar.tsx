@@ -6,7 +6,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { FiMenu, FiX } from 'react-icons/fi';
 import { IoSearch } from 'react-icons/io5';
+import { useMounted } from '@/hooks/useMounted';
 import { useNotFound } from '@/contexts/not-found-context';
+import { useNavbarLayout } from '@/contexts/navbar-layout-context';
 import { getActiveNavState } from '@/lib/navigation';
 import { NAV_ITEMS } from '@/lib/constants';
 import SearchBar from './search/SearchBar';
@@ -16,13 +18,23 @@ const Navbar = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const [openSearch, setOpenSearch] = useState(false);
   const [searchActive, setSearchActive] = useState(false);
+  const mounted = useMounted();
   const { isNotFound } = useNotFound();
+  const { hasSubnav } = useNavbarLayout();
 
   const searchRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const pathname = usePathname();
   const { basePath } = getActiveNavState(pathname, isNotFound);
+
+  const isHome = pathname === '/';
+  let headerSurfaceClass = 'surface-solid border-b border-surface-3';
+
+  if (mounted) {
+    if (isHome) headerSurfaceClass = 'surface-glass';
+    else if (hasSubnav) headerSurfaceClass = 'surface-solid';
+  }
 
   const handleOpenSearch = () => {
     setOpenSearch(true);
@@ -92,9 +104,7 @@ const Navbar = () => {
   }, [openSearch, searchActive]);
 
   return (
-    <header
-      className={`${pathname === '/' ? 'navbar-glass' : 'navbar-solid'} fixed top-0 left-0 z-50 w-full`}
-    >
+    <header className={`${headerSurfaceClass} fixed top-0 left-0 z-50 w-full`}>
       <nav className="max-w-layout px-layout mx-auto flex items-center justify-between">
         <Link href="/" className="flex items-end">
           <Image

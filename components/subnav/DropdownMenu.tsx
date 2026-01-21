@@ -1,11 +1,12 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { OverlayScrollbars } from 'overlayscrollbars';
 import 'overlayscrollbars/overlayscrollbars.css';
+import { useMounted } from '@/hooks/useMounted';
 import { slugify } from '@/lib/utils';
 import type { Genre } from '@/types';
 
@@ -24,16 +25,11 @@ const DropdownMenu = ({
   setOpen,
   anchorRef,
 }: DropdownMenuProps) => {
-  const [mounted, setMounted] = useState(false);
+  const mounted = useMounted();
   const listRef = useRef<HTMLUListElement>(null);
   const pathname = usePathname();
 
   const THRESHOLD = 10; // Spacing for dropdown positioning in px
-
-  // Enable client-only DOM usage; prevent SSR mismatches
-  useEffect(() => {
-    Promise.resolve().then(() => setMounted(true));
-  }, []);
 
   // Initialize OverlayScrollbars
   useEffect(() => {
@@ -146,7 +142,7 @@ const DropdownMenu = ({
   return createPortal(
     <ul
       ref={listRef}
-      className={`${open ? 'show translate-y-0' : 'hide -translate-y-2'} bg-background/95 border-surface-3 absolute max-h-90 w-fit overflow-y-auto overscroll-contain rounded-lg border py-1 backdrop-blur-sm transition duration-150 ease-out`}
+      className={`${open ? 'show translate-y-0' : 'hide -translate-y-2'} surface-solid border-surface-3 absolute max-h-90 w-fit overflow-y-auto overscroll-contain rounded-lg border py-1 transition duration-150 ease-out`}
       data-overlayscrollbars-initialize
     >
       {genres.map((genre) => {
