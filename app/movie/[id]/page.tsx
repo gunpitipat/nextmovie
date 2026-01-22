@@ -15,6 +15,7 @@ import {
   filterWithImages,
   sortSimilarMedia,
 } from '@/lib/utils';
+import ThreeDots from '@/components/loading/ThreeDots';
 import BackButton from '@/components/BackButton';
 import DetailHeader from '@/components/details/DetailHeader';
 import Trailer from '@/components/details/Trailer';
@@ -229,7 +230,7 @@ export default function Page({
   searchParams,
 }: PageProps<'/movie/[id]'>) {
   return (
-    <Suspense>
+    <Suspense fallback={<ThreeDots className="min-h-nav-offset" />}>
       <Movie params={params} searchParams={searchParams} />
     </Suspense>
   );

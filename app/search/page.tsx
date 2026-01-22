@@ -7,6 +7,7 @@ import {
   formatVoteCount,
 } from '@/lib/utils';
 import { MAX_TMDB_PAGES } from '@/lib/constants';
+import ThreeDots from '@/components/loading/ThreeDots';
 import MediaListItem from '@/components/MediaListItem';
 import Pagination from '@/components/Pagination';
 
@@ -89,7 +90,7 @@ async function Search({
 
 export default function Page({ searchParams }: PageProps<'/search'>) {
   return (
-    <Suspense>
+    <Suspense fallback={<ThreeDots className="min-h-nav-offset" />}>
       <Search searchParams={searchParams} />
     </Suspense>
   );

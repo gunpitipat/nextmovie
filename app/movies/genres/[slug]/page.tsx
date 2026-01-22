@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { getTMDBConfig, getGenres, getMoviesByGenre } from '@/lib/tmdb';
 import { slugify, filterWithImages } from '@/lib/utils';
 import { MAX_TMDB_PAGES } from '@/lib/constants';
+import ThreeDots from '@/components/loading/ThreeDots';
 import Pagination from '@/components/Pagination';
 import PosterCard from '@/components/PosterCard';
 
@@ -81,7 +82,7 @@ export default function Page({
   searchParams,
 }: PageProps<'/movies/genres/[slug]'>) {
   return (
-    <Suspense>
+    <Suspense fallback={<ThreeDots className="min-h-subnav-offset" />}>
       <GenreMovies params={params} searchParams={searchParams} />
     </Suspense>
   );

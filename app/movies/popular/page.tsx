@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { getTMDBConfig, getPopularMovies } from '@/lib/tmdb';
 import { filterWithImages } from '@/lib/utils';
 import { MAX_TMDB_PAGES } from '@/lib/constants';
+import ThreeDots from '@/components/loading/ThreeDots';
 import Pagination from '@/components/Pagination';
 import PosterCard from '@/components/PosterCard';
 
@@ -75,7 +76,7 @@ async function PopularMovies({
 
 export default function Page({ searchParams }: PageProps<'/movies/popular'>) {
   return (
-    <Suspense>
+    <Suspense fallback={<ThreeDots className="min-h-subnav-offset" />}>
       <PopularMovies searchParams={searchParams} />
     </Suspense>
   );

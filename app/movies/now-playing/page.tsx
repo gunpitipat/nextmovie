@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { getTMDBConfig, getNowPlayingMovies } from '@/lib/tmdb';
 import { filterWithImages } from '@/lib/utils';
 import { MAX_TMDB_PAGES } from '@/lib/constants';
+import ThreeDots from '@/components/loading/ThreeDots';
 import Pagination from '@/components/Pagination';
 import PosterCard from '@/components/PosterCard';
 
@@ -77,7 +78,7 @@ export default function Page({
   searchParams,
 }: PageProps<'/movies/now-playing'>) {
   return (
-    <Suspense>
+    <Suspense fallback={<ThreeDots className="min-h-subnav-offset" />}>
       <NowPlayingMovies searchParams={searchParams} />
     </Suspense>
   );

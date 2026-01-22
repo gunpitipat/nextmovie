@@ -17,6 +17,7 @@ import {
   filterWithImages,
   sortSimilarMedia,
 } from '@/lib/utils';
+import ThreeDots from '@/components/loading/ThreeDots';
 import BackButton from '@/components/BackButton';
 import DetailHeader from '@/components/details/DetailHeader';
 import Overview from '@/components/details/Overview';
@@ -230,7 +231,7 @@ async function TV({
 
 export default function Page({ params, searchParams }: PageProps<'/tv/[id]'>) {
   return (
-    <Suspense>
+    <Suspense fallback={<ThreeDots className="min-h-nav-offset" />}>
       <TV params={params} searchParams={searchParams} />
     </Suspense>
   );

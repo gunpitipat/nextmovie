@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { getTMDBConfig, getOnTheAirTV } from '@/lib/tmdb';
 import { filterWithImages } from '@/lib/utils';
 import { MAX_TMDB_PAGES } from '@/lib/constants';
+import ThreeDots from '@/components/loading/ThreeDots';
 import Pagination from '@/components/Pagination';
 import PosterCard from '@/components/PosterCard';
 
@@ -67,7 +68,7 @@ async function OnTheAirTV({
 
 export default function Page({ searchParams }: PageProps<'/tv/on-the-air'>) {
   return (
-    <Suspense>
+    <Suspense fallback={<ThreeDots className="min-h-subnav-offset" />}>
       <OnTheAirTV searchParams={searchParams} />
     </Suspense>
   );

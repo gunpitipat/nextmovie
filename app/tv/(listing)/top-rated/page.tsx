@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import { getTMDBConfig, getTopRatedTV } from '@/lib/tmdb';
 import { filterWithImages } from '@/lib/utils';
 import { MAX_TMDB_PAGES } from '@/lib/constants';
+import ThreeDots from '@/components/loading/ThreeDots';
 import Pagination from '@/components/Pagination';
 import PosterCard from '@/components/PosterCard';
 
@@ -67,7 +68,7 @@ async function TopRatedTV({
 
 export default function Page({ searchParams }: PageProps<'/tv/top-rated'>) {
   return (
-    <Suspense>
+    <Suspense fallback={<ThreeDots className="min-h-subnav-offset" />}>
       <TopRatedTV searchParams={searchParams} />
     </Suspense>
   );

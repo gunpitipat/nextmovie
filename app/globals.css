@@ -153,6 +153,12 @@
   .surface-solid {
     @apply bg-background/95 backdrop-blur-sm;
   }
+  .min-h-nav-offset {
+    @apply min-h-[calc(100dvh-56px)];
+  }
+  .min-h-subnav-offset {
+    @apply min-h-[calc(100dvh-112px)];
+  }
 }
 
 /* OverlayScrollbars */
