@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { FaArrowRight } from 'react-icons/fa';
 import { useTMDBConfig } from '@/contexts/tmdb-config-context';
 import { buildFromStack, formatReleaseYear } from '@/lib/utils';
-import Skeleton from '@/components/Skeleton';
+import Skeleton from '@/components/loading/Skeleton';
 import SearchItem from './SearchItem';
 import type { Media } from '@/types';
 
