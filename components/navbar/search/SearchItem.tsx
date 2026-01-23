@@ -43,7 +43,7 @@ const SearchItem = ({
           alt={title}
           fill
           sizes="48px"
-          className="image-cover"
+          className="image-cover bg-surface-2"
         />
       </div>
 

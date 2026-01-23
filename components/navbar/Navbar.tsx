@@ -29,11 +29,12 @@ const Navbar = () => {
   const { basePath } = getActiveNavState(pathname, isNotFound);
 
   const isHome = pathname === '/';
-  let headerSurfaceClass = 'surface-solid border-b border-surface-3';
+  let headerSurfaceClass = 'surface-glass';
 
   if (mounted) {
     if (isHome) headerSurfaceClass = 'surface-glass';
     else if (hasSubnav) headerSurfaceClass = 'surface-solid';
+    else headerSurfaceClass = 'surface-solid border-b border-surface-3';
   }
 
   const handleOpenSearch = () => {

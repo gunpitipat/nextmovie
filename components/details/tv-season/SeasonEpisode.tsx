@@ -37,7 +37,7 @@ const SeasonEpisode = ({
           fill
           sizes="(max-width: 639px) 100vw, (max-width: 1023px) 180px, (max-width: 1279px) 200px, 220px"
           draggable={false}
-          className="image-cover"
+          className="image-cover bg-surface-2"
         />
       </div>
 

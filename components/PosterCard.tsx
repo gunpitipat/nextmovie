@@ -60,7 +60,7 @@ const PosterCard = ({
             alt={title}
             fill
             sizes="(max-width: 1023px) 160px, 175px"
-            className="image-cover"
+            className="image-cover bg-surface-2"
           />
         </LinkWrapper>
 

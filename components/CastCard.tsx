@@ -28,7 +28,7 @@ const CastCard = ({
               alt={name}
               fill
               sizes="(max-width: 1023px) 160px, 175px"
-              className="block object-cover object-[50%_25%]"
+              className="bg-surface-1 block object-cover object-[50%_25%]"
             />
           ) : (
             <div className="bg-surface-1 flex size-full items-center justify-center">

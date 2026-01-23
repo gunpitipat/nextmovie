@@ -86,7 +86,7 @@ const TrailerThumbnails = ({
                 fill
                 sizes="(max-width: 1279px) 140px, 150px"
                 draggable={false}
-                className="image-cover"
+                className="image-cover bg-surface-2"
               />
             </button>
             <button

@@ -29,7 +29,7 @@ const Hero = ({ media, imageBaseUrl, pathname, preload }: HeroProps) => {
           sizes="(max-width: 640px) 0px, (max-width: 1023px) 50vw, 0px" // Use 50vw to force browser to pick a lighter backdrop (blurred and dimmed)
           quality={50}
           draggable={false}
-          className="image-cover opacity-25 blur-xs"
+          className="image-cover bg-surface-2 opacity-25 blur-xs"
         />
       </div>
 
@@ -42,7 +42,7 @@ const Hero = ({ media, imageBaseUrl, pathname, preload }: HeroProps) => {
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1023px) 640px, 0px"
           draggable={false}
-          className={`image-cover ${!preload ? 'rounded-t-2xl' : ''} lg:hidden`}
+          className={`image-cover bg-surface-2 ${!preload ? 'rounded-t-2xl' : ''} lg:hidden`}
         />
 
         {/* Desktop Backdrop */}
@@ -53,7 +53,7 @@ const Hero = ({ media, imageBaseUrl, pathname, preload }: HeroProps) => {
           fill
           sizes="(max-width: 1023px) 0px, (max-width: 1280px) 100vw, 1280px"
           draggable={false}
-          className={`hidden object-cover object-center ${preload ? 'rounded-br-2xl' : 'rounded-r-2xl'} lg:block`}
+          className={`bg-surface-2 hidden object-cover object-center ${preload ? 'rounded-br-2xl' : 'rounded-r-2xl'} lg:block`}
         />
 
         {/* Gradient Overlays */}

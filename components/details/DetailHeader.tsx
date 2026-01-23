@@ -50,7 +50,7 @@ const DetailHeader = ({
           sizes="(max-width: 1279px) 0px, 1280px"
           quality={50}
           draggable={false}
-          className="image-cover"
+          className="image-cover bg-surface-2"
         />
       </div>
 
@@ -62,7 +62,7 @@ const DetailHeader = ({
           fill
           sizes="(max-width: 1280px) 100vw, 1280px"
           draggable={false}
-          className="image-cover"
+          className="image-cover bg-surface-2"
         />
         <div className="gradient-overlay bottom-0 left-0 h-[50%] w-full bg-linear-to-b lg:h-[60%]" />
       </div>
@@ -77,7 +77,7 @@ const DetailHeader = ({
               fill
               sizes="120px"
               draggable={false}
-              className="image-cover"
+              className="image-cover bg-surface-2"
             />
           </div>
 

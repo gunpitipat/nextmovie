@@ -52,7 +52,7 @@ const Trailer = ({ videos }: TrailerProps) => {
           className={`sm:after:border-surface-3 relative mt-6 sm:after:absolute sm:after:top-0 sm:after:left-0 sm:after:-z-1 sm:after:h-[315px] sm:after:w-full sm:after:rounded-lg sm:after:border sm:after:bg-black md:after:h-[360px] ${hasMultipleVideos ? 'lg:after:hidden' : 'xl:after:h-[405px]'}`}
         >
           <div
-            className={`border-surface-3 relative mx-auto aspect-video w-full overflow-hidden rounded-lg border sm:w-[560px] sm:rounded-none sm:border-x-0 md:w-[640px] ${hasMultipleVideos ? 'lg:mx-0 lg:rounded-lg lg:border-x' : ''} xl:w-[720px]`}
+            className={`border-surface-3 relative mx-auto aspect-video w-full overflow-hidden rounded-lg border bg-black sm:w-[560px] sm:rounded-none sm:border-x-0 md:w-[640px] ${hasMultipleVideos ? 'lg:mx-0 lg:rounded-lg lg:border-x' : ''} xl:w-[720px]`}
           >
             {videoLayers.map(({ video, role }) => (
               <motion.iframe

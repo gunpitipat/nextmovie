@@ -32,6 +32,15 @@
       transform: translateX(100%);
     }
   }
+  --animate-fade-in: fade-in 150ms ease-out;
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
 }
 
 @layer base {

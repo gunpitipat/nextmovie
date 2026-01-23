@@ -42,7 +42,7 @@ const MediaListItem = ({
           alt={title}
           fill
           sizes="72px"
-          className="image-cover"
+          className="image-cover bg-surface-2"
         />
       </Link>
 

@@ -38,7 +38,7 @@ async function Search({
   const filteredResults = filterWithImages(searchResults.results);
 
   return (
-    <section>
+    <section className="animate-fade-in">
       <div className="px-content max-w-content mx-auto">
         <h1 className="heading mt-8">Results for “{query}”</h1>
         {currentPage > 1 && (
