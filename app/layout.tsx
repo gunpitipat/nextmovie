@@ -7,6 +7,7 @@ import { NavbarLayoutProvider } from '@/contexts/navbar-layout-context';
 import { getTMDBConfig } from '@/lib/tmdb';
 import NavbarSkeleton from '@/components/loading/NavbarSkeleton';
 import Navbar from '@/components/navbar/Navbar';
+import IOSChromeScrollFix from '@/components/IOSChromeScrollFix';
 import BodyScrollBar from '@/components/BodyScrollBar';
 import Footer from '@/components/footer/Footer';
 import './globals.css';
@@ -38,6 +39,9 @@ export default async function RootLayout({
             <NavbarLayoutProvider>
               <Suspense fallback={<NavbarSkeleton />}>
                 <Navbar />
+              </Suspense>
+              <Suspense>
+                <IOSChromeScrollFix />
               </Suspense>
               <BodyScrollBar />
               <div
