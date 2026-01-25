@@ -1,6 +1,7 @@
 import { getGenres } from '@/lib/tmdb';
 import { MOVIE_CATEGORIES } from '@/lib/constants';
-import SubnavWrapper from '@/components/subnav/SubnavWrapper';
+import SegmentRemount from '@/components/SegmentRemount';
+import Subnav from '@/components/subnav/Subnav';
 
 export default async function MoviesLayout({
   children,
@@ -11,11 +12,14 @@ export default async function MoviesLayout({
 
   return (
     <>
-      <SubnavWrapper
-        basePath="/movies"
-        categories={MOVIE_CATEGORIES}
-        genres={movieGenres.genres}
-      />
+      <SegmentRemount>
+        <Subnav
+          basePath="/movies"
+          categories={MOVIE_CATEGORIES}
+          genres={movieGenres.genres}
+        />
+      </SegmentRemount>
+
       <div className="pt-14">{children}</div>
     </>
   );

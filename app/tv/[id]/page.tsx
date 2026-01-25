@@ -18,13 +18,14 @@ import {
   sortSimilarMedia,
 } from '@/lib/utils';
 import ThreeDots from '@/components/loading/ThreeDots';
+import SegmentRemount from '@/components/SegmentRemount';
 import BackButton from '@/components/BackButton';
 import DetailHeader from '@/components/details/DetailHeader';
 import Overview from '@/components/details/Overview';
 import Trailer from '@/components/details/Trailer';
 import SeasonSection from '@/components/details/tv-season/SeasonSection';
 import CarouselSection from '@/components/carousel/CarouselSection';
-import MediaCarouselWrapper from '@/components/carousel/MediaCarouselWrapper';
+import MediaCarousel from '@/components/carousel/MediaCarousel';
 import CastCard from '@/components/CastCard';
 import KeyCrew from '@/components/details/KeyCrew';
 import Details from '@/components/details/Details';
@@ -121,10 +122,7 @@ async function TV({
   const sectionSpacing: SectionSpacing = 'content';
 
   return (
-    <section
-      key={selectedSeason}
-      className="flex flex-col items-center gap-10 lg:gap-12"
-    >
+    <section className="flex flex-col items-center gap-10 lg:gap-12">
       <BackButton fallbackHref="/tv" />
 
       <DetailHeader
@@ -143,7 +141,9 @@ async function TV({
 
       <Overview overview={tvDetail.overview} />
 
-      {trailers.length > 0 && <Trailer videos={trailers} />}
+      {trailers.length > 0 && (
+        <Trailer key={selectedSeason} videos={trailers} />
+      )}
 
       <SeasonSection
         selectedSeason={selectedSeason}
@@ -157,18 +157,20 @@ async function TV({
       />
 
       <CarouselSection title="Top Cast" spacing={sectionSpacing}>
-        <MediaCarouselWrapper>
-          {topCast.map((cast) => (
-            <CastCard
-              key={cast.id}
-              name={cast.name}
-              character={formatTVRoles(cast.roles)}
-              episodeCount={cast.total_episode_count}
-              profilePath={cast.profile_path}
-              imageBaseUrl={imageBaseUrl}
-            />
-          ))}
-        </MediaCarouselWrapper>
+        <SegmentRemount>
+          <MediaCarousel>
+            {topCast.map((cast) => (
+              <CastCard
+                key={cast.id}
+                name={cast.name}
+                character={formatTVRoles(cast.roles)}
+                episodeCount={cast.total_episode_count}
+                profilePath={cast.profile_path}
+                imageBaseUrl={imageBaseUrl}
+              />
+            ))}
+          </MediaCarousel>
+        </SegmentRemount>
       </CarouselSection>
 
       {keyCrew.length > 0 && (
@@ -186,43 +188,47 @@ async function TV({
 
       {recommendedTV.length > 0 && (
         <CarouselSection title="Recommended TV Shows" spacing={sectionSpacing}>
-          <MediaCarouselWrapper>
-            {recommendedTV.map((tv) => (
-              <PosterCard
-                key={tv.id}
-                mediaType={tv.media_type}
-                id={tv.id}
-                title={tv.name}
-                rating={tv.vote_average}
-                posterPath={tv.poster_path}
-                imageBaseUrl={imageBaseUrl}
-                inCarousel
-                carouselSpacing={sectionSpacing}
-                from={fromParam}
-              />
-            ))}
-          </MediaCarouselWrapper>
+          <SegmentRemount>
+            <MediaCarousel>
+              {recommendedTV.map((tv) => (
+                <PosterCard
+                  key={tv.id}
+                  mediaType={tv.media_type}
+                  id={tv.id}
+                  title={tv.name}
+                  rating={tv.vote_average}
+                  posterPath={tv.poster_path}
+                  imageBaseUrl={imageBaseUrl}
+                  inCarousel
+                  carouselSpacing={sectionSpacing}
+                  from={fromParam}
+                />
+              ))}
+            </MediaCarousel>
+          </SegmentRemount>
         </CarouselSection>
       )}
 
       {similarTV.length > 0 && (
         <CarouselSection title="Similar TV Shows" spacing={sectionSpacing}>
-          <MediaCarouselWrapper>
-            {similarTV.map((tv) => (
-              <PosterCard
-                key={tv.id}
-                mediaType="tv"
-                id={tv.id}
-                title={tv.name}
-                rating={tv.vote_average}
-                posterPath={tv.poster_path}
-                imageBaseUrl={imageBaseUrl}
-                inCarousel
-                carouselSpacing={sectionSpacing}
-                from={fromParam}
-              />
-            ))}
-          </MediaCarouselWrapper>
+          <SegmentRemount>
+            <MediaCarousel>
+              {similarTV.map((tv) => (
+                <PosterCard
+                  key={tv.id}
+                  mediaType="tv"
+                  id={tv.id}
+                  title={tv.name}
+                  rating={tv.vote_average}
+                  posterPath={tv.poster_path}
+                  imageBaseUrl={imageBaseUrl}
+                  inCarousel
+                  carouselSpacing={sectionSpacing}
+                  from={fromParam}
+                />
+              ))}
+            </MediaCarousel>
+          </SegmentRemount>
         </CarouselSection>
       )}
     </section>

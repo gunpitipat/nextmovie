@@ -30,6 +30,7 @@ const SeasonSection = ({
       <div className="flex items-center gap-1">
         <h2 className="heading heading-bar">Season</h2>
         <SeasonSelector
+          key={selectedSeason}
           selectedSeason={selectedSeason}
           seasonNumbers={seasonNumbers}
           basePath={basePath}

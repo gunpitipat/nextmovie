@@ -1,8 +1,9 @@
 import { getTMDBConfig, getTrendingMovies, getTrendingTV } from '@/lib/tmdb';
 import { filterWithImages, slugify } from '@/lib/utils';
 import Hero from '@/components/Hero';
+import SegmentRemount from '@/components/SegmentRemount';
 import CarouselSection from '@/components/carousel/CarouselSection';
-import MediaCarouselWrapper from '@/components/carousel/MediaCarouselWrapper';
+import MediaCarousel from '@/components/carousel/MediaCarousel';
 import PosterCard from '@/components/PosterCard';
 
 export default async function Home() {
@@ -49,21 +50,23 @@ export default async function Home() {
         title="Trending Movies"
         className={`${heroMovie ? 'mt-[70vh] lg:mt-[calc(75vh-56px+24px)]' : 'mt-4 lg:mt-6'} mb-14 lg:mb-16`} // lg:mt-[hero - navbar + carousel section gap]
       >
-        <MediaCarouselWrapper>
-          {carouselMovies.map((movie) => (
-            <PosterCard
-              key={movie.id}
-              mediaType={movie.media_type}
-              id={movie.id}
-              title={movie.title}
-              rating={movie.vote_average}
-              posterPath={movie.poster_path}
-              imageBaseUrl={imageBaseUrl}
-              inCarousel
-              from="/"
-            />
-          ))}
-        </MediaCarouselWrapper>
+        <SegmentRemount>
+          <MediaCarousel>
+            {carouselMovies.map((movie) => (
+              <PosterCard
+                key={movie.id}
+                mediaType={movie.media_type}
+                id={movie.id}
+                title={movie.title}
+                rating={movie.vote_average}
+                posterPath={movie.poster_path}
+                imageBaseUrl={imageBaseUrl}
+                inCarousel
+                from="/"
+              />
+            ))}
+          </MediaCarousel>
+        </SegmentRemount>
       </CarouselSection>
 
       {heroTV && (
@@ -75,21 +78,23 @@ export default async function Home() {
       )}
 
       <CarouselSection title="Trending TV Shows" className="mt-14 lg:mt-6">
-        <MediaCarouselWrapper>
-          {carouselTV.map((tv) => (
-            <PosterCard
-              key={tv.id}
-              mediaType={tv.media_type}
-              id={tv.id}
-              title={tv.name}
-              rating={tv.vote_average}
-              posterPath={tv.poster_path}
-              imageBaseUrl={imageBaseUrl}
-              inCarousel
-              from="/"
-            />
-          ))}
-        </MediaCarouselWrapper>
+        <SegmentRemount>
+          <MediaCarousel>
+            {carouselTV.map((tv) => (
+              <PosterCard
+                key={tv.id}
+                mediaType={tv.media_type}
+                id={tv.id}
+                title={tv.name}
+                rating={tv.vote_average}
+                posterPath={tv.poster_path}
+                imageBaseUrl={imageBaseUrl}
+                inCarousel
+                from="/"
+              />
+            ))}
+          </MediaCarousel>
+        </SegmentRemount>
       </CarouselSection>
     </section>
   );

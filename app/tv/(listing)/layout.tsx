@@ -1,6 +1,7 @@
 import { getGenres } from '@/lib/tmdb';
 import { TV_CATEGORIES } from '@/lib/constants';
-import SubnavWrapper from '@/components/subnav/SubnavWrapper';
+import SegmentRemount from '@/components/SegmentRemount';
+import Subnav from '@/components/subnav/Subnav';
 
 export default async function TVLayout({
   children,
@@ -11,11 +12,14 @@ export default async function TVLayout({
 
   return (
     <>
-      <SubnavWrapper
-        basePath="/tv"
-        categories={TV_CATEGORIES}
-        genres={tvGenres.genres}
-      />
+      <SegmentRemount>
+        <Subnav
+          basePath="/tv"
+          categories={TV_CATEGORIES}
+          genres={tvGenres.genres}
+        />
+      </SegmentRemount>
+
       <div className="pt-14">{children}</div>
     </>
   );

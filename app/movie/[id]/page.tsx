@@ -16,12 +16,13 @@ import {
   sortSimilarMedia,
 } from '@/lib/utils';
 import ThreeDots from '@/components/loading/ThreeDots';
+import SegmentRemount from '@/components/SegmentRemount';
 import BackButton from '@/components/BackButton';
 import DetailHeader from '@/components/details/DetailHeader';
 import Trailer from '@/components/details/Trailer';
 import Overview from '@/components/details/Overview';
 import CarouselSection from '@/components/carousel/CarouselSection';
-import MediaCarouselWrapper from '@/components/carousel/MediaCarouselWrapper';
+import MediaCarousel from '@/components/carousel/MediaCarousel';
 import CastCard from '@/components/CastCard';
 import KeyCrew from '@/components/details/KeyCrew';
 import Details from '@/components/details/Details';
@@ -137,17 +138,19 @@ async function Movie({
       {trailers.length > 0 && <Trailer videos={trailers} />}
 
       <CarouselSection title="Top Cast" spacing={sectionSpacing}>
-        <MediaCarouselWrapper>
-          {topCast.map((cast) => (
-            <CastCard
-              key={cast.id}
-              name={cast.name}
-              character={cast.character}
-              profilePath={cast.profile_path}
-              imageBaseUrl={imageBaseUrl}
-            />
-          ))}
-        </MediaCarouselWrapper>
+        <SegmentRemount>
+          <MediaCarousel>
+            {topCast.map((cast) => (
+              <CastCard
+                key={cast.id}
+                name={cast.name}
+                character={cast.character}
+                profilePath={cast.profile_path}
+                imageBaseUrl={imageBaseUrl}
+              />
+            ))}
+          </MediaCarousel>
+        </SegmentRemount>
       </CarouselSection>
 
       {keyCrew.length > 0 && <KeyCrew keyCrewEntries={keyCrew} />}
@@ -161,64 +164,70 @@ async function Movie({
 
       {relatedMovies.length > 0 && (
         <CarouselSection title="Related Movies" spacing={sectionSpacing}>
-          <MediaCarouselWrapper>
-            {relatedMovies.map((movie) => (
-              <PosterCard
-                key={movie.id}
-                mediaType={movie.media_type}
-                id={movie.id}
-                title={movie.title}
-                rating={movie.vote_average}
-                posterPath={movie.poster_path}
-                imageBaseUrl={imageBaseUrl}
-                inCarousel
-                carouselSpacing={sectionSpacing}
-                from={fromParam}
-              />
-            ))}
-          </MediaCarouselWrapper>
+          <SegmentRemount>
+            <MediaCarousel>
+              {relatedMovies.map((movie) => (
+                <PosterCard
+                  key={movie.id}
+                  mediaType={movie.media_type}
+                  id={movie.id}
+                  title={movie.title}
+                  rating={movie.vote_average}
+                  posterPath={movie.poster_path}
+                  imageBaseUrl={imageBaseUrl}
+                  inCarousel
+                  carouselSpacing={sectionSpacing}
+                  from={fromParam}
+                />
+              ))}
+            </MediaCarousel>
+          </SegmentRemount>
         </CarouselSection>
       )}
 
       {recommendedMovies.length > 0 && (
         <CarouselSection title="Recommended Movies" spacing={sectionSpacing}>
-          <MediaCarouselWrapper>
-            {recommendedMovies.map((movie) => (
-              <PosterCard
-                key={movie.id}
-                mediaType={movie.media_type}
-                id={movie.id}
-                title={movie.title}
-                rating={movie.vote_average}
-                posterPath={movie.poster_path}
-                imageBaseUrl={imageBaseUrl}
-                inCarousel
-                carouselSpacing={sectionSpacing}
-                from={fromParam}
-              />
-            ))}
-          </MediaCarouselWrapper>
+          <SegmentRemount>
+            <MediaCarousel>
+              {recommendedMovies.map((movie) => (
+                <PosterCard
+                  key={movie.id}
+                  mediaType={movie.media_type}
+                  id={movie.id}
+                  title={movie.title}
+                  rating={movie.vote_average}
+                  posterPath={movie.poster_path}
+                  imageBaseUrl={imageBaseUrl}
+                  inCarousel
+                  carouselSpacing={sectionSpacing}
+                  from={fromParam}
+                />
+              ))}
+            </MediaCarousel>
+          </SegmentRemount>
         </CarouselSection>
       )}
 
       {shouldShowSimilar && (
         <CarouselSection title="Similar Movies" spacing={sectionSpacing}>
-          <MediaCarouselWrapper>
-            {similarMovies.map((movie) => (
-              <PosterCard
-                key={movie.id}
-                mediaType="movie"
-                id={movie.id}
-                title={movie.title}
-                rating={movie.vote_average}
-                posterPath={movie.poster_path}
-                imageBaseUrl={imageBaseUrl}
-                inCarousel
-                carouselSpacing={sectionSpacing}
-                from={fromParam}
-              />
-            ))}
-          </MediaCarouselWrapper>
+          <SegmentRemount>
+            <MediaCarousel>
+              {similarMovies.map((movie) => (
+                <PosterCard
+                  key={movie.id}
+                  mediaType="movie"
+                  id={movie.id}
+                  title={movie.title}
+                  rating={movie.vote_average}
+                  posterPath={movie.poster_path}
+                  imageBaseUrl={imageBaseUrl}
+                  inCarousel
+                  carouselSpacing={sectionSpacing}
+                  from={fromParam}
+                />
+              ))}
+            </MediaCarousel>
+          </SegmentRemount>
         </CarouselSection>
       )}
     </section>

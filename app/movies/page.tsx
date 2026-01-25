@@ -6,8 +6,9 @@ import {
 } from '@/lib/tmdb';
 import { filterWithImages } from '@/lib/utils';
 import { MOVIE_CATEGORIES } from '@/lib/constants';
+import SegmentRemount from '@/components/SegmentRemount';
 import CarouselSection from '@/components/carousel/CarouselSection';
-import MediaCarouselWrapper from '@/components/carousel/MediaCarouselWrapper';
+import MediaCarousel from '@/components/carousel/MediaCarousel';
 import PosterCard from '@/components/PosterCard';
 
 export default async function Movies() {
@@ -33,60 +34,66 @@ export default async function Movies() {
         href={POPULAR.href}
         className="mt-8"
       >
-        <MediaCarouselWrapper>
-          {popularSlides.map((movie) => (
-            <PosterCard
-              key={movie.id}
-              mediaType="movie"
-              id={movie.id}
-              title={movie.title}
-              rating={movie.vote_average}
-              posterPath={movie.poster_path}
-              imageBaseUrl={imageBaseUrl}
-              inCarousel
-            />
-          ))}
-        </MediaCarouselWrapper>
+        <SegmentRemount>
+          <MediaCarousel>
+            {popularSlides.map((movie) => (
+              <PosterCard
+                key={movie.id}
+                mediaType="movie"
+                id={movie.id}
+                title={movie.title}
+                rating={movie.vote_average}
+                posterPath={movie.poster_path}
+                imageBaseUrl={imageBaseUrl}
+                inCarousel
+              />
+            ))}
+          </MediaCarousel>
+        </SegmentRemount>
       </CarouselSection>
 
       <CarouselSection
         title={`${TOP_RATED.label} Movies`}
         href={TOP_RATED.href}
       >
-        <MediaCarouselWrapper>
-          {topRatedSlides.map((movie) => (
-            <PosterCard
-              key={movie.id}
-              mediaType="movie"
-              id={movie.id}
-              title={movie.title}
-              rating={movie.vote_average}
-              posterPath={movie.poster_path}
-              imageBaseUrl={imageBaseUrl}
-              inCarousel
-            />
-          ))}
-        </MediaCarouselWrapper>
+        <SegmentRemount>
+          <MediaCarousel>
+            {topRatedSlides.map((movie) => (
+              <PosterCard
+                key={movie.id}
+                mediaType="movie"
+                id={movie.id}
+                title={movie.title}
+                rating={movie.vote_average}
+                posterPath={movie.poster_path}
+                imageBaseUrl={imageBaseUrl}
+                inCarousel
+              />
+            ))}
+          </MediaCarousel>
+        </SegmentRemount>
       </CarouselSection>
 
       <CarouselSection
         title={`${NOW_PLAYING.label} Movies`}
         href={NOW_PLAYING.href}
       >
-        <MediaCarouselWrapper>
-          {nowPlayingSlides.map((movie) => (
-            <PosterCard
-              key={movie.id}
-              mediaType="movie"
-              id={movie.id}
-              title={movie.title}
-              rating={movie.vote_average}
-              posterPath={movie.poster_path}
-              imageBaseUrl={imageBaseUrl}
-              inCarousel
-            />
-          ))}
-        </MediaCarouselWrapper>
+        <SegmentRemount>
+          <MediaCarousel>
+            {nowPlayingSlides.map((movie) => (
+              <PosterCard
+                key={movie.id}
+                mediaType="movie"
+                id={movie.id}
+                title={movie.title}
+                rating={movie.vote_average}
+                posterPath={movie.poster_path}
+                imageBaseUrl={imageBaseUrl}
+                inCarousel
+              />
+            ))}
+          </MediaCarousel>
+        </SegmentRemount>
       </CarouselSection>
     </section>
   );

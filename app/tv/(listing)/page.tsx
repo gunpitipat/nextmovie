@@ -6,8 +6,9 @@ import {
 } from '@/lib/tmdb';
 import { filterWithImages } from '@/lib/utils';
 import { TV_CATEGORIES } from '@/lib/constants';
+import SegmentRemount from '@/components/SegmentRemount';
 import CarouselSection from '@/components/carousel/CarouselSection';
-import MediaCarouselWrapper from '@/components/carousel/MediaCarouselWrapper';
+import MediaCarousel from '@/components/carousel/MediaCarousel';
 import PosterCard from '@/components/PosterCard';
 
 export default async function TV() {
@@ -33,60 +34,66 @@ export default async function TV() {
         href={POPULAR.href}
         className="mt-8"
       >
-        <MediaCarouselWrapper>
-          {popularSlides.map((tv) => (
-            <PosterCard
-              key={tv.id}
-              mediaType="tv"
-              id={tv.id}
-              title={tv.name}
-              rating={tv.vote_average}
-              posterPath={tv.poster_path}
-              imageBaseUrl={imageBaseUrl}
-              inCarousel
-            />
-          ))}
-        </MediaCarouselWrapper>
+        <SegmentRemount>
+          <MediaCarousel>
+            {popularSlides.map((tv) => (
+              <PosterCard
+                key={tv.id}
+                mediaType="tv"
+                id={tv.id}
+                title={tv.name}
+                rating={tv.vote_average}
+                posterPath={tv.poster_path}
+                imageBaseUrl={imageBaseUrl}
+                inCarousel
+              />
+            ))}
+          </MediaCarousel>
+        </SegmentRemount>
       </CarouselSection>
 
       <CarouselSection
         title={`${TOP_RATED.label} TV Shows`}
         href={TOP_RATED.href}
       >
-        <MediaCarouselWrapper>
-          {topRatedSlides.map((tv) => (
-            <PosterCard
-              key={tv.id}
-              mediaType="tv"
-              id={tv.id}
-              title={tv.name}
-              rating={tv.vote_average}
-              posterPath={tv.poster_path}
-              imageBaseUrl={imageBaseUrl}
-              inCarousel
-            />
-          ))}
-        </MediaCarouselWrapper>
+        <SegmentRemount>
+          <MediaCarousel>
+            {topRatedSlides.map((tv) => (
+              <PosterCard
+                key={tv.id}
+                mediaType="tv"
+                id={tv.id}
+                title={tv.name}
+                rating={tv.vote_average}
+                posterPath={tv.poster_path}
+                imageBaseUrl={imageBaseUrl}
+                inCarousel
+              />
+            ))}
+          </MediaCarousel>
+        </SegmentRemount>
       </CarouselSection>
 
       <CarouselSection
         title={`${ON_THE_AIR.label} TV Shows`}
         href={ON_THE_AIR.href}
       >
-        <MediaCarouselWrapper>
-          {onTheAirSlides.map((tv) => (
-            <PosterCard
-              key={tv.id}
-              mediaType="tv"
-              id={tv.id}
-              title={tv.name}
-              rating={tv.vote_average}
-              posterPath={tv.poster_path}
-              imageBaseUrl={imageBaseUrl}
-              inCarousel
-            />
-          ))}
-        </MediaCarouselWrapper>
+        <SegmentRemount>
+          <MediaCarousel>
+            {onTheAirSlides.map((tv) => (
+              <PosterCard
+                key={tv.id}
+                mediaType="tv"
+                id={tv.id}
+                title={tv.name}
+                rating={tv.vote_average}
+                posterPath={tv.poster_path}
+                imageBaseUrl={imageBaseUrl}
+                inCarousel
+              />
+            ))}
+          </MediaCarousel>
+        </SegmentRemount>
       </CarouselSection>
     </section>
   );
