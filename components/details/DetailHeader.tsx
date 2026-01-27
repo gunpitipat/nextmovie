@@ -1,9 +1,12 @@
 import Image from 'next/image';
 import { FaStar } from 'react-icons/fa';
+import { formatVoteCount } from '@/lib/utils';
 import FavoriteButton from '../FavoriteButton';
-import type { Genre } from '@/types';
+import type { MediaType, Genre } from '@/types';
 
 interface DetailHeaderProps {
+  mediaType: MediaType;
+  id: number;
   imageBaseUrl: string;
   posterPath: string;
   backdropPath: string;
@@ -15,12 +18,14 @@ interface DetailHeaderProps {
   runtime?: string;
   seasonCount?: number;
   episodeCount?: number;
-  voteAverage: string;
-  voteCount: string;
+  voteAverage: number;
+  voteCount: number;
   genres: Genre[];
 }
 
 const DetailHeader = ({
+  mediaType,
+  id,
   imageBaseUrl,
   posterPath,
   backdropPath,
@@ -136,13 +141,23 @@ const DetailHeader = ({
 
             <p className="mt-1 flex items-center gap-1 text-sm font-medium lg:text-base">
               <FaStar className="text-highlight" />
-              <span>{voteAverage}</span>
-              <span>({voteCount})</span>
+              <span>{voteAverage.toFixed(1)}</span>
+              <span>({formatVoteCount(voteCount)})</span>
             </p>
           </div>
         </div>
 
-        <FavoriteButton className="favorite-cta" withIcon />
+        <FavoriteButton
+          withIcon
+          className="primary-btn block px-4 py-3 text-sm lg:px-5 lg:text-base"
+          mediaType={mediaType}
+          id={id}
+          title={title}
+          releaseYear={releaseYear}
+          voteAverage={voteAverage}
+          voteCount={voteCount}
+          posterPath={posterPath}
+        />
       </div>
     </div>
   );

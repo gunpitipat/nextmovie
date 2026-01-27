@@ -1,16 +1,17 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { FaStar } from 'react-icons/fa';
-import { slugify } from '@/lib/utils';
+import { slugify, formatVoteCount } from '@/lib/utils';
 import FavoriteButton from './FavoriteButton';
+import type { MediaType } from '@/types';
 
 interface MediaListItemProps {
-  mediaType: 'movie' | 'tv';
+  mediaType: MediaType;
   id: number;
   title: string;
   releaseYear: string;
-  voteAverage: string;
-  voteCount: string;
+  voteAverage: number;
+  voteCount: number;
   posterPath: string;
   imageBaseUrl: string;
   from: string;
@@ -57,14 +58,21 @@ const MediaListItem = ({
           </p>
           <p className="mt-1.5 flex items-center gap-1 text-sm">
             <FaStar />
-            <span>{voteAverage}</span>
-            <span>({voteCount})</span>
+            <span>{voteAverage.toFixed(1)}</span>
+            <span>({formatVoteCount(voteCount)})</span>
           </p>
         </div>
 
         <FavoriteButton
           withIcon
           className="link-hover py-1 text-sm whitespace-nowrap"
+          mediaType={mediaType}
+          id={id}
+          title={title}
+          releaseYear={releaseYear}
+          voteAverage={voteAverage}
+          voteCount={voteCount}
+          posterPath={posterPath}
         />
       </div>
     </div>

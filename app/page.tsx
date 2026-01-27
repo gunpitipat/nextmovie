@@ -1,5 +1,5 @@
 import { getTMDBConfig, getTrendingMovies, getTrendingTV } from '@/lib/tmdb';
-import { filterWithImages, slugify } from '@/lib/utils';
+import { filterWithImages, slugify, formatReleaseYear } from '@/lib/utils';
 import Hero from '@/components/Hero';
 import SegmentRemount from '@/components/SegmentRemount';
 import CarouselSection from '@/components/carousel/CarouselSection';
@@ -15,25 +15,18 @@ export default async function Home() {
 
   const imageBaseUrl = config.images.secure_base_url;
 
-  const heroMovie = trendingMovies.results.find(
-    (movie) => movie.poster_path && movie.backdrop_path
-  );
+  const moviesWithImages = filterWithImages(trendingMovies.results);
+  const tvWithImages = filterWithImages(trendingTV.results);
 
-  const heroTV = trendingTV.results.find(
-    (tv) => tv.poster_path && tv.backdrop_path
-  );
+  const heroMovie = moviesWithImages[0];
+  const heroTV = tvWithImages[0];
 
   if (!heroMovie && !heroTV) {
     throw new Error('No suitable trending media found for Hero sections.');
   }
 
-  const carouselMovies = filterWithImages(trendingMovies.results).filter(
-    (movie) => movie.id !== heroMovie?.id
-  );
-
-  const carouselTV = filterWithImages(trendingTV.results).filter(
-    (tv) => tv.id !== heroTV?.id
-  );
+  const carouselMovies = moviesWithImages.slice(1);
+  const carouselTV = tvWithImages.slice(1);
 
   return (
     <section>
@@ -58,7 +51,9 @@ export default async function Home() {
                 mediaType={movie.media_type}
                 id={movie.id}
                 title={movie.title}
-                rating={movie.vote_average}
+                releaseYear={formatReleaseYear(movie.release_date)}
+                voteAverage={movie.vote_average}
+                voteCount={movie.vote_count}
                 posterPath={movie.poster_path}
                 imageBaseUrl={imageBaseUrl}
                 inCarousel
@@ -86,7 +81,9 @@ export default async function Home() {
                 mediaType={tv.media_type}
                 id={tv.id}
                 title={tv.name}
-                rating={tv.vote_average}
+                releaseYear={formatReleaseYear(tv.first_air_date)}
+                voteAverage={tv.vote_average}
+                voteCount={tv.vote_count}
                 posterPath={tv.poster_path}
                 imageBaseUrl={imageBaseUrl}
                 inCarousel

@@ -1,11 +1,7 @@
 import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import { getTMDBConfig, searchMedia } from '@/lib/tmdb';
-import {
-  filterWithImages,
-  formatReleaseYear,
-  formatVoteCount,
-} from '@/lib/utils';
+import { filterWithImages, formatReleaseYear } from '@/lib/utils';
 import { MAX_TMDB_PAGES } from '@/lib/constants';
 import ThreeDots from '@/components/loading/ThreeDots';
 import MediaListItem from '@/components/MediaListItem';
@@ -59,8 +55,8 @@ async function Search({
                         ? item.release_date
                         : item.first_air_date
                     )}
-                    voteAverage={item.vote_average.toFixed(1)}
-                    voteCount={formatVoteCount(item.vote_count)}
+                    voteAverage={item.vote_average}
+                    voteCount={item.vote_count}
                     posterPath={item.poster_path}
                     imageBaseUrl={imageBaseUrl}
                     from={`/search?q=${query}&page=${currentPage}`}

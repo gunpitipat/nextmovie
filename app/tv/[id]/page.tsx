@@ -4,7 +4,6 @@ import { getTMDBConfig, getTVDetail, getTVSeasonDetail } from '@/lib/tmdb';
 import {
   buildFromStack,
   formatReleaseYear,
-  formatVoteCount,
   getTrailers,
   getTopCast,
   formatTVRoles,
@@ -126,6 +125,8 @@ async function TV({
       <BackButton fallbackHref="/tv" />
 
       <DetailHeader
+        mediaType="tv"
+        id={tvDetail.id}
         imageBaseUrl={imageBaseUrl}
         posterPath={posterPath}
         backdropPath={backdropPath}
@@ -134,8 +135,8 @@ async function TV({
         releaseYear={releaseYear}
         seasonCount={tvDetail.number_of_seasons}
         episodeCount={tvDetail.number_of_episodes}
-        voteAverage={tvDetail.vote_average.toFixed(1)}
-        voteCount={formatVoteCount(tvDetail.vote_count)}
+        voteAverage={tvDetail.vote_average}
+        voteCount={tvDetail.vote_count}
         genres={tvDetail.genres}
       />
 
@@ -196,7 +197,9 @@ async function TV({
                   mediaType={tv.media_type}
                   id={tv.id}
                   title={tv.name}
-                  rating={tv.vote_average}
+                  releaseYear={formatReleaseYear(tv.first_air_date)}
+                  voteAverage={tv.vote_average}
+                  voteCount={tv.vote_count}
                   posterPath={tv.poster_path}
                   imageBaseUrl={imageBaseUrl}
                   inCarousel
@@ -219,7 +222,9 @@ async function TV({
                   mediaType="tv"
                   id={tv.id}
                   title={tv.name}
-                  rating={tv.vote_average}
+                  releaseYear={formatReleaseYear(tv.first_air_date)}
+                  voteAverage={tv.vote_average}
+                  voteCount={tv.vote_count}
                   posterPath={tv.poster_path}
                   imageBaseUrl={imageBaseUrl}
                   inCarousel

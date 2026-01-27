@@ -1,10 +1,8 @@
 import { cacheLife } from 'next/cache';
 import { fetchTMDB } from './tmdb';
-import type { GenreResponse } from '@/types';
+import type { GenreResponse, MediaType } from '@/types';
 
-export async function getGenres(
-  mediaType: 'movie' | 'tv'
-): Promise<GenreResponse> {
+export async function getGenres(mediaType: MediaType): Promise<GenreResponse> {
   'use cache';
   cacheLife('days');
 

@@ -4,13 +4,15 @@ import { FaStar } from 'react-icons/fa';
 import { slugify } from '@/lib/utils';
 import BookmarkButton from './BookmarkButton';
 import CarouselLink from './carousel/CarouselLink';
-import type { SectionSpacing } from '@/types';
+import type { MediaType, SectionSpacing } from '@/types';
 
 interface PosterCardProps {
-  mediaType: 'movie' | 'tv';
+  mediaType: MediaType;
   id: number;
   title: string;
-  rating: number;
+  releaseYear: string;
+  voteAverage: number;
+  voteCount: number;
   posterPath: string;
   imageBaseUrl: string;
   inCarousel?: boolean;
@@ -22,7 +24,9 @@ const PosterCard = ({
   mediaType,
   id,
   title,
-  rating,
+  releaseYear,
+  voteAverage,
+  voteCount,
   posterPath,
   imageBaseUrl,
   inCarousel = false,
@@ -74,11 +78,19 @@ const PosterCard = ({
           </LinkWrapper>
           <div className="text-secondary flex items-center gap-1 text-sm">
             <FaStar />
-            {rating.toFixed(1)}
+            {voteAverage.toFixed(1)}
           </div>
         </div>
 
-        <BookmarkButton />
+        <BookmarkButton
+          mediaType={mediaType}
+          id={id}
+          title={title}
+          releaseYear={releaseYear}
+          voteAverage={voteAverage}
+          voteCount={voteCount}
+          posterPath={posterPath}
+        />
       </div>
     </div>
   );

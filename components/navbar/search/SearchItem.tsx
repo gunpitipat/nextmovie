@@ -3,9 +3,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { slugify } from '@/lib/utils';
+import type { MediaType } from '@/types';
 
 interface SearchItemProps {
-  mediaType: 'movie' | 'tv';
+  mediaType: MediaType;
   id: number;
   title: string;
   releaseYear: string;

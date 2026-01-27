@@ -1,10 +1,11 @@
 import Image from 'next/image';
+import { formatReleaseYear } from '@/lib/utils';
 import DetailsButton from './DetailsButton';
 import FavoriteButton from './FavoriteButton';
 import type { Media } from '@/types';
 
 interface HeroProps {
-  media: Media;
+  media: Media & { poster_path: string; backdrop_path: string };
   imageBaseUrl: string;
   pathname: string;
   preload?: boolean;
@@ -83,7 +84,20 @@ const Hero = ({ media, imageBaseUrl, pathname, preload }: HeroProps) => {
             from="/"
             className="primary-btn px-3.5 py-2.5"
           />
-          <FavoriteButton className="secondary-btn" />
+          <FavoriteButton
+            className="secondary-btn"
+            mediaType={media.media_type}
+            id={media.id}
+            title={media.media_type === 'movie' ? media.title : media.name}
+            releaseYear={formatReleaseYear(
+              media.media_type === 'movie'
+                ? media.release_date
+                : media.first_air_date
+            )}
+            voteAverage={media.vote_average}
+            voteCount={media.vote_count}
+            posterPath={media.poster_path}
+          />
         </div>
       </div>
     </div>

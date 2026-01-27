@@ -4,7 +4,7 @@ import {
   getTopRatedMovies,
   getNowPlayingMovies,
 } from '@/lib/tmdb';
-import { filterWithImages } from '@/lib/utils';
+import { filterWithImages, formatReleaseYear } from '@/lib/utils';
 import { MOVIE_CATEGORIES } from '@/lib/constants';
 import SegmentRemount from '@/components/SegmentRemount';
 import CarouselSection from '@/components/carousel/CarouselSection';
@@ -42,7 +42,9 @@ export default async function Movies() {
                 mediaType="movie"
                 id={movie.id}
                 title={movie.title}
-                rating={movie.vote_average}
+                releaseYear={formatReleaseYear(movie.release_date)}
+                voteAverage={movie.vote_average}
+                voteCount={movie.vote_count}
                 posterPath={movie.poster_path}
                 imageBaseUrl={imageBaseUrl}
                 inCarousel
@@ -64,7 +66,9 @@ export default async function Movies() {
                 mediaType="movie"
                 id={movie.id}
                 title={movie.title}
-                rating={movie.vote_average}
+                releaseYear={formatReleaseYear(movie.release_date)}
+                voteAverage={movie.vote_average}
+                voteCount={movie.vote_count}
                 posterPath={movie.poster_path}
                 imageBaseUrl={imageBaseUrl}
                 inCarousel
@@ -86,7 +90,9 @@ export default async function Movies() {
                 mediaType="movie"
                 id={movie.id}
                 title={movie.title}
-                rating={movie.vote_average}
+                releaseYear={formatReleaseYear(movie.release_date)}
+                voteAverage={movie.vote_average}
+                voteCount={movie.vote_count}
                 posterPath={movie.poster_path}
                 imageBaseUrl={imageBaseUrl}
                 inCarousel

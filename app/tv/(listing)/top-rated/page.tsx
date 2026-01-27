@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import { getTMDBConfig, getTopRatedTV } from '@/lib/tmdb';
-import { filterWithImages } from '@/lib/utils';
+import { filterWithImages, formatReleaseYear } from '@/lib/utils';
 import { MAX_TMDB_PAGES } from '@/lib/constants';
 import ThreeDots from '@/components/loading/ThreeDots';
 import Pagination from '@/components/Pagination';
@@ -48,7 +48,9 @@ async function TopRatedTV({
               mediaType="tv"
               id={tv.id}
               title={tv.name}
-              rating={tv.vote_average}
+              releaseYear={formatReleaseYear(tv.first_air_date)}
+              voteAverage={tv.vote_average}
+              voteCount={tv.vote_count}
               posterPath={tv.poster_path}
               imageBaseUrl={imageBaseUrl}
               from={`/tv/top-rated?page=${currentPage}`}

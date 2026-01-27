@@ -1,5 +1,7 @@
 export * from './navigation';
 export * from './layout';
+export * from './media';
+export * from './favorite';
 export * from './api/error';
 export * from './api/response';
 export * from './tmdb/config';

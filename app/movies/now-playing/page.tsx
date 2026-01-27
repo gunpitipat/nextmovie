@@ -1,7 +1,7 @@
 import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import { getTMDBConfig, getNowPlayingMovies } from '@/lib/tmdb';
-import { filterWithImages } from '@/lib/utils';
+import { filterWithImages, formatReleaseYear } from '@/lib/utils';
 import { MAX_TMDB_PAGES } from '@/lib/constants';
 import ThreeDots from '@/components/loading/ThreeDots';
 import Pagination from '@/components/Pagination';
@@ -56,7 +56,9 @@ async function NowPlayingMovies({
               mediaType="movie"
               id={movie.id}
               title={movie.title}
-              rating={movie.vote_average}
+              releaseYear={formatReleaseYear(movie.release_date)}
+              voteAverage={movie.vote_average}
+              voteCount={movie.vote_count}
               posterPath={movie.poster_path}
               imageBaseUrl={imageBaseUrl}
               from={`/movies/now-playing?page=${currentPage}`}

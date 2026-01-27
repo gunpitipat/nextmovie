@@ -4,7 +4,7 @@ import {
   getTopRatedTV,
   getOnTheAirTV,
 } from '@/lib/tmdb';
-import { filterWithImages } from '@/lib/utils';
+import { filterWithImages, formatReleaseYear } from '@/lib/utils';
 import { TV_CATEGORIES } from '@/lib/constants';
 import SegmentRemount from '@/components/SegmentRemount';
 import CarouselSection from '@/components/carousel/CarouselSection';
@@ -42,7 +42,9 @@ export default async function TV() {
                 mediaType="tv"
                 id={tv.id}
                 title={tv.name}
-                rating={tv.vote_average}
+                releaseYear={formatReleaseYear(tv.first_air_date)}
+                voteAverage={tv.vote_average}
+                voteCount={tv.vote_count}
                 posterPath={tv.poster_path}
                 imageBaseUrl={imageBaseUrl}
                 inCarousel
@@ -64,7 +66,9 @@ export default async function TV() {
                 mediaType="tv"
                 id={tv.id}
                 title={tv.name}
-                rating={tv.vote_average}
+                releaseYear={formatReleaseYear(tv.first_air_date)}
+                voteAverage={tv.vote_average}
+                voteCount={tv.vote_count}
                 posterPath={tv.poster_path}
                 imageBaseUrl={imageBaseUrl}
                 inCarousel
@@ -86,7 +90,9 @@ export default async function TV() {
                 mediaType="tv"
                 id={tv.id}
                 title={tv.name}
-                rating={tv.vote_average}
+                releaseYear={formatReleaseYear(tv.first_air_date)}
+                voteAverage={tv.vote_average}
+                voteCount={tv.vote_count}
                 posterPath={tv.poster_path}
                 imageBaseUrl={imageBaseUrl}
                 inCarousel

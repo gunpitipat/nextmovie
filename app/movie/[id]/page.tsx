@@ -5,7 +5,6 @@ import {
   buildFromStack,
   formatReleaseYear,
   formatRuntime,
-  formatVoteCount,
   getTrailers,
   getTopCast,
   getKeyCrewEntries,
@@ -120,6 +119,8 @@ async function Movie({
       <BackButton fallbackHref="/movies" />
 
       <DetailHeader
+        mediaType="movie"
+        id={movie.id}
         imageBaseUrl={imageBaseUrl}
         posterPath={posterPath}
         backdropPath={backdropPath}
@@ -128,8 +129,8 @@ async function Movie({
         releaseYear={formatReleaseYear(movie.release_date)}
         status={status}
         runtime={formatRuntime(movie.runtime)}
-        voteAverage={movie.vote_average.toFixed(1)}
-        voteCount={formatVoteCount(movie.vote_count)}
+        voteAverage={movie.vote_average}
+        voteCount={movie.vote_count}
         genres={movie.genres}
       />
 
@@ -172,7 +173,9 @@ async function Movie({
                   mediaType={movie.media_type}
                   id={movie.id}
                   title={movie.title}
-                  rating={movie.vote_average}
+                  releaseYear={formatReleaseYear(movie.release_date)}
+                  voteAverage={movie.vote_average}
+                  voteCount={movie.vote_count}
                   posterPath={movie.poster_path}
                   imageBaseUrl={imageBaseUrl}
                   inCarousel
@@ -195,7 +198,9 @@ async function Movie({
                   mediaType={movie.media_type}
                   id={movie.id}
                   title={movie.title}
-                  rating={movie.vote_average}
+                  releaseYear={formatReleaseYear(movie.release_date)}
+                  voteAverage={movie.vote_average}
+                  voteCount={movie.vote_count}
                   posterPath={movie.poster_path}
                   imageBaseUrl={imageBaseUrl}
                   inCarousel
@@ -218,7 +223,9 @@ async function Movie({
                   mediaType="movie"
                   id={movie.id}
                   title={movie.title}
-                  rating={movie.vote_average}
+                  releaseYear={formatReleaseYear(movie.release_date)}
+                  voteAverage={movie.vote_average}
+                  voteCount={movie.vote_count}
                   posterPath={movie.poster_path}
                   imageBaseUrl={imageBaseUrl}
                   inCarousel
