@@ -43,6 +43,7 @@ const MediaListItem = ({
           alt={title}
           fill
           sizes="72px"
+          draggable={false}
           className="image-cover bg-surface-2"
         />
       </Link>

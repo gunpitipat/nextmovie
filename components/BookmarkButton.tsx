@@ -68,8 +68,8 @@ const BookmarkButton = ({
           </>
         ) : (
           <>
-            <GoBookmarkSlashFill className="text-surface-2 size-full" />
-            <FaMinus className="text-highlight absolute top-1/2 left-1/2 size-5 -translate-x-1/2 -translate-y-[75%]" />
+            <GoBookmarkSlashFill className="text-highlight size-full" />
+            <FaMinus className="text-surface-2 absolute top-1/2 left-1/2 size-5 -translate-x-1/2 -translate-y-[75%]" />
           </>
         )}
       </div>

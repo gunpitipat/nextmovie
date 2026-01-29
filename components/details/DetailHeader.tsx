@@ -153,7 +153,9 @@ const DetailHeader = ({
           mediaType={mediaType}
           id={id}
           title={title}
-          releaseYear={releaseYear}
+          releaseYear={
+            mediaType === 'tv' ? releaseYear.split('-')[0] : releaseYear
+          }
           voteAverage={voteAverage}
           voteCount={voteCount}
           posterPath={posterPath}

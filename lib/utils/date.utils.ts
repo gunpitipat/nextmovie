@@ -26,3 +26,14 @@ export function formatDateLong(date: string | null): string {
     day: 'numeric',
   });
 }
+
+// 2000-10-18T06:12:40.329Z -> 18 October 2000
+export function formatDateLongDMY(date: string | null): string {
+  if (!date) return '';
+
+  return new Date(date).toLocaleDateString('en-GB', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+}

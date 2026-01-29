@@ -1,3 +1,4 @@
+import { formatDateLongDMY } from './utils';
 import type { FavoriteItem, MediaType } from '@/types';
 
 const STORAGE_KEY = 'favorites';
@@ -21,8 +22,31 @@ export function getFavorites(): FavoriteItem[] {
       typeof fav.id === 'number' &&
       typeof fav.title === 'string' &&
       typeof fav.posterPath === 'string' &&
-      fav.posterPath.length > 0
+      fav.posterPath.length > 0 &&
+      typeof fav.addedAt === 'string' &&
+      fav.addedAt.length > 0 &&
+      !Number.isNaN(new Date(fav.addedAt).getTime())
   );
+}
+
+export function groupFavoritesByDate(
+  items: FavoriteItem[]
+): [string, FavoriteItem[]][] {
+  const sortedFavorites = items.toSorted(
+    (a, b) => new Date(b.addedAt).getTime() - new Date(a.addedAt).getTime()
+  );
+  const groupedFavorites = Object.groupBy(sortedFavorites, (item) =>
+    formatDateLongDMY(item.addedAt)
+  );
+  const favoritesEntries = Object.entries(groupedFavorites).filter(
+    (entry): entry is [string, FavoriteItem[]] => Array.isArray(entry[1])
+  );
+
+  return favoritesEntries;
+}
+
+function emitFavoritesEvent() {
+  window.dispatchEvent(new Event('favorites'));
 }
 
 export function addFavorite(item: FavoriteItem) {
@@ -35,6 +59,7 @@ export function addFavorite(item: FavoriteItem) {
   if (exists) return;
 
   localStorage.setItem(STORAGE_KEY, JSON.stringify([item, ...favorites]));
+  emitFavoritesEvent();
 }
 
 export function removeFavorite(id: number, mediaType: MediaType) {
@@ -45,6 +70,7 @@ export function removeFavorite(id: number, mediaType: MediaType) {
   );
 
   localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+  emitFavoritesEvent();
 }
 
 export function isFavorite(id: number, mediaType: MediaType): boolean {
