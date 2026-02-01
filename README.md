@@ -4,7 +4,7 @@ A modern frontend web app for discovering movies and TV shows, built with Next.j
 
 ## Live Demo
 
-Deployment in progress.
+[Open Nextmovie ↗](https://nextmovie-demo.vercel.app)
 
 ## Preview
 
@@ -62,3 +62,4 @@ Built with the latest Next.js 16 features and modern frontend technologies.
 
 - **ESLint**
 - **Prettier**
+- **Vercel**
