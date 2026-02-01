@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { useKeenSlider } from 'keen-slider/react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import 'keen-slider/keen-slider.min.css';
 import { WheelControls } from './plugins/wheel-controls';
 import type {
   KeenSliderInstance,
